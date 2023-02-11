@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat</title>
+    <link  rel="stylesheet" type = "text/css" href="style.css">
+    </head>
+    <body>
+        <div class="container">
+            <div class=" header">
+               
+            <h1> Chat Page</h1>
+            <h2> Name </h2>
+        </div>
+            <div class=" body">
+           
+            <div id="chat-container">
+                <div id="chat-box">
+                  </div>
+                  <div class=" footer">
+                    
+                <form id="message-form">
+                </p>
+                  <input type="text" id="message-input" placeholder="Enter your message here...">
+                  <button id="send-button">Send</button>
+                </form>
+              </div>
+             
+              <script>
+                
+                const chatBox = document.getElementById("chat-box");
+                const messageForm = document.getElementById("message-form");
+                const messageInput = document.getElementById("message-input");
+                const sendButton = document.getElementById("send-button");
+                sendButton.addEventListener("click", function(e) {
+              e.preventDefault();
+              const message = messageInput.value;
+              if (!message) return;
+                
+              chatBox.innerHTML += `<p>Name: ${message}</p>` ;
+              
+              messageInput.value = " ";
+              
+              
+            });
+              </script>
+            
+        </div>
+           
+
+
+        
+    </body>
+   
+</html>
+
+
