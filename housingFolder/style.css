@@ -1,0 +1,28 @@
+@import url('file:///Users/oloofa/Desktop/housing%20folder/house.html');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing:border-box;
+}
+body{
+    height: 100vh;
+    background-color: bisque;
+    
+}
+  
+header{
+    /*
+    width: 100vw;
+    height: 100vh;
+    background-image: url('');
+    background-position: all;
+    background-size: cover;
+    */
+    display: flex;
+    align-items: top;
+    justify-content: top;
+
+}
+ 
+ 
