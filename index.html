@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+  <h1>Create a Profile!</h1>
+</head>
+<body>
+    <p>lets start with some basic information!</p>
+    <input type="text" placeholder="First Name" id="firstName">
+    <input type="text" placeholder="Last Name" id="lastName"> <br>
+    <input type="number" placeholder="Age" id="age"> <br>
+    <input type="location" placeholder="Location" id="location"> <br>
+    <p>now, how do we contact you?</p>
+    <input type="tel" placeholder="Phone Number" id="phonenumber"> <br>
+    <input type="email" placeholder="Email" id="email"> <br>
+    <p>lastly,</p>
+    <input type="text" placeholder="Sexuality"id="sexuality"> <br> <br>
+    <button type="button"  id="createProfile">Create Profile!</button> <br> <br>
+    <a href="test.html">Test</a>
+
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
+  
+      const firebaseConfig = {
+        apiKey: "AIzaSyClqbgmtcPuED7LE3-2XXSooypjXiHQj38",
+        authDomain: "roome-5bfa9.firebaseapp.com",
+        databaseURL: "https://roome-5bfa9-default-rtdb.firebaseio.com",
+        projectId: "roome-5bfa9",
+        storageBucket: "roome-5bfa9.appspot.com",
+        messagingSenderId: "564378590257",
+        appId: "1:564378590257:web:6e18a1d7269d83af318910"
+      };
+
+ 
+      const app = initializeApp(firebaseConfig);
+
+      import {getDatabase, ref, get, set, child, update, remove}
+      from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js"
+
+      const db =  getDatabase();
+      var firstName = document.querySelector("#firstName");
+      var lastName = document.querySelector("#lastName");
+      var age = document.querySelector("#age");
+      var location = document.querySelector("#location");
+      var phonenumber = document.querySelector("#phonenumber");
+      var email = document.querySelector("#email");
+      var sexuality = document.querySelector("#sexuality");
+      
+
+      var createProfile = document.querySelector("#createProfile");
+
+      function CreateProfile() {
+            set(ref(db, "Users/"+ phonenumber.value),{
+                firstName: firstName.value,
+                lastName: lastName.value,
+                age: age.value,
+                location: location.value,
+                phonenumber: phonenumber.value,
+                email: email.value,
+                sexuality: sexuality.value
+            })
+            .then(()=>{
+              alert('Welcome to your new home!');
+            })
+            .catch((error)=>{
+                alert(error);
+            });
+        }
+
+        // onclick="alert('Welcome to your new home!')"
+      
+      createProfile.addEventListener('click', CreateProfile)
+    </script>
+</body>
+</html>
