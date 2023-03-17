@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+            body{
+              font-family: 'Poppins', sans-serif;
+              background: #ffa07a;
+            }
+          </style>
+    </head>
+    <body>
+      <h1>Next, answer a few questions</h1>
+      
+      <p id="aboutMe">Tell us a little bit about yourself?</p>
+      <textarea rows="8" cols="100">
+      </textarea>
+      <p id="interests">What do you do for fun?</p>
+      <textarea rows="8" cols="100">
+      </textarea>
+      <p id="cleanlinesspreference">How do you prefer your living space?</p>
+      <textarea rows="8" cols="100">
+      </textarea>
+      <p id="sleep">What time do you wake up and sleep?</p>
+      <textarea rows="8" cols="100">
+      </textarea>
+      <p id="usersguest">How often are you going to have guests?</p>
+      <textarea rows="8" cols="100">
+      </textarea>
+      <p id="roomatesguest">How often will your roommate have guests?</p>
+      <textarea rows="8" cols="100">
+      </textarea>
+      <p id="personalquestion">Any questions you'd like to ask your new roommate?</p>
+      <textarea rows="8" cols="100">
+      </textarea>
+      <script src="firebase.js"></script>
+      <script>
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
+  
+      const firebaseConfig = {
+      apiKey: "AIzaSyClqbgmtcPuED7LE3-2XXSooypjXiHQj38",
+      authDomain: "roome-5bfa9.firebaseapp.com",
+      databaseURL: "https://roome-5bfa9-default-rtdb.firebaseio.com",
+      projectId: "roome-5bfa9",
+      storageBucket: "roome-5bfa9.appspot.com",
+      messagingSenderId: "564378590257",
+      appId: "1:564378590257:web:6e18a1d7269d83af318910"
+      };
+
+
+      const app = initializeApp(firebaseConfig);
+
+      import {getDatabase, ref, get, set, child, update, remove}
+      from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js"
+
+      const db =  getDatabase();
+      var aboutMe = document.querySelector("#aboutMe");
+      var interests = document.querySelector("#interests");
+      var cleanlinesspreference = document.querySelector("#cleanlinesspreference");
+      var sleep = document.querySelector("#sleep");
+      var usersguest = document.querySelector("#userguest");
+      var roomatesguest = document.querySelector("#roomatesguest");
+      var personalquestion = document.querySelector("#personalquestion");
+  
+
+      var createProfile = document.querySelector("#createProfile");
+
+      function CreateProfile() {
+        set(ref(db, "Users/"+ phonenumber.value),{
+            firstName: firstName.value,
+            lastName: lastName.value,
+            age: age.value,
+            location: location.value,
+            phonenumber: phonenumber.value,
+            email: email.value,
+            sexuality: sexuality.value
+        })
+        .then(()=>{
+          alert('Welcome to your new home!');
+        })
+        .catch((error)=>{
+            alert(error);
+        });
+      }
+      </script>
+    </body>
+</html>
