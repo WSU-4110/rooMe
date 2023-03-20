@@ -26,6 +26,7 @@
                 <input type="password" id="password" required> <br>
                 <button type="button"  id="logIn">Log in!</button><br> <br>
                 <button type="button"  id="googleLogIn">Login with Google!</button><br> <br>
+                <button type="button"  id="forgotPassword"> Forgot password? </button><br> <br>   
                 <a href="SignUp.html"><p> Create an account here!</p></a>
             </div>
         </div>
@@ -117,6 +118,23 @@
             });
 
         });
+        
+        forgotPassword.addEventListener("click", function(e) {
+                var email = document.getElementById("email").value;
+
+                sendPasswordResetEmail(auth, email)
+                .then(() => {
+
+                    alert(`Sent password reset link to ${email}`)
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    
+                });
+
+
+            });
 
       </script>
 </html>
