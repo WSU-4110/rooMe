@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+    body{
+      font-family: 'Poppins', sans-serif;
+      background-color: #9BDAFF;
+    }
+  </style>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+</head>
+<body>
+  <center>
+      <img src = "/images/rooMeclear.png" class = "logo" width = "30%" style = "margin-bottom:-10%">
+  <h1>Create a Profile!</h1>
+    <p>lets start with some basic information!</p>
+    <input type="text" placeholder="First Name" id="firstName">
+    <input type="text" placeholder="Last Name" id="lastName"> <br>
+    <input type="number" placeholder="Age" id="age"> <br>
+    <input type="location" placeholder="Location" id="location"> <br>
+    <p>now, how do we contact you?</p>
+    <input type="tel" placeholder="Phone Number" id="phonenumber"> <br>
+    <p>lastly,</p>
+    <input type="text" placeholder="Sexuality"id="sexuality"> <br> <br>
+    <button type="button"  id="createProfile">Create Profile!</button><br> <br>
+  </center>
+</body>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
+  import { getDatabase, set, update, ref } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-database.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js";
+  
+
+  const app = initializeApp(firebaseConfig);
+  const db =  getDatabase(app); 
+  const auth = getAuth();
+
+  createProfile.addEventListener('click', (e) => {
+
+      var firstName = document.getElementById("firstName").value;
+      var lastName = document.getElementById("lastName").value;
+      var location = document.getElementById("location").value;
+      var phonenumber = document.getElementById("phonenumber").value;
+      var sexuality = document.getElementById("sexuality").value;
+      var age = document.getElementById("age").value;
+      
+      const user = auth.currentUser;
+      if (user !== null) {
+        const uid = user.uid;
+        update(ref(db, "Users/"+ user.uid),{
+            username: "",
+            firstName: firstName,
+            lastName: lastName,
+            location: location,
+            phonenumber: phonenumber,
+            sexuality: sexuality,
+            age: age,
+            address: "",
+            state: "",
+            zip_code: " "  
+        })
+        .then(()=>{
+            window.location.replace("ViewProfile.html");
+        })
+        .catch((error)=>{
+            alert(error);
+        });
+      }
+      
+  });
+
+</script>
+</html>
