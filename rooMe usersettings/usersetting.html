@@ -3,106 +3,231 @@
 <head>
 <meta charset="utf-8">
  <title>RooMe's User Settings</title>
+ <link rel="stylesheet" href="style.css">
 
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
 body {
-background-color: #E2E7E8; margin: 0 10%; font-family: sans-serif;
+background-color: #E2E7E8; 
+margin: 0 10%; 
+font-family: 'Poppins', sans-serif;
 }
+
 h1 {
 text-align: center;
 font-family: serif;
-font-weight: normal; text-transform: uppercase; border-bottom: 1px solid #57b1dc; margin-top: 30px;
+font-weight: normal;
+text-transform: uppercase;
+border-bottom: 1px solid #57b1dc; 
+margin-top: 30px;
 }
+
 h2{
 color: #135FE3;
 font-size: 1em;
 }
+
+.profile_pic
+{
+  position: relative;
+  width: 100px;
+  height:100px;
+  border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+#photo
+{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#file{
+    display: none;
+}
+
+#uploadButton{
+    height: 40px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    background: rgba(0, 0, 0, 0.7);
+    color: wheat;
+    line-height: 30px;
+    font-family: sans-serif;
+    font-size: 12px;
+    cursor: pointer;
+    display: none;
+}
+button{
+   padding: 5px;
+   background: white;
+   border: none;
+   font-size: 18px;
+   border-radius: 20px;
+   cursor: pointer;
+   outline: none;
+   width: 150px;
+   color: black;
+}
+
+
+
+
 </style>
 
 </head>
 <body>
-<br>Settings</h1>
+  <center>
+  <img src = "rooMeclear.png" class = "logo" width = "30%" style="margin-bottom: -10%">
+<br><h1> Edit Profile </h1>
 
-<h2>Public Information</h2>
+<div class="profile_pic">
+  <img src="user.jpg" id="photo">
+  <input type="file" id="file">
+  <label for="file" id="uploadButton">Choose Photo</label>
+</div>
 
- <div class="form-group">
-   <label for="inputUsername">Username</label>
-   <input type="text" class="form-control" id="inputUsername" placeholder="Username">
-  </div>
+<script> 
+
+  const profilepic = document.querySelector('.profile_pic');
+  const img = document.querySelector('#photo');
+  const file = document.querySelector('#file');
+  const uploadButton = document.querySelector('#uploadButton');
+  
+  
+  profilepic.addEventListener('mouseenter', function(){
+      uploadButton.style.display = "block";
+  });
+  
+  
+  
+  profilepic.addEventListener('mouseleave', function(){
+      uploadButton.style.display = "none";
+  });
+  
+  
+  file.addEventListener('change', function(){
+  
+      const choosedFile = this.files[0];
+  
+      if (choosedFile) {
+  
+          const reader = new FileReader(); 
+  
+          reader.addEventListener('load', function(){
+              img.setAttribute('src', reader.result);
+          });
+  
+          reader.readAsDataURL(choosedFile);
+  
+      }
+  });
+  </script>
 
 
-<h2>Private Information </h2>
 
+<form onsubmit="sendEmail(); reset(); return false;">
 <br>
 <label for = "inputFirstName">First Name</label>
-   <input type = "text" class = "form-control" id = "inputFirstName"  placeholder = "First Name"> </body>
+   <input type = "text" class = "form-control" id = "inputFirstName"  placeholder = "First Name" required> </body>
   </div>
 </br>
 
 <br>
 <label for = "inputLastName">Last Name</label>
-   <input type = "text" class = "form-control" id = "inputLastName" placeholder = "Last Name">
+   <input type = "text" class = "form-control" id = "inputLastName" placeholder = "Last Name" required>
   </div>
 </br>
 
 <br>
 <label for = "inputEmail">Email</label>
-   <input type = "text" class = "form-control" id = "inputEmail" placeholder = "Email">
+   <input type = "text" class = "form-control" id = "inputEmail" placeholder = "Email" required>
+  </div>
+</br>
+
+<br>
+<label for = "inputFirstName">Phone Number</label>
+   <input type = "text" class = "form-control" id = "inputPhoneNumber"  placeholder = "Phone Number" required> </body>
   </div>
 </br>
 
 <br>
 <label for = "inputAddress">Address</label>
-   <input type = "text" class = "form-control" id = "inputAddress" placeholder = "Address">
+   <input type = "text" class = "form-control" id = "inputAddress" placeholder = "Address" required>
   </div>
 </br>
 
 <br>
 <label for = "inputCity">City</label>
-   <input type = "text" class = "form-control" id = "inputCity" placeholder = "City">
+   <input type = "text" class = "form-control" id = "inputCity" placeholder = "City" required>
   </div>
 </br>
 
 <br>
 <label for = "inputState">State</label>
-   <input type = "text" class = "form-control" id = "inputState" placeholder = "State">
+   <input type = "text" class = "form-control" id = "inputState" placeholder = "State" required>
   </div>
 </br>
 
 <br>
 <label for = "inputZipCode">Zip Code</label>
-   <input type = "text" class = "form-control" id = "inputZipCode" placeholder = "Zip Code">
+   <input type = "text" class = "form-control" id = "inputZipCode" placeholder = "Zip Code" required>
   </div>
 </br>
-
-
-
-
-
-
 
 
 <h2>Password</h2>
 
 <br>
 <label for = "inputCurrentPassword">Current Password</label>
-   <input type = "text" class = "form-control" id = "inputCurrentPassword" placeholder = "Current Password">
+   <input type = "text" class = "form-control" id = "inputCurrentPassword" placeholder = "Current Password" required>
   </div>
 </br>
 
 <br>
 <label for = "inputNewPassword">New Password</label>
-   <input type = "text" class = "form-control" id = "inputNewPassword" placeholder = "New Password">
+   <input type = "text" class = "form-control" id = "inputNewPassword" placeholder = "New Password" required>
   </div>
 </br>
 
 <br>
 <label for = "inputVerifyPassword">Verify Password</label>
-   <input type = "text" class = "form-control" id = "inputVerifyPassword" placeholder = "Verify Password">
+   <input type = "text" class = "form-control" id = "inputVerifyPassword" placeholder = "Verify Password" required>
   </div>
-</br>
+</br><br><br>
+<button id="submit" type="submit">Submit</button>
+<br><br><br>
+</form>
 
+<script src="https://smtpjs.com/v3/smtp.js"></script>
+<script>
+    function sendEmail(){
+    Email.send({
+    SecureToken : "7a4ad504-5af9-43b5-a4cd-a91ee795242d",
+    To : document.getElementById("inputEmail").value,
+    From : "rukiyahalgahim@gmail.com",
+    Subject : "Pop notification testing",
+    Body : " First Name: "+ document.getElementById("inputFirstName").value + "<br> Last Name: "+ document.getElementById("inputLastName").value +"<br> Email Address: " + document.getElementById("inputEmail").value+"<br> Address: " + document.getElementById("inputAddress").value
+    + "<br> City: "+ document.getElementById("inputCity").value + "<br> State: " + document.getElementById("inputState").value + "<br> Zip Code: "+ document.getElementById("inputZipCode").value + "<br> Current Password: " + document.getElementById("inputCurrentPassword").value
+    + "<br> New Password: " + document.getElementById("inputNewPassword").value
+}).then(message => {
+  alert("message sent successfully");
+});
+}
 
+</script>
+</script>
+</center>
 </body>
 </html>
 
