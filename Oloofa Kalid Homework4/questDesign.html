@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Questions Page</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	
+	<form>
+		<label for="location">Location:</label>
+		<input type="text" id="location" name="location" placeholder="Enter your location" />
+		
+		<label for="home-type">Home Type:</label>
+		<select id="home-type" name="home-type"></select>
+    
+		<label for="roommate-gender">Roommate Gender:</label>
+		<select id="roommate-gender" name="roommate-gender"></select>
+
+		<label for="roommate-sexuality">Roommate Sexuality:</label>
+		<select id="roommate-sexuality" name="roommate-sexuality"></select>
+	
+		<label for="ageOfRoomate">Roomates Age:</label>
+		<select id="ageOfRoomate" name="ageOfRoomate"></select>
+
+		<label for="beds">Bedrooms:</label>
+		<select id="beds" name="beds"></select>
+
+		<label for="bathrooms">Bathrooms:</label>
+		<select id="bathrooms" name="bathrooms"></select>
+
+		<label for="rent">Rent:</label>
+		<select id="rent" name="rent"></select>
+
+		<form method="post">
+			<input type="submit" value="Next" formaction="Questions.html">
+		</form>
+	</form>
+
+	<script>
+
+		// using factor method design pattern
+
+		function choose(value, text) {
+			var option = document.createElement("option");
+			option.value = value;
+			option.text = text;
+			return option;
+		}
+
+		function choices(start, end) {
+			var options = [];
+			for (var i = start; i <= end; i++) {
+				options.push(choose(i, i));
+			}
+			return options;
+		}
+
+		function Select(id, name, options) {
+			var select = document.getElementById(id);
+			select.name = name;
+			for (var i = 0; i < options.length; i++) {
+				select.appendChild(options[i]);
+			}
+		}
+
+		// Create home type options
+		var homeType = [
+			choose("apartment", "Apartment"),
+			choose("townhome", "Townhome"),
+			choose("house", "House"),
+			choose("No preference", "No preference")
+		];
+		Select("home-type", "home-type", homeType);
+
+		// Create roommate gender options
+		var roommateGender = [
+			choose("Male", "Male"),
+			choose("Female", "Female"),
+			choose("No Preference", "No Preference")
+		];
+		Select("roommate-gender", "roommate-gender", roommateGender);
+
+		// Create roommate sexuality options
+		var roommateSexuality = [
+			choose("Straight", "Straight"),
+			choose("Gay", "Gay"),
+			choose("Lesbian", "Lesbian"),
+			choose("Bisexual", "Bisexual"),
+			choose("No Preference", "No Preference")
+		];
+		Select("roommate-sexuality", "roommate-sexuality", roommateSexuality);
+
+		// Create age of roommate options
+		var ageOfRoomate = [
+			choose("No preference", "No preference"),
+			...choices(18, 100)
+		];
+		Select("ageOfRoomate","ageOfRoomate", ageOfRoomate);
+			// Create bedroom options
+	var bedroom = [
+		choose("Studio", "Studio"),
+		...choices(1, 10)
+	];
+	Select("beds", "beds", bedroom);
+
+	// Create bathroom options
+	var bathroom = [
+		choose("Shared", "Shared"),
+		...choices(1, 10)
+	];
+	Select("bathrooms", "bathrooms", bathroom);
+
+	// Create rent options
+	var rent = [
+		choose("Under $500", "Under $500"),
+		choose("$500-$1000", "$500-$1000"),
+		choose("$1000-$1500", "$1000-$1500"),
+		choose("$1500-$2000", "$1500-$2000"),
+		choose("Over $2000", "Over $2000"),
+		choose("No preference", "No preference")
+	];
+	Select("rent", "rent", rent);
+</script>
