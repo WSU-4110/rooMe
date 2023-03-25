@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+        body{
+        font-family: 'Poppins', sans-serif;
+        background-color: #FFE6E6;
+        }
+        .content-box{
+        width: 30vw;
+        height: 60vh;
+        border-radius: 2em;
+        box-shadow: 0 0 2em rgba(0, 0, 0, .2);
+        }
+        </style>
+    </head>
+    <body>
+        <center>
+        <img src = "/images/rooMeclear.png" class = "logo" width = "30%" style="margin-top: -5%; margin-left:4%;">
+        <div class = "content-box" style="margin-top: -12%;">
+            <div class = "content-second-box" style = "padding-top: 25%;">
+                <label for="email">Email</label><br>
+                <input type="email" id="email" required> <br>
+                <label for="password">Password</label><br>
+                <input type="password" id="password" required> <br>
+                <button type="button"  id="signUp">Sign Up!</button><br> <br>
+                <button type="button"  id="googleSignUp">Login with Google!</button><br> <br>
+            </div>
+        </div>
+    </center>
+    </body>
+    <script type="module">
+        //Using the app initialized in the singleton javascript module.
+        import app from "./singleton";
+        import { getDatabase, set, ref, update } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-database.js";
+        import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, sendEmailVerification} from "https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js";
+    
+        
+        const auth = getAuth(app);
+        const db =  getDatabase(app);
+        const provider = new GoogleAuthProvider(app);
+
+        signUp.addEventListener('click', function (e) {
+
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+            
+            createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                var user = userCredential.user;
+
+                // const actionCodeSettings = {
+                //     url: 'http://localhost:52330/pages/LandingPage.html?signup=true',
+                //     handleCodeInApp: false,
+                // };
+
+                //sendEmailVerification(user); 
+                //alert("Sent verification email!  Please verify email before proceeding.")
+                
+                set(ref(db, "Users/"+ user.uid),{
+                email: email
+                })
+                .then(()=>{
+                    alert(`Registered with ${email}`);
+                    window.location.replace("CreateProfile.html");
+                })
+                .catch((error)=>{
+                    alert(error);
+                });
+            
+
+            })
+            .catch((error) => {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                // ..
+                alert(errorMessage)
+            });
+            
+        });
+
+        googleSignUp.addEventListener("click", function(e) {
+            signInWithPopup(auth, provider)
+            .then((result) => {
+                // This gives you a Google Access Token. You can use it to access the Google API.
+                const credential = GoogleAuthProvider.credentialFromResult(result);
+                const token = credential.accessToken;
+                // The signed-in user info.
+                const user = result.user;
+
+                set(ref(db, "Users/"+ user.uid),{
+                        email: user.email
+                })
+                .then(()=>{
+                    alert(`Registered with ${user.email}`);
+                    window.location.replace("CreateProfile.html");
+                })
+                .catch((error)=>{
+                    alert(error);
+                });
+
+            }).catch((error) => {
+                // Handle Errors here.
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                // The email of the user's account used.
+                const email = error.email;
+                // The AuthCredential type that was used.
+                const credential = GoogleAuthProvider.credentialFromError(error);
+
+                alert(errorMessage);
+            });
+
+        });
+
+      </script>
+</html>
