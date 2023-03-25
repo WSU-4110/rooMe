@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+	<img src="rooMeclear.png" class="logo" width="200px"  style="margin-bottom: -12%">
+    <title>List of Houses for Rent</title>
+    <style>
+        h1 {
+            font-size: 2em;
+            text-align: center;
+        }
+		body{
+			color: rgb(0, 0, 0);
+		}
+        .house {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+            margin-top: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .house img {
+    height: 200px;
+    width: 300px;
+  }
+        .house .details {
+            flex: 1;
+            margin-right: 10px;
+        }
+        .house .details h2 {
+            margin: 25px;
+        }
+        .house .details p {
+			font-size: 1.2em;
+            margin: 25px;
+            color: rgb(0, 0, 0);
+        }
+        .house .prices {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+		fieldset {
+font-weight: bold;
+width: absolute;
+justify-content: space-around;
+font-size: 1.1em;
+}
+label{
+    font-weight: bold;
+    justify-content: space-between;
+}
+legend {
+  background-color: rgb(0, 0, 0);
+  color: white;
+  padding: 5px 10px;
+  margin: 10px;
+  border-radius: 5px;
+   padding: 5px; 
+   
+}
+    </style>
+</head>
+
+<body>
+    <h1>List of Houses for Rent</h1>
+	<fieldset>
+        
+		<legend>Filter </legend> 
+		<input type="text" id="search" placeholder="Search by address..." onkeyup="searchHouses()">
+	
+		<label for="states">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;State</label>
+    
+    <select id="states"> 
+        <option value="">Any</option>
+      <option value="alabama">Alabama</option>
+      <option value="alaska">Alaska</option>
+      <option value="arizona">Arizona</option>
+      <option value="arkansas">Arkansas</option>
+      <option value="california">California</option>
+      <option value="colorado">Colorado</option>
+      <option value="connecticut ">Connecticut </option>
+      <option value="delaware">Delaware</option>
+      <option value="florida">Florida</option>
+      <option value="georgia">Georgia</option>
+      <option value="hawaii">Hawaii</option>
+      <option value="idaho">Idaho </option>
+      <option value="illinois"> Illinois</option>
+      <option value="indiana">Indiana </option>
+      <option value="iowa ">Iowa </option>
+      <option value="kansas">Kansas</option>
+      <option value="kentucky">Kentucky </option>
+      <option value="louisiana">Louisiana</option>
+      <option value="maine">Maine</option>
+     <option value="maryland">Maryland</option>
+      <option value="massachusetts">Massachusetts</option>
+      <option value="michigan">Michigan</option>
+      <option value="minnesota">Minnesota</option>
+      <option value="mississippi">Mississippi</option>
+      <option value="missouri">Missouri</option>
+      <option value="montana">Montana</option>
+      <option value="nebraska">Nebraska</option>
+      <option value="nevada">Nevada</option>
+      <option value="newhampshire ">New Hampshire </option>
+      <option value="newjersey">New Jersey </option>
+      <option value="newmexico"> New Mexico </option>
+      <option value="newyork">New York </option>
+      <option value="northcarolina"> North Carolina </option>
+      <option value="northdakota"> North Dakota</option>
+      <option value="ohio">Ohio </option>
+      <option value="oklahoma">Oklahoma</option>
+      <option value="oregon">Oregon</option>
+      <option value="pennsylvania">Pennsylvania</option>
+      <option value="rhodeisland">Rhode Island</option>
+      <option value="southcarolina">South Carolina</option>
+      <option value="tennessee">Tennessee</option>
+      <option value="texas">Texas</option>
+      <option value="utah">Utah</option>
+      <option value="vermont">Vermont</option>
+      <option value="virginia">Virginia</option>
+      <option value="washington "> Washington </option>
+      <option value="westvirginia "> West Virginia </option>
+      <option value="wisconsin ">Wisconsin </option>
+      <option value="wyoming">Wyoming</option>
+  </select>
+
+<label for="beds">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Beds:</label>
+<select id="beds">
+    <option value="">Any</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+</select>
+<label for="baths">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Baths:</label>
+<select id="baths">
+    <option value="">Any</option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    
+</select>
+
+<label for="prices">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Price:</label>
+<select id="prices">
+    <option value="">Any</option>
+    <option value="0-1000">0-1000</option>
+    <option value="1000-1500">1000-1500</option>
+    <option value="1500-2000">1500-2000</option>
+    <option value="2000-2500">2000-2500</option>
+</select>
+</fieldset>
+
+<div id="house-list">
+    
+</body>
+<script>
+  var HouseList = (function () {
+  var instance;
+
+  function init() {
+    var houses = [
+
+      {
+        address: "7471 Churchill Ave,<br>Detroit, Michigan ",
+        beds: 3,
+        baths: 1,
+        prices: "1000-1500",
+        pricesinNumber: 1275,
+        states: "michigan",
+        image: "   7471 Churchill Ave.png"
+      },
+      //house 2
+      {
+        address: "17375 Steel St, <br>Detroit, Michigan ",
+        beds: 5,
+        baths: 2,
+        prices: "1500-2000",
+        pricesinNumber: 1650,
+        states: "michigan",
+        image: "17375 Steel St.png"
+
+      },
+
+
+       //house 3
+       {
+        address: "6624 Cantata Ct, <br>Dallas, Texas",
+            beds: 3,
+            baths: 1,
+            prices: "1500-2000",
+            pricesinNumber: 1710,
+            states: "texas",
+            image: "6624 Cantata Ct.png"
+        },
+        //house 4
+        {
+            address: "10308 Wood Heights Dr, <br>Dallas, Texas ",
+            beds: 3,
+            baths: 2,
+            prices: "2000-2500",
+            pricesinNumber: 2095,
+            states: "texas",
+            image: "10308 Wood Heights Dr.png" 
+        
+        },
+        //house 5
+        {
+            address: "6308 Leola Way, <br>Sacramento, California",
+            beds: 3,
+            baths: 1,
+            prices: "1500-2000",
+            pricesinNumber: 1800,
+            states: "california",
+            image: "6308 Leola Way.png"
+        
+        },
+        //house 6
+        {
+            address: " 1518 Alicia Way, <br>Sacramento, California",
+            beds: 4,
+            baths: 2,
+            prices: "2000-2500",
+            pricesinNumber: 2395,
+            states: "california",
+            image: "1518 Alicia Way.png" 
+        
+        },
+            //house 7
+            {
+            address: "850 E 87th Pl, <br>Chicago, Illinois ",
+            beds: 2,
+            baths: 1,
+            prices: "1000-1500",
+            pricesinNumber: 1295,
+            states: "illinois",
+            image: "​​850 E 87th Pl.png"
+        
+        },
+            //house 8
+            {
+            address: "10106 S Yates Blvd, <br>Chicago, Illinois",
+            beds: 4,
+            baths: 1,
+            prices: "1500-2000",
+            pricesinNumber: 1850,
+            states: "illinois",
+            image: "10106 S Yates Blvd.png"
+        
+        },
+        //house 9
+        {
+           address: "3500 Elmore Pl, <br>Norfolk, Virginia ",
+           beds: 4,
+           baths: 1,
+           prices: "1500-2000",
+           pricesinNumber: 1600,
+           states: "virginia",
+           image: "3500 Elmore Pl.png"
+      
+       },
+
+            //house 10
+            {
+           address: "2719 Keller Ave, <br>Norfolk, Virginia ",
+           beds: 3,
+           baths: 1,
+           prices: "1500-2000",
+           pricesinNumber: 1995,
+           states: "virginia",
+           image: "2719 Keller Ave.png"
+      
+       },
+
+            //house 11
+            {
+           address: "1034 24th Ave N, <br>Nashville, Tennessee ",
+           beds: 3,
+           baths: 1,
+           prices: "2000-2500",
+           pricesinNumber: 2500,
+           states: "tennessee",
+           image: "1034 24th Ave N.png"
+      
+       },
+
+        //house 12
+            {
+           address: "531 Raymond St, <br>Nashville, Tennessee ",
+           beds: 3,
+           baths: 2,
+           prices: "1000-1500",
+           pricesinNumber: 1495,
+           states: "tennessee",
+           image: "531 Raymond St.png"
+      
+       },
+
+            //house 13
+            {
+           address: "4648 E 173rd St, <br>Cleveland, Ohio ",
+           beds: 3,
+           baths: 1,
+           prices: "0-1000",
+           pricesinNumber: 965,
+           states: "ohio",
+           image: "4648 E 173rd St.png"
+      
+       },
+
+            //house 14
+            {
+           address: "9209 Rosewood Ave, <br>Cleveland, Ohio ",
+           beds: 2,
+           baths: 1,
+           prices: "0-1000",
+           pricesinNumber: 925,
+           states: "ohio",
+           image: "9209 Rosewood Ave.png"
+           
+      
+       },
+
+            //house 15
+            {
+           address: "4000 Bridge Ave, <br>Cleveland, Ohio ",
+           beds: 1,
+           baths: 1,
+           prices: "0-1000",
+           pricesinNumber: 965,
+           states: "ohio",
+           image: "4000 Bridge Ave.png"
+      
+       }
+    ];
+
+    // Function to display the list of houses
+    function displayHouses() {
+      var bedFilter = document.getElementById("beds").value;
+      var bathFilter = document.getElementById("baths").value;
+      var priceFilter = document.getElementById("prices").value;
+      var stateFilter = document.getElementById("states").value;
+      var houseList = document.getElementById("house-list");
+      houseList.innerHTML = "";
+      for (var i = 0; i < houses.length; i++) {
+        if ((bedFilter === "" || houses[i].beds == bedFilter) &&
+          (bathFilter === "" || houses[i].baths == bathFilter) &&
+          (priceFilter === "" || houses[i].prices == priceFilter) &&
+          (stateFilter === "" || houses[i].states == stateFilter)
+        ) {
+          var houseDiv = document.createElement("div");
+          houseDiv.className = "house";
+          var imageDiv = document.createElement("div");
+          imageDiv.className = "image";
+          var image = document.createElement("img");
+          image.src = houses[i].image;
+          image.alt = houses[i].address;
+          imageDiv.appendChild(image);
+          var detailsDiv = document.createElement("div");
+          detailsDiv.className = "details";
+          var address = document.createElement("h2");
+          address.innerHTML = houses[i].address;
+          detailsDiv.appendChild(address);
+          var bedsBaths = document.createElement("p");
+          bedsBaths.innerHTML = "<b> Beds:</b> " + houses[i].beds + "<br> <b>Baths:</b> " + houses[i].baths;
+          detailsDiv.appendChild(bedsBaths);
+          houseDiv.appendChild(imageDiv);
+          houseDiv.appendChild(detailsDiv);
+          var priceDiv = document.createElement("div");
+          priceDiv.className = "prices";
+          priceDiv.innerHTML = "$" + houses[i].pricesinNumber + "/month";
+          houseDiv.appendChild(priceDiv);
+          houseList.appendChild(houseDiv);
+        }
+      }
+    }
+
+    return {
+      displayHouses: displayHouses
+    };
+  }
+
+  return {
+    getInstance: function () {
+      if (!instance) {
+        instance = init();
+      }
+      return instance;
+    }
+  };
+})();
+
+document.getElementById("states").addEventListener("change", function () {
+  HouseList.getInstance().displayHouses();
+});
+document.getElementById("beds").addEventListener("change", function () {
+  HouseList.getInstance().displayHouses();
+});
+document.getElementById("baths").addEventListener("change", function () {
+  HouseList.getInstance().displayHouses();
+});
+document.getElementById("prices").addEventListener("change", function () {
+  HouseList.getInstance().displayHouses();
+});
+
+// Initial display of the list of houses
+HouseList.getInstance().displayHouses();
