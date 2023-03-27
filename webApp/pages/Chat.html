@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat</title>
+    <link  rel="stylesheet" type = "text/css" href="/css/style.css">
+    <style>
+       @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+    body{
+      font-family: 'Poppins', sans-serif;
+    }
+    a{
+    text-decoration: none;
+    color: black;
+
+}
+ul{
+    list-style:none;
+
+
+}
+
+.container{
+max-width: 100%;
+margin: 0 auto;
+}
+nav{
+position: fixed;
+bottom: 10%;
+width: 456px;
+
+left: 50%;
+margin-left: -228px;
+padding: 0 2em;
+border-radius: 100px;
+box-shadow: rgb(50 50 93 / 25%) 0 50px 100px -20px, rgb(0 0 0 /30%) 0 30px 60px -30px ;
+overflow: hidden;
+}
+nav ul{
+display: flex;
+align-items: center;
+
+}
+nav :where(li,a){
+position: relative;
+}
+nav ul li a{
+display: flex;
+align-items: center;
+justify-content: center;
+flex-direction: column-reverse;
+padding: 1em;
+font-size: 1.5em;
+line-height: 1.4;
+width: 80px;
+height: 70px;
+-webkit-transition: all .3s east-out;
+transition: all .3s east-out;
+
+}
+nav ul li a:hover{
+color: pink;
+}
+nav ul li a span{
+font-size: 12px;
+}
+/*animation*/
+
+nav li::before, nav li::after{
+content: '';
+position: absolute;
+height: 100%;
+width: 30px;
+top: 25px;
+transition: top .3s;
+}
+
+nav li a::before, nav li a::after{
+content: '';
+position: absolute;
+z-index: -1;
+border-radius: 10px 10px 0 0 ;
+-webkit-transform: translateY(15px);
+transform: translateY(15px);
+-webkit-transition: transform .3s, border-radius .3s;
+transition: transform .3s, border-radius .3s;
+
+}
+
+
+nav li.active a::before, nav li.active a::after{
+-webkit-transform: translateY(0);
+transform: translateY(0);
+
+}
+nav li.active a::before{
+top: 10px;
+left: 10px;
+width: calc(100% - 20px);
+height: 100%;
+border-radius: 30px 30px 0 0 ;
+}
+nav li.active a::after{
+left: -10px;
+bottom: 0;
+width: 100px;
+height: 40px;
+
+
+}
+nav li.active a{
+color: none;
+}
+
+
+nav li .label{
+
+position: absolute;
+top: 10px;
+max-width: 25px;
+height: 20px;
+padding: 0 3px;
+display: flex;
+align-items: center;
+justify-content: center;
+z-index: 1;
+border-radius: 70px ;
+
+}
+nav li .chat{
+right: 15px;
+color: black;
+background-color: pink;
+}
+    </style>
+    </head>
+    <body>
+      <a href="ViewProfile.html">Home</a>
+      <a href="House.html">Listings</a>
+      <a href ="settings.html">Settings</a>
+        <div class="container">
+            <div class=" header">
+                <img src = "/images/rooMeclear.png" class = "logo" width = "30%" style="margin-bottom: -13%;">
+            <h1> Chat Page&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h1>
+            
+            <h2> Name </h2>
+        </div>
+            <div class=" body">
+           
+            <div id="chat-container">
+                <div id="chat-box">
+                  </div>
+                  <div class=" footer">
+                    
+                <form id="message-form">
+                </p>
+                  <input type="text" id="message-input" placeholder="Enter your message here...">
+                  <button id="send-button">Send</button>
+                </form>
+              </div>
+
+              <div id="page" class="site">
+                <div class="container">
+                    <nav> 
+                        <ul>
+                            <li class="active"><a href="../pages/ViewProfile.html"><span>Home</span><img src="favicon.png"></i></a> </li>
+                            <li><a href="../pages/Chat.html" >
+                                <span>Chat Page</span>
+                                <i class="ri-wechat-line"></i>
+                                <span class="label chat">1 </span>
+                            </a> </li>
+                            <li><a href="../houselistings/listing houses.html" ><span>Listing page</span><i class="ri-file-list-3-line"></i></a> </li>
+                            <li><a href="../pages/settings.html" ><span>Settings</span><i class="ri-settings-2-line"></i> </a> </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+          
+              <script>
+                
+                const chatBox = document.getElementById("chat-box");
+                const messageForm = document.getElementById("message-form");
+                const messageInput = document.getElementById("message-input");
+                const sendButton = document.getElementById("send-button");
+                sendButton.addEventListener("click", function(e) {
+              e.preventDefault();
+              const message = messageInput.value;
+              if (!message) return;
+                
+              chatBox.innerHTML += `<p>Name: ${message}</p>` ;
+              
+              messageInput.value = " ";
+              
+              
+            });
+              </script>
+              <script>
+                import {initializeApp} from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
+                import {getDatabase,  set, ref, push, child, onValue, onChildAdded} from "https://www.gstatic.com/firebasejs/9.17.2/firebase-database.js";
+                
+                const firebaseConfig = {
+                apiKey: "AIzaSyClqbgmtcPuED7LE3-2XXSooypjXiHQj38",
+                authDomain: "roome-5bfa9.firebaseapp.com",
+                databaseURL: "https://roome-5bfa9-default-rtdb.firebaseio.com",
+                projectId: "roome-5bfa9",
+                storageBucket: "roome-5bfa9.appspot.com",
+                messagingSenderId: "564378590257",
+                appId: "1:564378590257:web:6e18a1d7269d83af318910"
+                };
+
+                const app = initializeApp(firebaseConfig);
+                const database = getDatabase(app);
+
+
+              </script>
+            
+        </div>
+           
+
+
+        
+    </body>
+   
+</html>
+
+

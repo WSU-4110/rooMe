@@ -1,0 +1,223 @@
+<!DOCTYPE html> 
+<html>
+<head>
+<meta charset="utf-8">
+ <title>RooMe's User Settings</title>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+body {
+background-color: #E2E7E8; 
+margin: 0 10%; 
+font-family: 'Poppins', sans-serif;
+}
+h1 {
+text-align: center;
+font-family: serif;
+font-weight: normal;
+text-transform: uppercase;
+border-bottom: 1px solid #57b1dc; 
+margin-top: 30px;
+}
+h2{
+color: #135FE3;
+font-size: 1em;
+}
+.profile
+{
+  position: relative;
+  width: 60px;
+  height:60px;
+  border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
+}
+.profile img
+{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+</style>
+
+</head>
+
+<body>
+<center>
+<img src = "/images/rooMeclear.png" class = "logo" width = "30%" style="margin-bottom: -10%">
+<a href="settings.html"><p> Settings</p></a>
+<br> Edit Profile </h1>
+
+<div class="profile">
+<img src="/images/user.jpg">
+</div>
+
+<h2>Public Information</h2>
+
+ <div class="form-group">
+   <label for="inputUsername">Username</label>
+   <!-- <p id = 'firstName'> </p> -->
+   <input type="text" class="form-control" id="inputUsername" placeholder="Username"> </input>
+  </div>
+
+<!-- <p id = 'firstName'> </p> -->
+<h2>Private Information </h2>
+
+<br>
+<label for = "inputFirstName">firstName</label>
+   <input type = "text" class = "form-control" id = "inputFirstName"  placeholder = "First Name"> </body>
+  </div>
+</br>
+
+<br>
+<label for = "inputLastName">Last Name</label>
+   <input type = "text" class = "form-control" id = "inputLastName" placeholder = "Last Name">
+  </div>
+</br>
+
+<br>
+<label for = "inputEmail">Email</label>
+   <input type = "text" class = "form-control" id = "inputEmail" placeholder = "Email">
+  </div>
+</br>
+
+<br>
+<label for = "inputAddress">Address</label>
+   <input type = "text" class = "form-control" id = "inputAddress" placeholder = "Address">
+  </div>
+</br>
+
+<br>
+<label for = "inputCity">City</label>
+   <input type = "text" class = "form-control" id = "inputCity" placeholder = "City">
+  </div>
+</br>
+
+<br>
+<label for = "inputState">State</label>
+   <input type = "text" class = "form-control" id = "inputState" placeholder = "State">
+  </div>
+</br>
+
+<br>
+<label for = "inputZipCode">Zip Code</label>
+   <input type = "text" class = "form-control" id = "inputZipCode" placeholder = "Zip Code">
+  </div>
+</br>
+
+
+<h2>Password</h2>
+
+<br>
+<label for = "inputCurrentPassword">Current Password</label>
+   <input type = "text" class = "form-control" id = "inputCurrentPassword" placeholder = "Current Password">
+  </div>
+</br>
+
+<br>
+<label for = "inputNewPassword">New Password</label>
+   <input type = "text" class = "form-control" id = "inputNewPassword" placeholder = "New Password">
+  </div>
+</br>
+
+<br>
+<label for = "inputVerifyPassword">Verify Password</label>
+   <input type = "text" class = "form-control" id = "inputVerifyPassword" placeholder = "Verify Password">
+  </div>
+</br>
+<button type="button"  id="editProfile">Edit Profile!</button><br> <br>
+</center>
+
+
+</body>
+
+<script type="module">
+
+  
+  
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
+  import { getDatabase, ref, onValue, update}  from "https://www.gstatic.com/firebasejs/9.17.2/firebase-database.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyClqbgmtcPuED7LE3-2XXSooypjXiHQj38",
+    authDomain: "roome-5bfa9.firebaseapp.com",
+    databaseURL: "https://roome-5bfa9-default-rtdb.firebaseio.com",
+    projectId: "roome-5bfa9",
+    storageBucket: "roome-5bfa9.appspot.com",
+    messagingSenderId: "564378590257",
+    appId: "1:564378590257:web:6e18a1d7269d83af318910"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth();
+  const db =  getDatabase(app);
+
+  // This block of code will extract information from database and show on html. Make sure the id of the tags match. 
+  onAuthStateChanged(auth, (user) => {
+  if (user) {
+    // User is signed in, see docs for a list of available properties
+    // https://firebase.google.com/docs/reference/js/firebase.User
+    const uid = user.uid;
+    const starCountRef = ref(db, 'Users/' + uid);
+    onValue(starCountRef, (snapshot) => {
+      const data = snapshot.val();
+      document.getElementById("inputFirstName").value = data.firstName; // data.firstname is the firstname of the user store in the database.
+      document.getElementById("inputLastName").value = data.lastName;
+      document.getElementById("inputEmail").value = data.email;
+      document.getElementById("inputUsername").value = data.username;
+      document.getElementById("inputCity").value = data.location;
+      document.getElementById("inputAddress").value = data.address;
+      document.getElementById("inputState").value = data.state;
+      document.getElementById("inputZipCode").value = data.zip_code;
+    });
+  } else {
+    // User is signed out
+    uid = null;
+  }
+  });
+
+
+  editProfile.addEventListener('click', (e) => {
+
+    var firstName = document.getElementById("inputFirstName").value; 
+    var lastName = document.getElementById("inputLastName").value; 
+    var email = document.getElementById("inputEmail").value; 
+    var username = document.getElementById("inputUsername").value; 
+    var city = document.getElementById("inputCity").value; 
+    var address = document.getElementById("inputAddress").value; 
+    var state = document.getElementById("inputState").value; 
+    var zipcode = document.getElementById("inputZipCode").value; 
+
+    const user = auth.currentUser;
+    if (user !== null) {
+      const uid = user.uid;
+
+      update(ref(db, "Users/"+ user.uid),{
+          username: username,
+          firstName: firstName,
+          lastName: lastName,
+          location: city,
+          email: email,
+          address:address,
+          state: state,
+          zip_code: zipcode 
+      })
+      .then(()=>{
+        alert(`User information updated!`);
+      })
+      .catch((error)=>{
+          alert(error);
+      });
+    }
+
+  });
+  
+
+</script>
+
+</html>
+

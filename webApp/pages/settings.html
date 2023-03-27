@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+
+    <title>RooMe Settings</title>
+
+<style>
+
+body
+{
+    background: #ffa07a;
+}
+.menu{
+    position: absolute;
+    top:80px;
+    left:350px;
+    padding: 100px 20px;
+    background: #fff;
+    width: 200px;
+    box-sizing: 0 5px 15px rgba(0,0,0,0.1);
+    border-radius: 15px;
+    transition: 0.5s;
+}
+
+
+.menu h3
+{
+    width: 100%;
+    text-align: center;
+    font-size: 18px;
+    padding: 20px 0;
+    font-weight: 500;
+    font-size: 18px;
+    color: #555;
+    line-height: 1.2em;
+}
+.menu h3 span{
+    font-size: 14px;
+    color: #cecece;
+    font-weight: 400;
+}
+.menu ul li{
+    list-style: none;
+    padding: 10px 0;
+    border-top: 1px solid rgba(0,0,0,0.05);
+    display: flex;
+    align-items: center;
+}
+.menu ul li img{
+    max-width: 20px;
+    margin-right: 10px;
+    opacity: 0.5;
+    transition: 0.5s;
+}
+.menu ul li:hover img{
+    opacity: 1;
+} 
+.menu ul li a{
+    display: inline-block;
+    text-decoration: none;
+    color: #555;
+    font-weight: 500;
+    transition: 0.5s;
+}
+.menu ul li:hover a{
+    color: #ffa07a;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+
+}
+ul{
+    list-style:none;
+
+
+}
+
+.container{
+max-width: 100%;
+margin: 0 auto;
+}
+nav{
+position: fixed;
+bottom: 10%;
+width: 456px;
+
+left: 50%;
+margin-left: -228px;
+padding: 0 2em;
+border-radius: 100px;
+box-shadow: rgb(50 50 93 / 25%) 0 50px 100px -20px, rgb(0 0 0 /30%) 0 30px 60px -30px ;
+overflow: hidden;
+}
+nav ul{
+display: flex;
+align-items: center;
+
+}
+nav :where(li,a){
+position: relative;
+}
+nav ul li a{
+display: flex;
+align-items: center;
+justify-content: center;
+flex-direction: column-reverse;
+padding: 1em;
+font-size: 1.5em;
+line-height: 1.4;
+width: 80px;
+height: 70px;
+-webkit-transition: all .3s east-out;
+transition: all .3s east-out;
+
+}
+nav ul li a:hover{
+color: pink;
+}
+nav ul li a span{
+font-size: 12px;
+}
+/*animation*/
+
+nav li::before, nav li::after{
+content: '';
+position: absolute;
+height: 100%;
+width: 30px;
+top: 25px;
+transition: top .3s;
+}
+
+nav li a::before, nav li a::after{
+content: '';
+position: absolute;
+z-index: -1;
+border-radius: 10px 10px 0 0 ;
+-webkit-transform: translateY(15px);
+transform: translateY(15px);
+-webkit-transition: transform .3s, border-radius .3s;
+transition: transform .3s, border-radius .3s;
+
+}
+
+
+nav li.active a::before, nav li.active a::after{
+-webkit-transform: translateY(0);
+transform: translateY(0);
+
+}
+nav li.active a::before{
+top: 10px;
+left: 10px;
+width: calc(100% - 20px);
+height: 100%;
+border-radius: 30px 30px 0 0 ;
+}
+nav li.active a::after{
+left: -10px;
+bottom: 0;
+width: 100px;
+height: 40px;
+
+
+}
+nav li.active a{
+color: none;
+}
+
+
+nav li .label{
+
+position: absolute;
+top: 10px;
+max-width: 25px;
+height: 20px;
+padding: 0 3px;
+display: flex;
+align-items: center;
+justify-content: center;
+z-index: 1;
+border-radius: 70px ;
+
+}
+nav li .chat{
+right: 15px;
+color: black;
+background-color: pink;
+}
+</style>
+</head>
+
+
+<body>
+    <center>
+        <img src = "/images/rooMeclear.png" class = "logo" width = "30%">
+    </center>
+    <div class="action">
+        <div class="menu">
+<h3> Settings</h3>
+
+    <ul>
+        <li><img src="/images/Home.png"><a href="ViewProfile.html">Home</a></li>
+        <li><img src="/images/edit.png"><a href="editProfile.html">Edit Profile</a></li>
+        <li><img src="/images/notification.png"><a href="#">Notifications</a></li>
+        <li><img src="/images/privacy.png"><a href="#">Privacy and Security</a></li>
+        <li><img src="/images/logout.png"><a href="#" id="signingOut">Logout</a></li>
+        <li><img src="/images/delete.png"><a href="#" id="deleteAccount">Delete Account</a></li>
+    </ul>
+
+</div>
+
+<div id="page" class="site">
+    <div class="container">
+        <nav> 
+            <ul>
+                <li class="active"><a href="../pages/ViewProfile.html"><span>Home</span><img src="favicon.png"></i></a> </li>
+                <li><a href="../pages/Chat.html" >
+                    <span>Chat Page</span>
+                    <i class="ri-wechat-line"></i>
+                    <span class="label chat">1 </span>
+                </a> </li>
+                <li><a href="../houselistings/listing houses.html" ><span>Listing page</span><i class="ri-file-list-3-line"></i></a> </li>
+                <li><a href="../pages/settings.html" ><span>Settings</span><i class="ri-settings-2-line"></i> </a> </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+    </body>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
+        import { getDatabase, update, set, ref, remove } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-database.js";
+        import { getAuth, signOut, deleteUser } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js";
+    
+        const firebaseConfig = {
+          apiKey: "AIzaSyClqbgmtcPuED7LE3-2XXSooypjXiHQj38",
+          authDomain: "roome-5bfa9.firebaseapp.com",
+          databaseURL: "https://roome-5bfa9-default-rtdb.firebaseio.com",
+          projectId: "roome-5bfa9",
+          storageBucket: "roome-5bfa9.appspot.com",
+          messagingSenderId: "564378590257",
+          appId: "1:564378590257:web:6e18a1d7269d83af318910"
+        };
+  
+   
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth();
+        const db =  getDatabase(app);
+
+        signingOut.addEventListener('click', function (e) {
+            const user = auth.currentUser;
+            signOut(auth).then(() => {
+                const dt = new Date();
+                update(ref(db, "Users/"+ user.uid),{
+                    last_logout: dt,
+                })
+                .then(()=>{
+                    alert("Logged Out!");
+                    window.location.replace("LandingPage.html");
+                })
+                .catch((error)=>{
+                    alert(error);
+                });
+            }).catch((error) => {
+            // An error happened.
+            const errorMessage = error.message;
+            alert(errorMessage);
+            });
+        });
+
+        deleteAccount.addEventListener('click', function (e) {
+            const user = auth.currentUser;
+            if(confirm("Are you sure you want to delete the account?")){
+                deleteUser(user).then(() => {
+                    remove(ref(db, "Users/"+ user.uid)).then(()=>{
+                        alert("We will miss you!");
+                        window.location.replace("LandingPage.html");
+                    }) .catch((error)=>{
+                        alert(error);
+                    });
+                }).catch((error) => {
+                // An error ocurred
+                const errorMessage = error.message;
+                alert(errorMessage);
+                });
+            }
+        });
+
+      </script>
+    </html>
