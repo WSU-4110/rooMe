@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Questions Page</title>
+	<link  rel="stylesheet" type = "text/css" href="/css/style.css">
+	<style>
+		body {
+  background-color: #dc5757;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+form {
+  background-color: #6ed09c6b;
+  border-radius: 5px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+  margin: 50px auto;
+  max-width: 600px;
+  padding: 20px;
+}
+
+form label {
+  display: block;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+form select,
+form input[type="text"] {
+  background-color: #96d5e7;
+  border: 1px solid #11cfbfda;
+  border-radius: 3px;
+  display: block;
+  font-size: 16px;
+  margin-bottom: 15px;
+  padding: 10px;
+  width: 95%;
+}
+
+form select {
+  height: 40px;
+}
+
+form input[type="text"] {
+  height: 40px;
+}
+
+form input[type="submit"] {
+  background-color: #5a2d87;
+
+  border: none;
+  border-radius: 3px;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 20px;
+  padding: 10px;
+  width: 100%;
+}
+
+form input[type="submit"]:hover {
+  background-color: #1e4160;
+}
+	</style>
+</head>
+<body>
+
+	<form>
+		<form>
+			<label for="location">Location:</label>
+			<input type="text" id="location" name="location" placeholder="Enter your location" />
+	
+
+		<label for="hometype">Home Type:</label>
+		<select id="hometype" name="home-type">
+			<option value="apartment">Apartment</option>
+			<option value="townhome">Townhome</option>
+			<option value="house">House</option>
+			<option value="No preference">No preference</option>
+		</select>
+
+    
+    <label for="roommategender">Roommate Gender:</label>
+		<select id="roommategender" name="roommate-gender">
+			<option value="Male">Male</option>
+			<option value="Female">Female</option>
+			<option value="No Preference">No Preference</option>
+		</select>
+
+		 <label for="roommatesexuality">Roommate Sexuality:</label>
+		<select id="roommatesexuality" name="roommate-sexuality">
+			<option value="Straight">Straight</option>
+			<option value="Gay">Gay</option>
+			<option value="Lesbian">Lesbian</option>
+			<option value="Bisexual">Bisexual</option>
+			<option value="No Preference">No Preference</option>
+		</select>
+	
+	<label for="ageOfRoomate">Roomates Age:</label>
+		<select id="ageOfRoomate" name="ageOfRoomate">
+			<option value="18-25">18-25</option>
+			<option value="25-30">25-30</option>
+			<option value="30-35">30-35</option>
+			<option value="35-40">35-40</option>
+			<option value="40-45">40-45</option>
+			<option value="45-50">45-50</option>
+			<option value="50-55">50-55</option>
+			<option value="55-60">55-60</option>
+			<option value="60-65">60-65</option>
+			<option value="65-70">65-70</option>
+			<option value="70-75">70-75</option>
+			<option value="75-80">75-80</option>
+			<option value="80-85">80-85</option>
+			<option value="85-90">85-90</option>
+			<option value="90-95">90-95</option>
+			<option value="95-100">95-100</option>
+			<option value="No preference">No preference</option>
+			
+		</select>
+
+		<label for="beds">Bedrooms:</label>
+		<select id="beds" name="beds">
+			<option value="1-2">1-2</option>
+			<option value="2-3">2-3</option>
+			<option value="3-4">3-4</option>
+			<option value="4-5">4-5</option>
+			<option value="No preference">No preference</option>
+
+		</select>
+
+		<label for="bathrooms">Bathrooms:</label>
+		<select id="bathrooms" name="bathrooms">
+			<option value="1-2">1-2</option>
+			<option value="2-3">2-3</option>
+			<option value="3-4">3-4</option>
+			<option value="4-5">4-5</option>
+			<option value="No preference">No preference</option>
+
+		</select>
+
+		<label for="rent">Rent:</label>
+		<select id="rent" name="rent">
+			<option value="500-1000">500-1000</option>
+			<option value="1000-2000">1000-2000</option>
+			<option value="2000-3000">2000-3000</option>
+			<option value="3000-4000">3000-4000</option>
+			<option value="4000-5000">4000-5000</option>
+			<option value="5000-6000">5000-6000</option>
+			<option value="6000-7000">6000-7000</option>
+			<option value="7000-8000">7000-8000</option>
+			<option value="8000-9000">8000-9000</option>
+			<option value="9000-10000">9000-10000</option>
+			<option value="No preference">No preference</option>
+		
+			<form method="post">
+				<input type="submit" id="next" value="Next" formaction="Questions.html">
+			</form>
+			<script type="module">
+				import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
+				import { getDatabase, set, update, ref } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-database.js";
+				import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js";
+				
+			  
+				const firebaseConfig = {
+				  apiKey: "AIzaSyClqbgmtcPuED7LE3-2XXSooypjXiHQj38",
+				  authDomain: "roome-5bfa9.firebaseapp.com",
+				  databaseURL: "https://roome-5bfa9-default-rtdb.firebaseio.com",
+				  projectId: "roome-5bfa9",
+				  storageBucket: "roome-5bfa9.appspot.com",
+				  messagingSenderId: "564378590257",
+				  appId: "1:564378590257:web:6e18a1d7269d83af318910"
+				};
+			  
+			  
+				const app = initializeApp(firebaseConfig);
+				const db =  getDatabase(app); 
+				const auth = getAuth();
+			  
+				next.addEventListener('click', (e) => {
+			  
+					var location = document.getElementById("location").value;
+					var hometype = document.getElementById("hometype").value;
+					var roommategender = document.getElementById("roommategender").value;
+					var roommatesexuality = document.getElementById("roommatesexuality").value;
+					var ageOfRoomate = document.getElementById("ageOfRoomate").value;
+					var beds = document.getElementById("beds").value;
+					var bathrooms = document.getElementById("bathrooms").value;
+					var rent = document.getElementById("rent");
+					
+					const user = auth.currentUser;
+					if (user !== null) {
+					  const uid = user.uid;
+					  update(ref(db, "Users/"+ user.uid),{
+						  location: location,
+						  hometype: hometype,
+						  roommategender: roommategender,
+						  roommatesexuality: roommatesexuality,
+						  ageOfRoomate: ageOfRoomate,
+						  beds: beds,
+						  bathrooms: bathrooms,
+						  rent: rent,
+					  })
+					  .then(()=>{
+						  window.location.replace("Questions.html");
+					  })
+					  .catch((error)=>{
+						  alert(error);
+					  });
+					}
+					
+				});
+			  </script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+        body{
+        font-family: 'Poppins', sans-serif;
+        background-color: #FFE6E6;
+        }
+        .content-box{
+        width: 30vw;
+        height: 60vh;
+        border-radius: 2em;
+        box-shadow: 0 0 2em rgba(0, 0, 0, .2);
+        }
+        </style>
+         <link  rel="stylesheet" type = "text/css" href="/css/style.css">
+    </head>
+    <body>
+        <center>
+        <img src = "/images/rooMeclear.png" class = "logo" width = "30%" style="margin-top: -5%; margin-left:4%;">
+        <div class = "content-box" style="margin-top: -12%;">
+            <div class = "content-second-box" style = "padding-top: 15%;">
+                <label for="address">Address</label><br>
+                <input type="text" id="address" required> <br>
+                <label for="state">State</label><br>
+                <input type = "text" id="state" required> <br>
+                <label for="city">City</label><br>
+                <input type="text" id="city" required> <br>
+                <label for="beds">Beds</label><br>
+                <input type = "number" id="beds" required> <br>
+                <label for="baths">Baths</label><br>
+                <input type = "number" id="baths" required> <br>
+                <label for="price">Price</label><br>
+                <input type = "number" id="price" required> <br> <br>
+
+                <button type="button"  id="signUp">Submit!</button><br> <br>
+                
+            </div>
+        </div>
+    </center>
+    </body>
+    <script type="module">
+
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
+        import { getDatabase, set, ref, update, push } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-database.js";
+        import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, sendEmailVerification} from "https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js";
+    
+        const firebaseConfig = {
+          apiKey: "AIzaSyClqbgmtcPuED7LE3-2XXSooypjXiHQj38",
+          authDomain: "roome-5bfa9.firebaseapp.com",
+          databaseURL: "https://roome-5bfa9-default-rtdb.firebaseio.com",
+          projectId: "roome-5bfa9",
+          storageBucket: "roome-5bfa9.appspot.com",
+          messagingSenderId: "564378590257",
+          appId: "1:564378590257:web:6e18a1d7269d83af318910"
+        };
+  
+   
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth();
+        const db =  getDatabase(app);
+
+        signUp.addEventListener('click', function (e) {
+
+            const newHouseRef = push(ref(db, 'Houses'));
+            var address = document.getElementById("address").value;
+            var state = document.getElementById("state").value;
+            var city = document.getElementById("city").value;
+            var beds = document.getElementById("beds").value;
+            var baths = document.getElementById("baths").value;
+            var price = document.getElementById("price").value;
+                           
+            const newHouse = {
+                address: address,
+                city: city,
+                state: state,
+                beds: beds,
+                baths: baths,
+                price: price
+            };
+
+            set(newHouseRef, newHouse)
+            .then(() => {
+                alert("Added House!")
+            })
+            .catch((error) => {
+                alert("Error!")
+            });
+
+           
+
+            document.getElementById("address").value = "";
+            document.getElementById("city").value = "";
+            document.getElementById("state").value = "";
+            document.getElementById("beds").value = "";
+            document.getElementById("baths").value = "";
+            document.getElementById("price").value = "";
+
+        });
+
+        
+      </script>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat</title>
+    <link  rel="stylesheet" type = "text/css" href="/css/style.css">
+    </head>
+    <body>
+      <a href="ViewProfile.html">Home</a>
+      <a href="House.html">Listings</a>
+      <a href ="settings.html">Settings</a>
+        <div class="container">
+            <div class=" header">
+                <img src = "/images/rooMeclear.png" class = "logo" width = "30%" style="margin-bottom: -13%;">
+            <h1> Chat Page&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h1>
+            
+            <h2> Name </h2>
+        </div>
+            <div class=" body">
+           
+            <div id="chat-container">
+                <div id="chat-box">
+                  </div>
+                  <div class=" footer">
+                    
+                <form id="message-form">
+                </p>
+                  <input type="text" id="message-input" placeholder="Enter your message here...">
+                  <button id="send-button">Send</button>
+                </form>
+              </div>
+
+              <div id="page" class="site">
+                <div class="container">
+                    <nav> 
+                        <ul>
+                            <li class="active"><a href="../pages/ViewProfile.html"><span>Home</span><img src="favicon.png"></i></a> </li>
+                            <li><a href="../pages/Chat.html" >
+                                <span>Chat Page</span>
+                                <i class="ri-wechat-line"></i>
+                                <span class="label chat">1 </span>
+                            </a> </li>
+                            <li><a href="../houselistings/listing houses.html" ><span>Listing page</span><i class="ri-file-list-3-line"></i></a> </li>
+                            <li><a href="../pages/settings.html" ><span>Settings</span><i class="ri-settings-2-line"></i> </a> </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+          
+              <script>
+                
+                const chatBox = document.getElementById("chat-box");
+                const messageForm = document.getElementById("message-form");
+                const messageInput = document.getElementById("message-input");
+                const sendButton = document.getElementById("send-button");
+                sendButton.addEventListener("click", function(e) {
+              e.preventDefault();
+              const message = messageInput.value;
+              if (!message) return;
+                
+              chatBox.innerHTML += `<p>Name: ${message}</p>` ;
+              
+              messageInput.value = " ";
+              
+              
+            });
+              </script>
+              <script>
+                import {initializeApp} from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
+                import {getDatabase,  set, ref, push, child, onValue, onChildAdded} from "https://www.gstatic.com/firebasejs/9.17.2/firebase-database.js";
+                
+                const firebaseConfig = {
+                apiKey: "AIzaSyClqbgmtcPuED7LE3-2XXSooypjXiHQj38",
+                authDomain: "roome-5bfa9.firebaseapp.com",
+                databaseURL: "https://roome-5bfa9-default-rtdb.firebaseio.com",
+                projectId: "roome-5bfa9",
+                storageBucket: "roome-5bfa9.appspot.com",
+                messagingSenderId: "564378590257",
+                appId: "1:564378590257:web:6e18a1d7269d83af318910"
+                };
+
+                const app = initializeApp(firebaseConfig);
+                const database = getDatabase(app);
+
+
+              </script>
+            
+        </div>
+           
+
+
+        
+    </body>
+   
+</html>
+
+

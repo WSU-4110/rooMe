@@ -1,0 +1,188 @@
+<!DOCTYPE html >
+<html>
+<head>
+  <meta charset="utf-8" >
+  <link  rel="stylesheet" type = "text/css" href="/css/style.css">
+</head>
+
+<body>
+<br>
+
+<fieldset>
+
+<legend>Filter </legend> 
+
+<form>
+<label for="messageInput"></label>
+<input type="text" id="address" placeholder="Address" required> </input>
+<button id="sendButton">Search</button>
+</form>
+
+<br><br>
+<select name="states">
+      <option value="state"> Select State</option> 
+        <option value="alabama">Alabama</option>
+        <option value="alaska">Alaska</option>
+        <option value="arizona">Arizona</option>
+        <option value="arkansas">Arkansas</option>
+        <option value="california">California</option>
+        <option value="colorado">Colorado</option>
+        <option value="connecticut ">Connecticut </option>
+        <option value="delaware">Delaware</option>
+        <option value="florida">Florida</option>
+        <option value="georgia">Georgia</option>
+        <option value="hawaii">Hawaii</option>
+        <option value="idaho ">Idaho </option>
+        <option value=" illinois"> Illinois</option>
+        <option value="indiana ">Indiana </option>
+        <option value="iowa ">Iowa </option>
+        <option value="kansas">Kansas</option>
+        <option value="kentucky ">Kentucky </option>
+        <option value="louisiana">Louisiana</option>
+        <option value="maine">Maine</option>
+        <option value="maryland">Maryland</option>
+        <option value="massachusetts">Massachusetts</option>
+        <option value="michigan">Michigan</option>
+        <option value="minnesota">Minnesota</option>
+        <option value="mississippi">Mississippi</option>
+        <option value="missouri">Missouri</option>
+        <option value="montana">Montana</option>
+        <option value="nebraska">Nebraska</option>
+        <option value="nevada">Nevada</option>
+        <option value="newhampshire ">New Hampshire </option>
+        <option value="newjersey ">New Jersey </option>
+        <option value=" newmexico "> New Mexico </option>
+        <option value="newyork ">New York </option>
+        <option value=" northcarolina "> North Carolina </option>
+        <option value=" northdakota"> North Dakota</option>
+        <option value="ohio ">Ohio </option>
+        <option value="oklahoma">Oklahoma</option>
+        <option value="oregon">Oregon</option>
+        <option value="pennsylvania">Pennsylvania</option>
+        <option value="rhodeisland">Rhode Island</option>
+        <option value="southcarolina">South Carolina</option>
+        <option value="tennessee">Tennessee</option>
+        <option value="texas">Texas</option>
+        <option value="utah">Utah</option>
+        <option value="vermont">Vermont</option>
+        <option value="virginia">Virginia</option>
+        <option value="washington "> Washington </option>
+        <option value="westvirginia "> West Virginia </option>
+        <option value="wisconsin ">Wisconsin </option>
+        <option value="wyoming">Wyoming</option>
+    </select>
+<br><br>
+  <select name="price">
+    <option value="pricerange">Price Range</option>
+    <option value="zero-thousand">$0-$1000</option>
+    <option value="one-onehalfthousand">$1,000-$1,500</option>
+    <option value="onehalf-twothousand">$1,500-$2,000</option>
+    <option value="two-twohalfthousand">$2,000-$2,500</option>
+    </select>
+  <br><br>
+    <select name="numberofbeds">
+      <option value="beds">Beds</option>
+      <option value="one">1</option>
+      <option value="two">2</option>
+      <option value="three">3</option>
+      <option value="four">4</option>
+      <option value="five">5</option>
+      </select>
+
+<br><br>
+      <select name="numberofbaths">
+        <option value="Baths">Baths</option>
+        <option value="one">1</option>
+        <option value="two">2</option>
+        <option value="three">3</option>
+       
+        </select>
+
+
+
+
+
+
+<br><br>
+<input type= "submit" value="Next">
+
+<p id="output"> </p>
+
+<script type="module">
+
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
+  import { getDatabase, ref, onValue, update, query, orderByChild, equalTo, get, child, orderByKey}  from "https://www.gstatic.com/firebasejs/9.17.2/firebase-database.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyClqbgmtcPuED7LE3-2XXSooypjXiHQj38",
+    authDomain: "roome-5bfa9.firebaseapp.com",
+    databaseURL: "https://roome-5bfa9-default-rtdb.firebaseio.com",
+    projectId: "roome-5bfa9",
+    storageBucket: "roome-5bfa9.appspot.com",
+    messagingSenderId: "564378590257",
+    appId: "1:564378590257:web:6e18a1d7269d83af318910"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db =  getDatabase(app);
+
+  const output = document.getElementById("output");
+    
+  const houseRef = ref(db, "Houses");
+  onValue(houseRef,(snapshot) => {  
+    const houses = snapshot.val();
+    output.innerHTML = "";
+
+    for(let houseKey in houses){
+      const house = houses[houseKey];
+      const li = document.createElement("li");
+      li.innerText = `${house.address}: ${house.price}`;
+      output.appendChild(li);
+    }
+  });
+
+  sendButton.addEventListener('click', (e) => {
+    document.getElementById("output").innerHTML = "";
+    const columnName = "address";
+    const dataRef = ref(db, 'Houses');
+    var address = document.getElementById("address").value;
+
+    
+
+    //const dataQuery = query(dataRef, equalTo(address, columnName));
+
+    // onValue(dataQuery,(snapshot) => {  
+    // const houses = snapshot.val();
+    // output.innerHTML = "";
+
+    // for(let houseKey in houses){
+    //   const house = houses[houseKey];
+    //   const li = document.createElement("li");
+    //   li.innerText = `${house.address}: ${house.price}`;
+    //   output.appendChild(li);
+    // }
+    // });
+
+    // var  rooturl = dataQuery.toJSON();
+    // alert(rooturl);
+//    alert(dataQuery);
+// // Retrieve the data matching the query
+//     get(dataQuery).then((snapshot) => {
+//       if (snapshot.exists()) {
+//         console.log(snapshot.val());
+//       } else {
+//         console.log("No data matching query.");
+//       }
+//     }).catch((error) => {
+//       console.error(error);
+//     });
+
+  });
+  
+
+</script>
+</body>
+</fieldset>
+</html>

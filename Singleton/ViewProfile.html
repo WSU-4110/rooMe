@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <link  rel="stylesheet" type = "text/css" href="/css/style.css">
+    </head>
+    <body>
+    <center>
+    <div class = "page">
+        <center>
+    <div class = "sub-page" style = "display: flex; margin-left: 40px;">
+        <li><a href="settings.html">Settings</a></li>
+        <div class="content">
+            <img src = "../images/close.png" height="8%" width="8%" id = "swipeLeftBtn">
+            <div id="myDiv">
+              <center>
+            <div class = "card">
+                <div class = "content-first-half">
+                    <div class = "card_image">
+                        <img src = "../images/shark.png" alt = "shark profile image">
+                        <div class="card__content">
+                            <p id="firstName"> </p>
+                            <p id="lastName"> </p>
+                            <p id="location"> </p>
+                    </div>
+                    </div>
+                    <div class = "personal-info">
+                        <h1 class = "heading">About me:</h1>
+                        <p id = "aboutme"></p>
+                        <h1 class = "heading">Hobbies/Interests: </h1>
+                        <p id = "hobbies"></p>
+                        <h2 class = "questions">How do you prefer your living space?</h2>
+                        <p class = "answers">moderately clean</p>
+                        <h2 class = "questions">What time do you wake up and sleep?</h2>
+                        <p class = "answers">wake-up: 8am.</p>
+                        <p class = "answers">sleep: 12am.</p>
+                        <h2 class = "questions">How often are you going to have guests?</h2>
+                        <p class = "answers">once a week.</p>
+                        <h2 class = "questions">How often will your roommate have guests?</h2>
+                        <p class = "answers">once a week.</p>
+                        <h2 class = "questions">*PERSONAL QUESTION*</h2>
+                  </div>
+                </div>
+            </div>
+            </center>
+            </div>
+            <img src = "../images/match.png" id = "swipeRightBtn" height="8%" width="8%" style= "padding: 10px;">
+            </div>
+            <div id="page" class="site">
+              <div class="container">
+                  <nav> 
+                      <ul>
+                          <li class="active"><a href="../pages/ViewProfile.html"><span>Home</span><img src="favicon.png"></i></a> </li>
+                          <li><a href="../pages/Chat.html" >
+                              <span>Chat Page</span>
+                              <i class="ri-wechat-line"></i>
+                              <span class="label chat">1 </span>
+                          </a> </li>
+                          <li><a href="../houselistings/listing houses.html" ><span>Listing page</span><i class="ri-file-list-3-line"></i></a> </li>
+                          <li><a href="../pages/settings.html" ><span>Settings</span><i class="ri-settings-2-line"></i> </a> </li>
+                      </ul>
+                  </nav>
+              </div>
+          </div>
+        
+<script type="module">
+
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
+    import { getDatabase, ref, onValue, update}  from "https://www.gstatic.com/firebasejs/9.17.2/firebase-database.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js";
+  
+    const firebaseConfig = {
+      apiKey: "AIzaSyClqbgmtcPuED7LE3-2XXSooypjXiHQj38",
+      authDomain: "roome-5bfa9.firebaseapp.com",
+      databaseURL: "https://roome-5bfa9-default-rtdb.firebaseio.com",
+      projectId: "roome-5bfa9",
+      storageBucket: "roome-5bfa9.appspot.com",
+      messagingSenderId: "564378590257",
+      appId: "1:564378590257:web:6e18a1d7269d83af318910"
+    };
+  
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth();
+    const db =  getDatabase(app);
+  
+    onAuthStateChanged(auth, (user) => {
+    if (user) {
+      // User is signed in, see docs for a list of available properties
+      // https://firebase.google.com/docs/reference/js/firebase.User
+      const uid = user.uid;
+      const starCountRef = ref(db, 'Users/' + uid);
+      onValue(starCountRef, (snapshot) => {
+        const data = snapshot.val();
+        document.getElementById("firstName").innerHTML = data.firstName;
+        document.getElementById("lastName").value = data.lastName;
+        // document.getElementById("inputEmail").value = data.email;
+        // document.getElementById("inputUsername").value = data.username;
+        //document.getElementById("occupation").value = data.occupation;
+        document.getElementById("location").value = data.location;
+        // document.getElementById("inputState").value = data.state;
+        // document.getElementById("inputZipCode").value = data.zip_code;
+        //document.getElementById("aboutme").value = data.aboutme;
+        //document.getElementById("hobbies").value = data.hobbies;
+      });
+    } else {
+      // User is signed out
+      uid = null;
+    }
+    });
+    console.log();
+const myDiv = document.getElementById('myDiv');
+const swipeLeftBtn = document.getElementById('swipeLeftBtn');
+const swipeRightBtn = document.getElementById('swipeRightBtn');
+
+swipeLeftBtn.addEventListener('click', () => {
+  myDiv.classList.add('swipe-left');
+});
+
+swipeRightBtn.addEventListener('click', () => {
+  myDiv.classList.add('swipe-right');
+});
+  </script>
+    </body>
+</html>
