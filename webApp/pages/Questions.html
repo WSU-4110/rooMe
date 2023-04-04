@@ -32,58 +32,55 @@
       </textarea>
       <br>
       <a href = "ViewProfile.html"><button" id="viewprofile">View Profiles!</button><br></a>
-
-      <script src="firebase.js"></script>
-      <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
-        import { getDatabase, set, update, ref } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-database.js";
-        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js";
-        
-      
-        const firebaseConfig = {
-          apiKey: "AIzaSyClqbgmtcPuED7LE3-2XXSooypjXiHQj38",
-          authDomain: "roome-5bfa9.firebaseapp.com",
-          databaseURL: "https://roome-5bfa9-default-rtdb.firebaseio.com",
-          projectId: "roome-5bfa9",
-          storageBucket: "roome-5bfa9.appspot.com",
-          messagingSenderId: "564378590257",
-          appId: "1:564378590257:web:6e18a1d7269d83af318910"
-        };
-      
-      
-        const app = initializeApp(firebaseConfig);
-        const db =  getDatabase(app); 
-        const auth = getAuth();
-      
-        viewprofile.addEventListener('click', (e) => {
-      
-            var aboutme = document.getElementById("aboutme").value;
-            var interests = document.getElementById("interests").value;
-            var cleanlinesspreference = document.getElementById("cleanlinesspreference").value;
-            var sleep = document.getElementById("sleep").value;
-            var usersguest = document.getElementById("usersguest").value;
-            var roommateguest = document.getElementById("roommateguest").value;
-            
-            const user = auth.currentUser;
-            if (user !== null) {
-              const uid = user.uid;
-              update(ref(db, "Users/"+ user.uid),{
-                  aboutme: aboutme,
-                  interests: interests,
-                  cleanlinesspreference: cleanlinesspreference,
-                  sleep: sleep,
-                  usersguest: usersguest,
-                  roommateguest: roommateguest,
-              })
-              .then(()=>{
-                  window.location.replace("ViewProfile.html");
-              })
-              .catch((error)=>{
-                  alert(error);
-              });
-            }
-            
-        });
-      </script>
     </body>
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
+      import { getDatabase, set, update, ref } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-database.js";
+      import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js";
+      
+      
+      const firebaseConfig = {
+        apiKey: "AIzaSyClqbgmtcPuED7LE3-2XXSooypjXiHQj38",
+        authDomain: "roome-5bfa9.firebaseapp.com",
+        databaseURL: "https://roome-5bfa9-default-rtdb.firebaseio.com",
+        projectId: "roome-5bfa9",
+        storageBucket: "roome-5bfa9.appspot.com",
+        messagingSenderId: "564378590257",
+        appId: "1:564378590257:web:6e18a1d7269d83af318910"
+      };
+      
+      
+      const app = initializeApp(firebaseConfig);
+      const db =  getDatabase(app); 
+      const auth = getAuth();
+      
+      next.addEventListener('click', (e) => {
+        var abtme = document.getElementById("aboutme1").value;
+        var interests1 = document.getElementById("interests1").value;
+        var cleanlinesspreference= document.getElementById("cleanlinesspreference1").value;
+        var sleep = document.getElementById("sleep1").value;
+        var usersguest = document.getElementById("usersguest1").value;
+        var roomatesguest = document.getElementById("roomatesguest1").value;
+        
+        const user = auth.currentUser;
+        if (user !== null) {
+          const uid = user.uid;
+          update(ref(db, "Users/"+ user.uid),{
+            aboutme: abtme,
+            interest: interests1,
+            cleanlinesspreference: cleanlinesspreference,
+            sleep: sleep,
+            usersguest: usersguest,
+            roomatesguest: roomatesguest
+          })
+          .then(()=>{
+            window.location.replace("ViewProfile.html");
+          })
+          .catch((error)=>{
+            alert(error);
+          });
+        }
+      });
+      
+    </script>
 </html>
