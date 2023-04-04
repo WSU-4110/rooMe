@@ -128,12 +128,14 @@ font-size: 1em;
    <input type = "text" class = "form-control" id = "inputVerifyPassword" placeholder = "Verify Password">
   </div>
 </br>
+
+
+<button type="button"  id="pass">Change password</button><br> <br>
 <button type="button"  id="editProfile">Edit Profile!</button><br> <br>
 </center>
 
 
 </body>
-
 <script type="module">
 
   
@@ -215,9 +217,43 @@ font-size: 1em;
     }
 
   });
+  pass.addEventListener("click", function(e) {
+                var email = document.getElementById("email").value;
+
+                sendPasswordResetEmail(auth, email)
+                .then(() => {
+
+                    alert(`Sent password reset link to ${email}`)
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    
+                });
+
   
 
 </script>
+<script src="https://smtpjs.com/v3/smtp.js"></script>
+<script>
+
+    function sendEmail(){
+    Email.send({
+    SecureToken : "7a4ad504-5af9-43b5-a4cd-a91ee795242d",
+    To : document.getElementById("inputEmail").value,
+    From : "rukiyahalgahim@gmail.com",
+    Subject : "Pop notification testing",
+    Body : " First Name: "+ document.getElementById("inputFirstName").value + "<br> Last Name: "+ document.getElementById("inputLastName").value +"<br> Email Address: " + document.getElementById("inputEmail").value+"<br> Address: " + document.getElementById("inputAddress").value
+    + "<br> City: "+ document.getElementById("inputCity").value + "<br> State: " + document.getElementById("inputState").value + "<br> Zip Code: "+ document.getElementById("inputZipCode").value + "<br> Current Password: " + document.getElementById("inputCurrentPassword").value
+    + "<br> New Password: " + document.getElementById("inputNewPassword").value
+}).then(message => {
+  alert("Message Sent Successfully");
+});
+}
+
+</script>
+</script>
+
 
 </html>
 
