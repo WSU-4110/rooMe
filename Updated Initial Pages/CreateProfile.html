@@ -12,9 +12,9 @@
         background-image: url("createprofilebackground.jpg");
         }
         .content-box{
-        width: 24vw;
-        height: 65vh;
-        margin-top: -2%;
+        width: 45vw;
+        height: 50vh;
+        margin-top: -1.5%;
         padding-top: 0.2%;
         border-radius: 2em;
         background-color: white;
@@ -28,8 +28,8 @@
         border-radius: 0.3em;
         }
         #logo{
-        width: 30vw;
-        margin-left: 2%;
+        width: 20vw;
+        margin-left: 0%;
         z-index: 1;
         }
         #createProfile{
@@ -47,6 +47,9 @@
         width: 20%;
         margin-top: 2%;
         }
+        .columns{
+          display: flex;
+        }
   </style>
 </head>
 <body>
@@ -54,16 +57,23 @@
     <img id = "logo" src = "logo.png">
   <div class = "content-box">
   <h1 style = "margin-bottom: -1%;">Create a Profile</h1>
-    <input type="text" placeholder="First Name" id="firstName">
-    <input type="text" placeholder="Last Name" id="lastName"> <br>
-    <input type="number" placeholder="Age" id="age"> <br>
-    <input type="location" placeholder="Location" id="location"> <br>
-    <input type="tel" placeholder="Phone Number" id="phonenumber"> <br>
-    <input type="email" placeholder="Email" id="email" required> <br>
-    <input type="password" placeholder="Password" id="password" required> <br>
-    <input type="text" placeholder="Sexuality"id="sexuality"> <br> <br>
+  <div class = "columns">
+  <div class = "column1">
+    <input type="text" placeholder="First Name" id="firstname">
+    <input type="text" placeholder="Last Name" id="lastname">
+    <input type="number" placeholder="Age" id="age"> 
+    <input type="text" placeholder="Gender"id="Gender"> 
+    <input type="text" placeholder="Occupation"id="occupation"> 
   </div>
-  <button type="button"  id="createProfile">Done</button><br> <br>
+  <div class = "column2">
+    <input type="text" placeholder="City" id="city">
+    <input type="text" placeholder="State" id="State"> 
+    <input type="tel" placeholder="Phone Number" id="phonenumber">
+    <input type="email" placeholder="Email" id="email" required>
+    <input type="password" placeholder="Password" id="password" required>
+  </div>
+</div>
+  <button type="button" id="createProfile">Done</button>
   </center>
 </body>
 
