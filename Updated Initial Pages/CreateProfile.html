@@ -80,7 +80,7 @@
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
   import { getDatabase, set, update, ref } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-database.js";
-  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js";
+  import { getAuth, onAuthStateChanged, sendEmailVerification, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js";
   
 
   const firebaseConfig = {
@@ -98,38 +98,59 @@
   const db =  getDatabase(app); 
   const auth = getAuth();
 
+
   createProfile.addEventListener('click', (e) => {
 
-      var firstName = document.getElementById("firstName").value;
-      var lastName = document.getElementById("lastName").value;
-      var location = document.getElementById("location").value;
-      var phonenumber = document.getElementById("phonenumber").value;
-      var sexuality = document.getElementById("sexuality").value;
+      var firstName = document.getElementById("firstname").value;
+      var lastName = document.getElementById("lastname").value;
       var age = document.getElementById("age").value;
+      var gender = document.getElementById("Gender").value;
+      var occupation = document.getElementById("occupation").value;
+      var city = document.getElementById("city").value;
+      var state = document.getElementById("State").value;
+      var phonenumber = document.getElementById("phonenumber").value;   
+      var email = document.getElementById("email").value;
+      var password = document.getElementById("password").value;
+
+      createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                var user = userCredential.user;
+                // const actionCodeSettings = {
+                //     url: 'http://localhost:52330/pages/LandingPage.html?signup=true',
+                //     handleCodeInApp: false,
+                // };
+
+                //sendEmailVerification(user); 
+                //alert("Sent verification email!  Please verify email before proceeding.")
   
-      const user = auth.currentUser;
-      if (user !== null) {
-        const uid = user.uid;
-        update(ref(db, "Users/"+ user.uid),{
-            username: "",
-            firstName: firstName,
-            lastName: lastName,
-            location: location,
-            phonenumber: phonenumber,
-            sexuality: sexuality,
-            age: age,
-            address: "",
-            state: "",
-            zip_code: " "  
-        })
-        .then(()=>{
-            window.location.replace("QuestionPage.html");
-        })
-        .catch((error)=>{
-            alert(error);
-        });
-      }
-      
+                set(ref(db, "Users/"+ user.uid),{
+                email: email,
+                firstName: firstName,
+                lastName: lastName,
+                age: age,
+                gender: gender,
+                occupation:occupation,
+                city: city,
+                state: state,
+                phonenumber: phonenumber,
+                })
+                .then(()=>{
+                    alert(`Registered with ${email}`);
+                    //window.location.replace(""); ////////////// ADD THE DESIRED HTML HERE
+                })
+                .catch((error)=>{
+                    alert(error);
+                });
+            
+
+            })
+            .catch((error) => {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                // ..
+                alert(errorMessage)
+            });
+
   });
 
 </script>
