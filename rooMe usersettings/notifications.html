@@ -65,7 +65,48 @@ font-size: 1em;
     
     </fieldset>
 
+    <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+    <script>
+      var OneSignal = window.OneSignal || [];
+      OneSignal.push(function() {
+        OneSignal.init({
+          appId: "e6182c26-65a1-46a2-9f34-2adbbe0b9706",
+          allowLocalhostAsSecureOrigin: true,
+        });
+      });
+    </script>
 
+    <script>
+
+      // Get the user's subscription ID from OneSignal
+OneSignal.getUserId().then(function(userId) {
+  // Create the notification payload
+  var notification = {
+    contents: {
+      en: "New message from RooMe!"
+    },
+    headings: {
+      en: "RooMe Chat"
+    },
+  };
+
+  // Send the notification to the user's device
+  fetch("https://onesignal.com/api/v1/notifications", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": "NTY4MjJjN2ItZmNjNi00OGNiLTkwMWEtYzM3MTk2MTUyZDkx"
+    },
+    body: JSON.stringify(notification)
+  }).then(function(response) {
+    console.log("Notification sent:", response);
+  }).catch(function(error) {
+    console.log("Notification failed:", error);
+  });
+});
+
+    </script>
+    
 </center>
 </body>
 </html>

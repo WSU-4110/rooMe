@@ -3,17 +3,14 @@
 <head>
 <meta charset="utf-8">
  <title>RooMe's User Settings</title>
- <link rel="stylesheet" href="style.css">
 
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
-
 body {
 background-color: #E2E7E8; 
 margin: 0 10%; 
 font-family: 'Poppins', sans-serif;
 }
-
 h1 {
 text-align: center;
 font-family: serif;
@@ -22,23 +19,20 @@ text-transform: uppercase;
 border-bottom: 1px solid #57b1dc; 
 margin-top: 30px;
 }
-
 h2{
 color: #135FE3;
 font-size: 1em;
 }
-
-.profile_pic
+.profile
 {
   position: relative;
-  width: 100px;
-  height:100px;
+  width: 60px;
+  height:60px;
   border-radius: 50%;
   overflow: hidden;
   cursor: pointer;
 }
-
-#photo
+.profile img
 {
   position: absolute;
   top: 0;
@@ -47,187 +41,195 @@ font-size: 1em;
   height: 100%;
   object-fit: cover;
 }
-
-#file{
-    display: none;
-}
-
-#uploadButton{
-    height: 40px;
-    width: 100%;
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    text-align: center;
-    background: rgba(0, 0, 0, 0.7);
-    color: wheat;
-    line-height: 30px;
-    font-family: sans-serif;
-    font-size: 12px;
-    cursor: pointer;
-    display: none;
-}
-button{
-   padding: 5px;
-   background: white;
-   border: none;
-   font-size: 18px;
-   border-radius: 20px;
-   cursor: pointer;
-   outline: none;
-   width: 150px;
-   color: black;
-}
-
-
-
-
 </style>
 
 </head>
-<body>
-  <center>
-  <img src = "rooMeclear.png" class = "logo" width = "30%" style="margin-bottom: -10%">
-<br><h1> Edit Profile </h1>
 
-<div class="profile_pic">
-  <img src="user.jpg" id="photo">
-  <input type="file" id="file">
-  <label for="file" id="uploadButton">Choose Photo</label>
+<body>
+<center>
+<img src = "/images/rooMeclear.png" class = "logo" width = "30%" style="margin-bottom: -10%">
+<a href="settings.html"><p> Settings</p></a>
+<br> Edit Profile </h1>
+
+<div class="profile">
+<img src="/images/user.jpg">
 </div>
 
-<script> 
+<h2>Public Information</h2>
 
-  const profilepic = document.querySelector('.profile_pic');
-  const img = document.querySelector('#photo');
-  const file = document.querySelector('#file');
-  const uploadButton = document.querySelector('#uploadButton');
-  
-  
-  profilepic.addEventListener('mouseenter', function(){
-      uploadButton.style.display = "block";
-  });
-  
-  
-  
-  profilepic.addEventListener('mouseleave', function(){
-      uploadButton.style.display = "none";
-  });
-  
-  
-  file.addEventListener('change', function(){
-  
-      const choosedFile = this.files[0];
-  
-      if (choosedFile) {
-  
-          const reader = new FileReader(); 
-  
-          reader.addEventListener('load', function(){
-              img.setAttribute('src', reader.result);
-          });
-  
-          reader.readAsDataURL(choosedFile);
-  
-      }
-  });
-  </script>
+ <div class="form-group">
+   <label for="inputUsername">Username</label>
+   <!-- <p id = 'firstName'> </p> -->
+   <input type="text" class="form-control" id="inputUsername" placeholder="Username"> </input>
+  </div>
 
+<!-- <p id = 'firstName'> </p> -->
+<h2>Private Information </h2>
 
-
-<form onsubmit="sendEmail(); reset(); return false;">
 <br>
-<label for = "inputFirstName">First Name</label>
-   <input type = "text" class = "form-control" id = "inputFirstName"  placeholder = "First Name" required> </body>
+<label for = "inputFirstName">firstName</label>
+   <input type = "text" class = "form-control" id = "inputFirstName"  placeholder = "First Name"> </body>
   </div>
 </br>
 
 <br>
 <label for = "inputLastName">Last Name</label>
-   <input type = "text" class = "form-control" id = "inputLastName" placeholder = "Last Name" required>
+   <input type = "text" class = "form-control" id = "inputLastName" placeholder = "Last Name">
   </div>
 </br>
 
 <br>
 <label for = "inputEmail">Email</label>
-   <input type = "text" class = "form-control" id = "inputEmail" placeholder = "Email" required>
-  </div>
-</br>
-
-<br>
-<label for = "inputFirstName">Phone Number</label>
-   <input type = "text" class = "form-control" id = "inputPhoneNumber"  placeholder = "Phone Number" required> </body>
+   <input type = "text" class = "form-control" id = "inputEmail" placeholder = "Email">
   </div>
 </br>
 
 <br>
 <label for = "inputAddress">Address</label>
-   <input type = "text" class = "form-control" id = "inputAddress" placeholder = "Address" required>
+   <input type = "text" class = "form-control" id = "inputAddress" placeholder = "Address">
   </div>
 </br>
 
 <br>
 <label for = "inputCity">City</label>
-   <input type = "text" class = "form-control" id = "inputCity" placeholder = "City" required>
+   <input type = "text" class = "form-control" id = "inputCity" placeholder = "City">
   </div>
 </br>
 
 <br>
 <label for = "inputState">State</label>
-   <input type = "text" class = "form-control" id = "inputState" placeholder = "State" required>
+   <input type = "text" class = "form-control" id = "inputState" placeholder = "State">
   </div>
 </br>
 
 <br>
 <label for = "inputZipCode">Zip Code</label>
-   <input type = "text" class = "form-control" id = "inputZipCode" placeholder = "Zip Code" required>
+   <input type = "text" class = "form-control" id = "inputZipCode" placeholder = "Zip Code">
   </div>
 </br>
 
 
-<h2>Password</h2>
+<button type="button"  id="pass">Change password</button><br> <br>
+<button type="button"  id="editProfile">Edit Profile!</button><br> <br>
+</center>
 
-<br>
-<label for = "inputCurrentPassword">Current Password</label>
-   <input type = "text" class = "form-control" id = "inputCurrentPassword" placeholder = "Current Password" required>
-  </div>
-</br>
 
-<br>
-<label for = "inputNewPassword">New Password</label>
-   <input type = "text" class = "form-control" id = "inputNewPassword" placeholder = "New Password" required>
-  </div>
-</br>
+</body>
+<script type="module">
 
-<br>
-<label for = "inputVerifyPassword">Verify Password</label>
-   <input type = "text" class = "form-control" id = "inputVerifyPassword" placeholder = "Verify Password" required>
-  </div>
-</br><br><br>
-<button id="submit" type="submit">Submit</button>
-<br><br><br>
-</form>
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
+  import { getDatabase, ref, onValue, update}  from "https://www.gstatic.com/firebasejs/9.17.2/firebase-database.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyClqbgmtcPuED7LE3-2XXSooypjXiHQj38",
+    authDomain: "roome-5bfa9.firebaseapp.com",
+    databaseURL: "https://roome-5bfa9-default-rtdb.firebaseio.com",
+    projectId: "roome-5bfa9",
+    storageBucket: "roome-5bfa9.appspot.com",
+    messagingSenderId: "564378590257",
+    appId: "1:564378590257:web:6e18a1d7269d83af318910"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth();
+  const db =  getDatabase(app);
+
+  // This block of code will extract information from database and show on html. Make sure the id of the tags match. 
+  onAuthStateChanged(auth, (user) => {
+  if (user) {
+    // User is signed in, see docs for a list of available properties
+    // https://firebase.google.com/docs/reference/js/firebase.User
+    const uid = user.uid;
+    const starCountRef = ref(db, 'Users/' + uid);
+    onValue(starCountRef, (snapshot) => {
+      const data = snapshot.val();
+      document.getElementById("inputFirstName").value = data.firstName; // data.firstname is the firstname of the user store in the database.
+      document.getElementById("inputLastName").value = data.lastName;
+      document.getElementById("inputEmail").value = data.email;
+      document.getElementById("inputUsername").value = data.username;
+      document.getElementById("inputCity").value = data.location;
+      document.getElementById("inputAddress").value = data.address;
+      document.getElementById("inputState").value = data.state;
+      document.getElementById("inputZipCode").value = data.zip_code;
+    });
+  } else {
+    // User is signed out
+    uid = null;
+  }
+  });
+
+
+  editProfile.addEventListener('click', (e) => {
+
+    var firstName = document.getElementById("inputFirstName").value; 
+    var lastName = document.getElementById("inputLastName").value; 
+    var email = document.getElementById("inputEmail").value; 
+    var username = document.getElementById("inputUsername").value; 
+    var city = document.getElementById("inputCity").value; 
+    var address = document.getElementById("inputAddress").value; 
+    var state = document.getElementById("inputState").value; 
+    var zipcode = document.getElementById("inputZipCode").value; 
+
+    const user = auth.currentUser;
+    if (user !== null) {
+      const uid = user.uid;
+
+      update(ref(db, "Users/"+ user.uid),{
+          username: username,
+          firstName: firstName,
+          lastName: lastName,
+          location: city,
+          email: email,
+          address:address,
+          state: state,
+          zip_code: zipcode 
+      })
+      .then(()=>{
+        alert(`User information updated!`);
+      })
+      .catch((error)=>{
+          alert(error);
+      });
+    }
+
+  });
+  pass.addEventListener("click", function(e) {
+                var email = document.getElementById("email").value;
+
+                sendPasswordResetEmail(auth, email)
+                .then(() => {
+
+                    alert(`Sent password reset link to ${email}`)
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    
+                });
+
+</script>
 
 <script src="https://smtpjs.com/v3/smtp.js"></script>
 <script>
-    function sendEmail(){
-    Email.send({
-    SecureToken : "7a4ad504-5af9-43b5-a4cd-a91ee795242d",
-    To : document.getElementById("inputEmail").value,
-    From : "rukiyahalgahim@gmail.com",
-    Subject : "Pop notification testing",
-    Body : " First Name: "+ document.getElementById("inputFirstName").value + "<br> Last Name: "+ document.getElementById("inputLastName").value +"<br> Email Address: " + document.getElementById("inputEmail").value+"<br> Address: " + document.getElementById("inputAddress").value
-    + "<br> City: "+ document.getElementById("inputCity").value + "<br> State: " + document.getElementById("inputState").value + "<br> Zip Code: "+ document.getElementById("inputZipCode").value + "<br> Current Password: " + document.getElementById("inputCurrentPassword").value
-    + "<br> New Password: " + document.getElementById("inputNewPassword").value
+
+    function sendEmail(){
+    Email.send({
+    SecureToken : "7a4ad504-5af9-43b5-a4cd-a91ee795242d",
+    To : document.getElementById("inputEmail").value,
+    From : "rukiyahalgahim@gmail.com",
+    Subject : "Pop notification testing",
+    Body : " First Name: "+ document.getElementById("inputFirstName").value + "<br> Last Name: "+ document.getElementById("inputLastName").value +"<br> Email Address: " + document.getElementById("inputEmail").value+"<br> Address: " + document.getElementById("inputAddress").value
+    + "<br> City: "+ document.getElementById("inputCity").value + "<br> State: " + document.getElementById("inputState").value + "<br> Zip Code: "+ document.getElementById("inputZipCode").value + "<br> Current Password: " + document.getElementById("inputCurrentPassword").value
+    + "<br> New Password: " + document.getElementById("inputNewPassword").value
 }).then(message => {
-  alert("message sent successfully");
+  alert("Message Sent Successfully");
 });
 }
 
 </script>
 </script>
-</center>
-</body>
-</html>
 
+
+</html>
+`
