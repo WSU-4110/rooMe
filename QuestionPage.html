@@ -3,32 +3,66 @@
 <head>
 	<title>Questions Page</title>
 	<link rel="stylesheet" href="style.css">
+	<script>
+		// Array of question IDs
+		const questions = ["location", "home-type", "roommate-gender", "roommate-sexuality", "ageOfRoomate", "beds", "bathrooms", "rent"];
+		// Index of current question
+		let currentQuestion = 0;
+		
+		// Function to show the current question and hide all others
+		function showCurrentQuestion() {
+			for (let i = 0; i < questions.length; i++) {
+				const question = document.getElementById(questions[i]);
+				if (i === currentQuestion) {
+					question.style.display = "block";
+				} else {
+					question.style.display = "none";
+				}
+			}
+		}
+		
+		// Function to move to the next question and show it
+		function nextQuestion() {
+			currentQuestion++;
+			if (currentQuestion >= questions.length) {
+				// End of questions, show submit button
+				document.getElementById("submit-btn").style.display = "block";
+			} else {
+				showCurrentQuestion();
+			}
+		}
+	</script>
 </head>
 <body>
+	<form name="questions-form" method="post">
+		<div id="location">
+			<label for="location-input">Location:</label>
+			<input type="text" id="location-input" name="location" placeholder="Enter your location" />
+		</div>
+		
+		<div id="home-type" style="display:none;">
+			<label for="home-type-input">Home Type:</label>
+			<select id="home-type-input" name="home-type">
+				<option value="apartment">Apartment</option>
+				<option value="townhome">Townhome</option>
+				<option value="house">House</option>
+				<option value="No preference">No preference</option>
+			</select>
+		</div>
 
-	<form>
-		<form>
-			<label for="location">Location:</label>
-			<input type="text" id="location" name="location" placeholder="Enter your location" />
-	
-
-		<label for="home-type">Home Type:</label>
-		<select id="home-type" name="home-type">
-			<option value="apartment">Apartment</option>
-			<option value="townhome">Townhome</option>
-			<option value="house">House</option>
-			<option value="No preference">No preference</option>
-		</select>
-
-    
-    <label for="roommate-gender">Roommate Gender:</label>
-		<select id="roommate-gender" name="roommate-gender">
-			<option value="Male">Male</option>
-			<option value="Female">Female</option>
-			<option value="No Preference">No Preference</option>
-		</select>
-
-		 <label for="roommate-sexuality">Roommate Sexuality:</label>
+		
+		
+		<div id="roommate-gender" style="display:none;">
+			<label for="roommate-gender-input">Roommate Gender:</label>
+			<select id="roommate-gender-input" name="roommate-gender">
+				<option value="Male">Male</option>
+				<option value="Female">Female</option>
+				<option value="No Preference">No Preference</option>
+			</select>
+		</div>
+		
+		<div id="roommate-sexuality" style="display:none;">
+		<label for="roommate-sexuality">Roommate Sexuality:</label>
 		<select id="roommate-sexuality" name="roommate-sexuality">
 			<option value="Straight">Straight</option>
 			<option value="Gay">Gay</option>
@@ -36,48 +70,55 @@
 			<option value="Bisexual">Bisexual</option>
 			<option value="No Preference">No Preference</option>
 		</select>
+		</div>
+
+		<div id="ageOfRoomate" style="display:none;">
+		<label for="ageOfRoomate">Roomates Age:</label>
+       <select id="ageOfRoomate" name="ageOfRoomate">
+           <option value="18-25">18-25</option>
+           <option value="25-30">25-30</option>
+           <option value="30-35">30-35</option>
+           <option value="35-40">35-40</option>
+           <option value="40-45">40-45</option>
+           <option value="45-50">45-50</option>
+           <option value="50-55">50-55</option>
+           <option value="55-60">55-60</option>
+           <option value="60-65">60-65</option>
+           <option value="65-70">65-70</option>
+           <option value="70-75">70-75</option>
+           <option value="75-80">75-80</option>
+           <option value="80-85">80-85</option>
+           <option value="85-90">85-90</option>
+           <option value="90-95">90-95</option>
+           <option value="95-100">95-100</option>
+           <option value="No preference">No preference</option>
+          
+       </select>
+	</div>
 	
-	<label for="ageOfRoomate">Roomates Age:</label>
-		<select id="ageOfRoomate" name="ageOfRoomate">
-			<option value="18-25">18-25</option>
-			<option value="25-30">25-30</option>
-			<option value="30-35">30-35</option>
-			<option value="35-40">35-40</option>
-			<option value="40-45">40-45</option>
-			<option value="45-50">45-50</option>
-			<option value="50-55">50-55</option>
-			<option value="55-60">55-60</option>
-			<option value="60-65">60-65</option>
-			<option value="65-70">65-70</option>
-			<option value="70-75">70-75</option>
-			<option value="75-80">75-80</option>
-			<option value="80-85">80-85</option>
-			<option value="85-90">85-90</option>
-			<option value="90-95">90-95</option>
-			<option value="95-100">95-100</option>
-			<option value="No preference">No preference</option>
-			
-		</select>
-
-		<label for="beds">Bedrooms:</label>
-		<select id="beds" name="beds">
-			<option value="1-2">1-2</option>
-			<option value="2-3">2-3</option>
-			<option value="3-4">3-4</option>
-			<option value="4-5">4-5</option>
-			<option value="No preference">No preference</option>
-
-		</select>
-
+	<div id="beds" style="display:none;">
+	<label for="beds">Bedrooms:</label>
+	<select id="beds" name="beds">
+		<option value="1-2">1-2</option>
+		<option value="2-3">2-3</option>
+		<option value="3-4">3-4</option>
+		<option value="4-5">4-5</option>
+		<option value="No preference">No preference</option>
+	</select>
+	</div>
+	
+		<div id="bathrooms" style="display:none;">
 		<label for="bathrooms">Bathrooms:</label>
 		<select id="bathrooms" name="bathrooms">
 			<option value="1-2">1-2</option>
 			<option value="2-3">2-3</option>
 			<option value="3-4">3-4</option>
-			<option value="4-5">4-5</option>
+			<option value="4-5">4-5</option> 
 			<option value="No preference">No preference</option>
 
 		</select>
+	</div>
+	<div id="rent" style="display:none;">
 
 		<label for="rent">Rent:</label>
 		<select id="rent" name="rent">
@@ -92,10 +133,15 @@
 			<option value="8000-9000">8000-9000</option>
 			<option value="9000-10000">9000-10000</option>
 			<option value="No preference">No preference</option>
-		
-			<form method="post">
-				<input type="submit" value="Next" formaction="Questions.html">
-			</form>
+			</select>
+		</div>
 
+		<input type="button" value="Next" onclick="nextQuestion()">
+		<input type="submit" id="submit-btn" value="Submit" formaction="Questions.html" style="display:none;">
+
+</form>
 </body>
 </html>
+
+
+
