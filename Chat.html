@@ -4,52 +4,111 @@
     <title>Chat</title>
     <link  rel="stylesheet" type = "text/css" href="style.css">
     </head>
-    <body>
-        <div class="container">
-            <div class=" header">
-               
-            <h1> Chat Page</h1>
-            <h2> Name </h2>
-        </div>
-            <div class=" body">
-           
-            <div id="chat-container">
-                <div id="chat-box">
-                  </div>
-                  <div class=" footer">
-                    
-                <form id="message-form">
-                </p>
-                  <input type="text" id="message-input" placeholder="Enter your message here...">
-                  <button id="send-button">Send</button>
-                </form>
-              </div>
-             
-              <script>
-                
-                const chatBox = document.getElementById("chat-box");
-                const messageForm = document.getElementById("message-form");
-                const messageInput = document.getElementById("message-input");
-                const sendButton = document.getElementById("send-button");
-                sendButton.addEventListener("click", function(e) {
-              e.preventDefault();
-              const message = messageInput.value;
-              if (!message) return;
-                
-              chatBox.innerHTML += `<p>Name: ${message}</p>` ;
-              
-              messageInput.value = " ";
-              
-              
-            });
-              </script>
-            
-        </div>
-           
+   <body>
+    <a href="ViewProfile.html">Home</a>
+    <a href="House.html">Listings</a>
+    <a href ="settings.html">Settings</a>
+   
+      <div class="container">
+          <div class=" header">
+              <img src = "/images/rooMeclear.png" class = "logo" width = "30%" style="margin-bottom: -13%;">
+          <h1> Chat Page&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h1>
+          
+          <h2> Name </h2>
+      <select id="select-receiver">
+      </select> <br>
 
+      <input type="text" id="message-input">
+      <button id="send-button">Send</button>
 
-        
+      <div id="chat-box"></div>
+    
     </body>
+    <script type="module">
+      
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
+      import {getDatabase,  set, ref, push, child, onValue, onChildAdded} from "https://www.gstatic.com/firebasejs/9.17.2/firebase-database.js";
+      import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js";
+    
+      const firebaseConfig = {
+        apiKey: "AIzaSyClqbgmtcPuED7LE3-2XXSooypjXiHQj38",
+        authDomain: "roome-5bfa9.firebaseapp.com",
+        databaseURL: "https://roome-5bfa9-default-rtdb.firebaseio.com",
+        projectId: "roome-5bfa9",
+        storageBucket: "roome-5bfa9.appspot.com",
+        messagingSenderId: "564378590257",
+        appId: "1:564378590257:web:6e18a1d7269d83af318910"
+      };
+
+      
+      const app = initializeApp(firebaseConfig);
+      const db = getDatabase(app);
+      const auth = getAuth();
+      
+      const output = document.getElementById("output");
+      const userRef = ref(db, "Users");
+    
+      var messageInput = document.getElementById('message-input');
+      var receiverSelect = document.getElementById('select-receiver');
+      var chatBox = document.getElementById('chat-box');
+      var sendButton = document.getElementById('send-button');
+      var currentUserName = ""; 
+
+      onValue(userRef,(snapshot) => {  
+          const users = snapshot.val();
+
+          
+          
+          for(let userKey in users){
+            const user = users[userKey];
+            
+            var li = document.createElement("option");
+            li.value = userKey;
+            li.textContent = user.firstName;
+            if(userKey == auth.currentUser.uid){
+              currentUserName = user.firstName;
+              li.selected = "selected";
+              li.textContent = "Choose Here";
+            }
+            receiverSelect.appendChild(li);
+           
+          }
+      }); 
+
+      sendButton.addEventListener('click', function(event) {
+        event.preventDefault();
+        
+        var message = messageInput.value;
+        var sender = auth.currentUser.uid;
+        var senderName = currentUserName;
+        var receiver = receiverSelect.value;
+        var receiverName = receiverSelect.textContent;
+
+        if (sender && receiver) {
+          
+
+          push(ref(db, 'messages/' + sender + receiver), {
+            sender: senderName, 
+            receiver: receiverName, 
+            message: message
+          })
+
+          push(ref(db, 'messages/' + receiver + sender), {
+            sender: senderName, 
+            receiver: receiverName, 
+            message: message
+          })
+
+          alert("Sent message");
+        
+        } else {
+          console.error('User not logged in or receiver not selected');
+        }
+
+        messageInput.value = '';
+      });
+    
+    </script> 
    
 </html>
 
