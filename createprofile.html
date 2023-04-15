@@ -1,0 +1,153 @@
+<!DOCTYPE html> 
+<html>
+<head>
+<meta charset="utf-8">
+ <title>RooMe's User Settings</title>
+ <link rel="stylesheet" href="style.css">
+
+ <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+    
+    .profile_pic {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+    }
+    
+    #photo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    }
+    
+    #file {
+     display: none;
+     }
+    
+     #uploadButton {
+     height: 40px;
+     width: 100%;
+     position: absolute;
+     bottom: 0;
+     left: 50%;
+     transform: translateX(-50%);
+     text-align: center;
+     background: rgba(0, 0, 0, 0.7);
+     color: wheat;
+     line-height: 30px;
+    font-family: sans-serif;
+     font-size: 12px;
+     cursor: pointer;
+     display: none;
+     }
+    </style>
+
+</head>
+<body>
+<center>
+
+    <div class="profile_pic">
+    <img src="user.png" id="photo">
+      <input type="file" id="file">
+        <label for="file" id="uploadButton">Choose Photo</label>
+    </div>
+
+    <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
+    import { getStorage, ref, uploadBytes } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-storage.js";
+
+      const firebaseConfig = {
+    apiKey: "AIzaSyClqbgmtcPuED7LE3-2XXSooypjXiHQj38",
+    authDomain: "roome-5bfa9.firebaseapp.com",
+    databaseURL: "https://roome-5bfa9-default-rtdb.firebaseio.com",
+    projectId: "roome-5bfa9",
+    storageBucket: "roome-5bfa9.appspot.com",
+    messagingSenderId: "564378590257",
+    appId: "1:564378590257:web:6e18a1d7269d83af318910"
+
+  };
+ 
+    const app = initializeApp(firebaseConfig);
+    const storage = getStorage(app);
+    const storageRef = ref(storage, "images/");
+    
+    
+        it('should display the upload button on mouseenter', () => {
+          const profilepic = document.createElement('div');
+          profilepic.classList.add('profile_pic');
+          document.body.appendChild(profilepic);
+    
+          const uploadButton = document.createElement('button');
+          uploadButton.id = 'uploadButton';
+          uploadButton.style.display = 'none';
+          profilepic.appendChild(uploadButton);
+    
+          profilepic.dispatchEvent(new MouseEvent('mouseenter'));
+    
+          expect(uploadButton.style.display).toBe('block');
+    
+          document.body.removeChild(profilepic);
+        });
+    
+        it('should hide the upload button on mouseleave', () => {
+          const profilepic = document.createElement('div');
+          profilepic.classList.add('profile_pic');
+          document.body.appendChild(profilepic);
+    
+          const uploadButton = document.createElement('button');
+          uploadButton.id = 'uploadButton';
+          uploadButton.style.display = 'block';
+          profilepic.appendChild(uploadButton);
+    
+          profilepic.dispatchEvent(new MouseEvent('mouseleave'));
+    
+          expect(uploadButton.style.display).toBe('none');
+    
+          document.body.removeChild(profilepic);
+        });
+    
+        it('should upload the file and display it', (done) => {
+          const file = new File(['file contents'], 'test.jpg', { type: 'image/jpeg' });
+          const choosedFile = {
+            files: [file]
+          };
+          const img = document.createElement('img');
+          img.id = 'photo';
+          document.body.appendChild(img);
+    
+          file.addEventListener('change', function() {
+            const fileName = file.name;
+            const fileRef = ref(storageRef, fileName);
+            uploadBytes(fileRef, file)
+              .then((snapshot) => {
+                snapshot.ref.getDownloadURL().then((url) => {
+                  img.setAttribute('src', url);
+                  expect(img.getAttribute('src')).not.toBe('');
+                  done();
+                });
+              })
+              .catch((error) => {
+                console.error("Error uploading file: ", error);
+              });
+          });
+    
+          const event = new Event('change', { bubbles: true });
+          const fileInput = document.createElement('input');
+          fileInput.id = 'file';
+          fileInput.type = 'file';
+          fileInput.files = choosedFile.files;
+          fileInput.dispatchEvent(event);
+        });
+      
+    </script>
+    
+
+</center>
+</body>
+</html>
