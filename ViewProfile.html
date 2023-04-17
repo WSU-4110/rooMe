@@ -85,6 +85,7 @@
         for(let userKey in users){
           const user = users[userKey];
           const userContainer = document.createElement("div");
+          userContainer.setAttribute("id", userKey);
           userContainer.classList.add("card");
   
           const firstName = document.createElement("p");
@@ -124,7 +125,9 @@
       const swipeRightBtn = document.getElementById("swipeRightBtn");
       const swipeLeftBtn = document.getElementById("swipeLeftBtn");
       let currentIndex = 0;
+      const cardsSaved = [];
       if(swipeRightBtn.addEventListener("click", () =>{
+        cardsSaved.push(cards[currentIndex].querySelector("div[id]").getAttribute("id"));
         cards[currentIndex].style.display = "none";
         currentIndex = (currentIndex + 1) % cards.length;
         cards[currentIndex].style.display = "flex";
@@ -134,6 +137,13 @@
         currentIndex = (currentIndex + 1) % cards.length;
         cards[currentIndex].style.display = "flex";
       }));
+        
+      if (user !== null) {
+        const uid = user.uid;
+        update(ref(db, "Users/"+ user.uid),{
+            liked: cardsSaved
+        })
+      }
       /*swipeRightBtn.addEventListener("click", () => {
       // hide the current card and show the next one
       cards[currentIndex].style.display = "none";
