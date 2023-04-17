@@ -74,6 +74,28 @@
            
           }
       }); 
+        
+      receiverSelect.addEventListener('change', function() {
+        chatBox.innerHTML = '';
+        var sender = auth.currentUser.uid;
+        var receiver = receiverSelect.value;
+        
+        var messagesRef = ref(db, 'messages/' + sender + receiver);
+
+        onValue(messagesRef,(snapshot) => {  
+          const users = snapshot.val();
+          chatBox.replaceChildren();
+          for(let userKey in users){
+            const user = users[userKey];
+            var li = document.createElement("p");
+            li.innerText = `${user.sender}: ${user.message}`;
+            chatBox.append(li);
+           
+          }
+
+        }); 
+
+      });
 
       sendButton.addEventListener('click', function(event) {
         event.preventDefault();
