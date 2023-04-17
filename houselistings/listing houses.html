@@ -5,32 +5,76 @@
     <meta charset="utf-8">
 	<img src="rooMeclear.png" class="logo" width="200px"  style="margin-bottom: -12%">
     <title>List of Houses for Rent</title>
+
+    
+   <!--style--> 
     <style>
+
+
+        div{
+            font-weight: bold;
+            font-size: 18px;
+            
+
+        }
+        div .details{
+            color: rgb(0, 0, 0);
+            margin-left:  600px;
+
+
+        }
         h1 {
             font-size: 2em;
             text-align: center;
         }
+       
+        
 		body{
+            background-color: rgb(255, 255, 255);
 			color: rgb(0, 0, 0);
 		}
         .house {
             border: 1px solid #ccc;
-            padding: 10px;
-            margin-bottom: 10px;
-            margin-top: 10px;
+     
+            margin-bottom: 20px;
+            margin-top: 20px;
             display: flex;
             flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-between;
+         
+    
         }
-        .house img {
-    height: 200px;
-    width: 300px;
-  }
-        .house .details {
-            flex: 1;
-            margin-right: 10px;
-        }
+        .house .image {
+  flex: 1 0 200px;
+  margin-right: 20px;
+}
+
+.house .image img {
+  width: 100%;
+  height: auto;
+}
+
+.house .address {
+  flex: 1 0 200px;
+  font-weight: bold;
+  font-size: 20px;
+}
+.house .details {
+  flex: 1 1 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: 18px;
+}
+
+.house .details .beds,
+.house .details .baths,
+.house .details .pricesinNumber {
+  margin-bottom: 10px;
+}
+
+.house .details .pricesinNumber {
+  font-weight: bold;
+}
         .house .details h2 {
             margin: 25px;
         }
@@ -62,8 +106,29 @@ legend {
    padding: 5px; 
    
 }
+select {
+  background-color: #f2f2f2; 
+  border: none; 
+  padding: 8px 16px;
+  font-size: 12px;
+  border-radius: 20px; 
+}
+.dropdown {
+color: black;
+
+}
+input {
+    background-color: #f2f2f2; 
+  border: none; 
+  padding: 8px 16px;
+  font-size: 12px;
+  border-radius: 20px; 
+}
+
+
+
     </style>
-</head>
+
 
 <body>
     <h1>List of Houses for Rent</h1>
@@ -74,7 +139,7 @@ legend {
 	
 		<label for="states">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;State</label>
     
-    <select id="states"> 
+    <select id="states" class="dropdown"> 
         <option value="">Any</option>
       <option value="alabama">Alabama</option>
       <option value="alaska">Alaska</option>
@@ -128,7 +193,7 @@ legend {
   </select>
 
 <label for="beds">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Beds:</label>
-<select id="beds">
+<select id="beds" class="dropdown">
     <option value="">Any</option>
     <option value="2">2</option>
     <option value="3">3</option>
@@ -136,46 +201,50 @@ legend {
     <option value="5">5</option>
 </select>
 <label for="baths">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Baths:</label>
-<select id="baths">
+<select id="baths" class="dropdown">
     <option value="">Any</option>
     <option value="1">1</option>
     <option value="2">2</option>
+    <option value="3">3</option>
+    
     
 </select>
 
 <label for="prices">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Price:</label>
-<select id="prices">
+<select id="prices" class="dropdown">
     <option value="">Any</option>
     <option value="0-1000">0-1000</option>
     <option value="1000-1500">1000-1500</option>
     <option value="1500-2000">1500-2000</option>
     <option value="2000-2500">2000-2500</option>
+    <option value="2500-3000">2500-3000</option>
 </select>
 </fieldset>
 
 <div id="house-list">
-    
+   </head>
 </body>
 <script>
     
     var houses = [
-    //house 1
+
         {
             address: "7471 Churchill Ave,<br>Detroit, Michigan ",
             beds: 3,
             baths: 1,
             prices: "1000-1500",
-            pricesinNumber: 1275,
+            pricesinNumber: "1,275",
             states: "michigan",
-            image: "   7471 Churchill Ave.png"
+            image: "   7471 Churchill Ave.png",
+            link: "google.com"
         },
-        //house 2
+
         {
             address: "17375 Steel St, <br>Detroit, Michigan ",
             beds: 5,
             baths: 2,
             prices: "1500-2000",
-            pricesinNumber: 1650,
+            pricesinNumber: "1,650",
             states: "michigan",
             image: "17375 Steel St.png"
             
@@ -186,7 +255,7 @@ legend {
             beds: 3,
             baths: 1,
             prices: "1500-2000",
-            pricesinNumber: 1710,
+            pricesinNumber: "1,710",
             states: "texas",
             image: "6624 Cantata Ct.png"
         },
@@ -196,7 +265,7 @@ legend {
             beds: 3,
             baths: 2,
             prices: "2000-2500",
-            pricesinNumber: 2095,
+            pricesinNumber: "2,095",
             states: "texas",
             image: "10308 Wood Heights Dr.png" 
         
@@ -207,7 +276,7 @@ legend {
             beds: 3,
             baths: 1,
             prices: "1500-2000",
-            pricesinNumber: 1800,
+            pricesinNumber: "1,800",
             states: "california",
             image: "6308 Leola Way.png"
         
@@ -218,7 +287,7 @@ legend {
             beds: 4,
             baths: 2,
             prices: "2000-2500",
-            pricesinNumber: 2395,
+            pricesinNumber: "2,395",
             states: "california",
             image: "1518 Alicia Way.png" 
         
@@ -229,7 +298,7 @@ legend {
             beds: 2,
             baths: 1,
             prices: "1000-1500",
-            pricesinNumber: 1295,
+            pricesinNumber: "1,295",
             states: "illinois",
             image: "​​850 E 87th Pl.png"
         
@@ -240,7 +309,7 @@ legend {
             beds: 4,
             baths: 1,
             prices: "1500-2000",
-            pricesinNumber: 1850,
+            pricesinNumber: "1,850",
             states: "illinois",
             image: "10106 S Yates Blvd.png"
         
@@ -251,7 +320,7 @@ legend {
            beds: 4,
            baths: 1,
            prices: "1500-2000",
-           pricesinNumber: 1600,
+           pricesinNumber: "1,600",
            states: "virginia",
            image: "3500 Elmore Pl.png"
       
@@ -263,7 +332,7 @@ legend {
            beds: 3,
            baths: 1,
            prices: "1500-2000",
-           pricesinNumber: 1995,
+           pricesinNumber: "1,995",
            states: "virginia",
            image: "2719 Keller Ave.png"
       
@@ -275,7 +344,8 @@ legend {
            beds: 3,
            baths: 1,
            prices: "2000-2500",
-           pricesinNumber: 2500,
+           prices: "2500-3000",
+           pricesinNumber: "2,500",
            states: "tennessee",
            image: "1034 24th Ave N.png"
       
@@ -287,7 +357,7 @@ legend {
            beds: 3,
            baths: 2,
            prices: "1000-1500",
-           pricesinNumber: 1495,
+           pricesinNumber: "1,495",
            states: "tennessee",
            image: "531 Raymond St.png"
       
@@ -299,7 +369,7 @@ legend {
            beds: 3,
            baths: 1,
            prices: "0-1000",
-           pricesinNumber: 965,
+           pricesinNumber: "965",
            states: "ohio",
            image: "4648 E 173rd St.png"
       
@@ -311,22 +381,96 @@ legend {
            beds: 2,
            baths: 1,
            prices: "0-1000",
-           pricesinNumber: 925,
+           pricesinNumber: "925",
            states: "ohio",
            image: "9209 Rosewood Ave.png"
            
       
        },
+              //house 15
+              {
+           address: "112 Osprey Marsh Ln, <br>Saint Augustine, Florida ",
+           beds: 4,
+           baths: 2,
+           prices: "2000-2500",
+           pricesinNumber: "2,200",
+           states: "florida",
+           image: "112 Osprey Marsh Ln.png"
+           
+      
+       },
+              //house 16
+              {
+           address: " 713 Huntington Cv, <br>Madison, Mississippi ",
+           beds: 3,
+           baths: 2,
+           prices: "2500-3000",
+           pricesinNumber: "2,700",
+           states: "mississippi",
+           image:"713 Huntington Cv.png"
+           
+      
+       },
+              //house 17
+              {
+           address: "92-1151 Palahia St APT B205, <br>Kapolei, Hawaii ",
+           beds: 2,
+           baths: 2,
+           prices: "2000-2500",
+           prices: "2500-3000",
+           pricesinNumber: "2,500",
+           states: "hawaii",
+           image: "92-1151 Palahia St APT B205.png"
+           
+      
+       },
+              //house 18
+              {
+           address: "25037 Saltwater Cir, <br>Selbyville, Delaware ",
+           beds: 4,
+           baths: 3,
+           prices: "2000-2500",
+           pricesinNumber: "2,499",
+           states: "delaware",
+           image: "25037 Saltwater Cir.png"
+           
+      
+       },
+              //house 19
+              {
+           address: "650 Willow Bend Ln, <br>Bessemer, Alabama ",
+           beds: 2,
+           baths: 1,
+           prices: "1000-1500",
+           pricesinNumber: "1,110",
+           states: "alabama",
+           image: "650 Willow Bend Ln.png"
+           
+      
+       },
 
-            //house 15
+
+            //house 20
             {
            address: "4000 Bridge Ave, <br>Cleveland, Ohio ",
            beds: 1,
            baths: 1,
            prices: "0-1000",
-           pricesinNumber: 965,
+           pricesinNumber: "965",
            states: "ohio",
            image: "4000 Bridge Ave.png"
+      
+       },    
+           //house 21
+              {
+           address: "660 Kilo Ct, <br>Fairbanks, Alaska ",
+           beds: 2,
+           baths: 1,
+           prices: "1500-2000",
+           pricesinNumber: "1,695",
+           states: "alaska",
+           image: "660 Kilo Ct.png"
+           
       
        }
 
@@ -338,63 +482,46 @@ legend {
 
     ];
 
-    // Function to display the list of houses
-    function displayHouses() {
-            var bedFilter = document.getElementById("beds").value;
-            var bathFilter = document.getElementById("baths").value;
-            var priceFilter = document.getElementById("prices").value;
-            var stateFilter = document.getElementById("states").value;
-            var houseList = document.getElementById("house-list");
-            houseList.innerHTML = "";
-            for (var i = 0; i < houses.length; i++) {
-                if ((bedFilter === "" || houses[i].beds == bedFilter) &&
-                    (bathFilter === "" || houses[i].baths == bathFilter) &&
-                    (priceFilter === "" || houses[i].prices == priceFilter)&&
-                    (stateFilter === "" || houses[i].states == stateFilter)
-                    ) { {
-                var houseDiv = document.createElement("div");
-                houseDiv.className = "house";
-                var imageDiv = document.createElement("div");
-                imageDiv.className = "image";
-                var image = document.createElement("img");
-                image.src = houses[i].image;
-                image.alt = houses[i].address;
-                imageDiv.appendChild(image);
-                var detailsDiv = document.createElement("div");
-                detailsDiv.className = "details";
-                var address = document.createElement("h2");
-                address.innerHTML = houses[i].address;
-                detailsDiv.appendChild(address);
-                var bedsBaths = document.createElement("p");
-                bedsBaths.innerHTML = "<b> Beds:</b> " + houses[i].beds  + "<br> <b>Baths:</b> " + houses[i].baths;
-                detailsDiv.appendChild(bedsBaths);
-                houseDiv.appendChild(imageDiv);
-                houseDiv.appendChild(detailsDiv);
-                var priceDiv = document.createElement("div");
-                priceDiv.className = "prices";
-                priceDiv.innerHTML = "$" + houses[i].pricesinNumber + "/month";
-                houseDiv.appendChild(priceDiv);
-                houseList.appendChild(houseDiv);
-            }
-        }
-    }
+
+
+function displayHouses() {
+  var bedFilter = document.getElementById("beds").value;
+  var bathFilter = document.getElementById("baths").value;
+  var priceFilter = document.getElementById("prices").value;
+  var stateFilter = document.getElementById("states").value;
+  var searchInput = document.getElementById("search").value.toLowerCase();
+  var houseList = document.getElementById("house-list");
+
+
+  var filteredHouses = houses.filter(function(house) {
+    return house.address.toLowerCase().includes(searchInput) &&
+      (bedFilter === "" || house.beds == bedFilter) &&
+      (bathFilter === "" || house.baths == bathFilter) &&
+      (priceFilter === "" || house.prices == priceFilter) &&
+      (stateFilter === "" || house.states == stateFilter);
+  });
+
+
+  houseList.innerHTML = "";
+  for (var i = 0; i < filteredHouses.length; i++) {
+    var houseDiv = document.createElement("div");
+    houseDiv.className = "house";
+    houseDiv.innerHTML =  "</div>" +  "<div class='image'><img src='" + filteredHouses[i].image + "'></div>" +
+      "<div class='address'><br>" + filteredHouses[i].address + "</div>" +
+      "<br><div class='details'><br>" +  "<br><br><div class='beds'>Beds:" + filteredHouses[i].beds + "</div>" +
+      "<div class='baths'>Baths: " + filteredHouses[i].baths + "</div>" +
+      "<div class='pricesinNumber:'>Price: $" + filteredHouses[i].pricesinNumber + "</div>" +
+      "</div>";
+    houseList.appendChild(houseDiv);
+  }
 }
 
-document.getElementById("states").addEventListener("change",function() {
-    displayHouses();
-});
-document.getElementById("beds").addEventListener("change",function() {
-    displayHouses();
-});
-document.getElementById("baths").addEventListener("change", function() {
-    displayHouses();
-});
-document.getElementById("prices").addEventListener("change",function() {
-    displayHouses();
-});
 
+document.getElementById("search").addEventListener("input", displayHouses);
+document.getElementById("beds").addEventListener("change", displayHouses);
+document.getElementById("baths").addEventListener("change", displayHouses);
+document.getElementById("prices").addEventListener("change", displayHouses);
+document.getElementById("states").addEventListener("change", displayHouses);
 // Initial display of the list of houses
 displayHouses();
-
-	</script>
-
+</script>
