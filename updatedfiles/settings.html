@@ -205,7 +205,7 @@ background-color: pink;
     <ul>
         <li><img src="/images/Home.png"><a href="ViewProfile.html">Home</a></li>
         <li><img src="/images/edit.png"><a href="editProfile.html">Edit Profile</a></li>
-        <li><img src="/images/privacy.png"><a href="changePassword.html">Change Password</a></li>
+       <li><img src="/images/privacy.png"><a href="#" id="pass">Change Password</a></li>
         <li><img src="/images/notification.png"><a href="#">Notifications</a></li>
         <li><img src="/images/logout.png"><a href="#" id="signingOut">Logout</a></li>
         <li><img src="/images/delete.png"><a href="#" id="deleteAccount">Delete Account</a></li>
@@ -290,6 +290,37 @@ background-color: pink;
                 });
             }
         });
+        
+        
+        const emailAddress = "";
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                const uid = user.uid;
+                const starCountRef = ref(db, 'Users/' + uid);
+                onValue(starCountRef, (snapshot) => {
+                const data = snapshot.val();
+                emailAddress = data.email;
+                });
+            } else {
+                // User is signed out
+                uid = null;
+            }
+        });
+
+        pass.addEventListener("click", function(e) {
+
+                sendPasswordResetEmail(auth, emailAddress)
+                .then(() => {
+
+                    alert(`Sent password reset link to ${email}`)
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    
+                });
+            })
 
       </script>
     </html>
