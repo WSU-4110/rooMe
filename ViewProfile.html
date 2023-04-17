@@ -1,306 +1,60 @@
+
 <!DOCTYPE html>
 <html>
     <head>
-           <link rel="stylesheet" href="/css/styles.css">
-           <style>
-            #myDiv {
-  position: relative;
-  left: 0;
-  transition: left 0.5s ease-in-out;
-}
+    <style>
+      body{
+        display: flex;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        justify-content: center;
+      }
+      #myDiv {
+        position: relative;
+        left: 0;
+        transition: left 0.5s ease-in-out;
+        }
 
-.swipe-left {
-  left: -100% !important;
-}
+      .swipe-left {
+          left: -100% !important;
+      }
 
-.swipe-right {
-  left: 100% !important;
-}
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
-:root{
-   /* FONT 
-    <img src  = "match.png" width = "170px">
-    <img src  = "close.png" width = "160px">
-    */
-   --font: 'Poppins', sans-serif;
+      .swipe-right {
+        transform: translateX(-100%);
+      }
+      .display{
+        opacity: 100%;
+      }
+      #output{
+        font-size: 2em;
+        background-color: rgb(0, 0, 0);
+        text-decoration: none;
+      }
+      .card {
+        display: flex;
+        background-color: #f0f0f0;
+        padding: 10px;
+        margin: 10px;
+      }   
+      .card:not(:first-child){
+        display: none;
+      } 
 
-    /* COLORS */
-   --color: #9176FF;
-   --bg-color: #ffe3e3;
-   }
-
-*{
-   margin: 0;
-   padding: 0;
-   box-sizing: border-box;
-   }
-
-body{
-   font-family: var(--font);
-   height: 100vh;
-   background-color: var(--bg-color);
-   }
-
-.page{
-   margin-top: 10%;
-}
-
-.card{
-   width: 70%;
-   height: 60%;
-   background-color: #fff;
-   border-radius: 2em;
-   box-shadow: 0 0 2em rgba(0, 0, 0, .2);
-   padding: 2em 1em;
-   margin: 0 2em;
-   margin-bottom: 10%;
-   align-content: center;
-   display: flex;
-
-}
-
-.content-first-half{
-   display: flex;
-   padding: 2em 1em;
-}
-
-.card__content{
-display: flex;
-align-items: center;
-flex-direction: column;
-}
-
-.heading, .questions{
-   padding: 8px;
-}
-
-.description{
-   padding: 4px;
-}
-
-
-.card__image{
-width: 10em;
-height: 10em;
-padding: 3px;
-margin-bottom: 2em;
-}
-
-.card__image img{
-width: 100%;
-height: 100%;
-border-radius: 50%;
-object-fit: cover;
-}
-
-#location{
-font-size: 1.5rem;
-font-weight: 500;
-position: relative;
-top: .2em;
-}
-
-.card__name{
-color: var(--color);
-}
-
-#location{
-text-align: center;
-font-size: 1.1rem;
-margin: 1em 0;
-} 
-
-.content {
-  display: flex;
-}
-a{
-    text-decoration: none;
-    color: black;
-
-}
-ul{
-    list-style:none;
-
-
-}
-
-.container{
-max-width: 100%;
-margin: 0 auto;
-}
-nav{
-position: fixed;
-bottom: 10%;
-width: 456px;
-
-left: 50%;
-margin-left: -228px;
-padding: 0 2em;
-border-radius: 100px;
-box-shadow: rgb(50 50 93 / 25%) 0 50px 100px -20px, rgb(0 0 0 /30%) 0 30px 60px -30px ;
-overflow: hidden;
-}
-nav ul{
-display: flex;
-align-items: center;
-
-}
-nav :where(li,a){
-position: relative;
-}
-nav ul li a{
-display: flex;
-align-items: center;
-justify-content: center;
-flex-direction: column-reverse;
-padding: 1em;
-font-size: 1.5em;
-line-height: 1.4;
-width: 80px;
-height: 70px;
--webkit-transition: all .3s east-out;
-transition: all .3s east-out;
-
-}
-nav ul li a:hover{
-color: pink;
-}
-nav ul li a span{
-font-size: 12px;
-}
-/*animation*/
-
-nav li::before, nav li::after{
-content: '';
-position: absolute;
-height: 100%;
-width: 30px;
-top: 25px;
-transition: top .3s;
-}
-
-nav li a::before, nav li a::after{
-content: '';
-position: absolute;
-z-index: -1;
-border-radius: 10px 10px 0 0 ;
--webkit-transform: translateY(15px);
-transform: translateY(15px);
--webkit-transition: transform .3s, border-radius .3s;
-transition: transform .3s, border-radius .3s;
-
-}
-
-
-nav li.active a::before, nav li.active a::after{
--webkit-transform: translateY(0);
-transform: translateY(0);
-
-}
-nav li.active a::before{
-top: 10px;
-left: 10px;
-width: calc(100% - 20px);
-height: 100%;
-border-radius: 30px 30px 0 0 ;
-}
-nav li.active a::after{
-left: -10px;
-bottom: 0;
-width: 100px;
-height: 40px;
-
-
-}
-nav li.active a{
-color: none;
-}
-
-
-nav li .label{
-
-position: absolute;
-top: 10px;
-max-width: 25px;
-height: 20px;
-padding: 0 3px;
-display: flex;
-align-items: center;
-justify-content: center;
-z-index: 1;
-border-radius: 70px ;
-
-}
-nav li .chat{
-right: 15px;
-color: black;
-background-color: pink;
-}
-           </style>
+    </style>
     </head>
     <body>
-    <center>
-    <div class = "page">
-        <center>
-    <div class = "sub-page" style = "display: flex; margin-left: 40px;">
-        <li><a href="settings.html">Settings</a></li>
-        <div class="content">
-            <img src = "../images/close.png" height="8%" width="8%" id = "swipeLeftBtn">
-            <div id="myDiv">
-              <center>
-            <div class = "card">
-                <div class = "content-first-half">
-                    <div class = "card_image">
-                        <img src = "../images/shark.png" alt = "shark profile image">
-                        <div class="card__content">
-                            <p id="firstName"> </p>
-                            <p id="lastName"> </p>
-                            <p id="location"> </p>
-                            <p id="output"> </p>
-                    </div>
-                    </div>
-                    <div class = "personal-info">
-                        <h1 class = "heading">About me:</h1>
-                        <p id = "aboutme"></p>
-                        <h1 class = "heading">Hobbies/Interests: </h1>
-                        <p id = "hobbies"></p>
-                        <h2 class = "questions">How do you prefer your living space?</h2>
-                        <p class = "answers">moderately clean</p>
-                        <h2 class = "questions">What time do you wake up and sleep?</h2>
-                        <p class = "answers">wake-up: 8am.</p>
-                        <p class = "answers">sleep: 12am.</p>
-                        <h2 class = "questions">How often are you going to have guests?</h2>
-                        <p class = "answers">once a week.</p>
-                        <h2 class = "questions">How often will your roommate have guests?</h2>
-                        <p class = "answers">once a week.</p>
-                        <h2 class = "questions">*PERSONAL QUESTION*</h2>
-                  </div>
-                </div>
-            </div>
-            </center>
-            </div>
-            <img src = "../images/match.png" id = "swipeRightBtn" height="8%" width="8%" style= "padding: 10px;">
-            </div>
-            <div id="page" class="site">
-              <div class="container">
-                  <nav> 
-                      <ul>
-                          <li class="active"><a href="../pages/ViewProfile.html"><span>Home</span><img src="favicon.png"></i></a> </li>
-                          <li><a href="../pages/Chat.html" >
-                              <span>Chat Page</span>
-                              <i class="ri-wechat-line"></i>
-                              <span class="label chat">1 </span>
-                          </a> </li>
-                          <li><a href="../houselistings/listing houses.html" ><span>Listing page</span><i class="ri-file-list-3-line"></i></a> </li>
-                          <li><a href="../pages/settings.html" ><span>Settings</span><i class="ri-settings-2-line"></i> </a> </li>
-                      </ul>
-                  </nav>
-              </div>
-          </div>
+      <img src = "../images/x.png" height="8%" width="8%" id="swipeLeftBtn">
+
+      <div id = "myDiv">
+        <p>hfhgfghfhgfhg</p>
+        </div>
+      </div>
+          <div id="profile"> </div>
+    </div>
+      <img src = "../images/check.png" height="8%" width="8%" id="swipeRightBtn">
     </body>
-
     <script type="module">
-
       import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
       import { getDatabase, ref, onValue, update}  from "https://www.gstatic.com/firebasejs/9.17.2/firebase-database.js";
       import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js";
@@ -320,20 +74,36 @@ background-color: pink;
       const db =  getDatabase(app);
 
       const output = document.getElementById("output");
-    
+      const firstName = document.getElementById("firstname");
+      const lastName = document.getElementById("lastname");
       const userRef = ref(db, "Users");
-      onValue(userRef,(snapshot) => {  
-        const users = snapshot.val();
-        output.innerHTML = "";
-
+      const cards = [];
+      onValue(userRef, (snapshot) => {
+      const users = snapshot.val();
+      profile.innerHTML = "";
+      
         for(let userKey in users){
           const user = users[userKey];
-          const li = document.createElement("li");
-          li.innerText = `${user.firstName}: ${user.lastName}, ${user.age}, ${user.email}`;
-          output.appendChild(li);
+          const userContainer = document.createElement("div");
+          userContainer.classList.add("card");
+  
+          const firstName = document.createElement("p");
+          firstName.innerText = `${user.firstName}`;
+          firstName.classList.add("firstName");
+          userContainer.appendChild(firstName);
+
+          const lastName = document.createElement("p");
+          lastName.innerText = `${user.lastName}`;
+          lastName.classList.add("lastName");
+          userContainer.appendChild(lastName);
+           
+          profile.appendChild(userContainer);
+          cards.push(userContainer);
         }
-      });
+        console.log(cards);
     
+      });
+
       onAuthStateChanged(auth, (user) => {
       if (user) {
         // User is signed in, see docs for a list of available properties
@@ -351,21 +121,39 @@ background-color: pink;
         uid = null;
       }
       });
-
-      
-
-      console.log();
-      const myDiv = document.getElementById('myDiv');
+      const swipeRightBtn = document.getElementById("swipeRightBtn");
+      const swipeLeftBtn = document.getElementById("swipeLeftBtn");
+      let currentIndex = 0;
+      if(swipeRightBtn.addEventListener("click", () =>{
+        cards[currentIndex].style.display = "none";
+        currentIndex = (currentIndex + 1) % cards.length;
+        cards[currentIndex].style.display = "flex";
+      }));
+      else if(swipeLeftBtn.addEventListener("click", () =>{
+        cards[currentIndex].style.display = "none";
+        currentIndex = (currentIndex + 1) % cards.length;
+        cards[currentIndex].style.display = "flex";
+      }));
+      /*swipeRightBtn.addEventListener("click", () => {
+      // hide the current card and show the next one
+      cards[currentIndex].style.display = "none";
+      currentIndex = (currentIndex + 1) % cards.length;
+      cards[currentIndex].style.display = "flex";
+    });*/
+  
+      /*const myDiv = document.getElementById('');
       const swipeLeftBtn = document.getElementById('swipeLeftBtn');
       const swipeRightBtn = document.getElementById('swipeRightBtn');
       
       swipeLeftBtn.addEventListener('click', () => {
+        myDiv.classList.remove('swipe-right');
         myDiv.classList.add('swipe-left');
       });
       
       swipeRightBtn.addEventListener('click', () => {
+        myDiv.classList.remove('swipe-left');
         myDiv.classList.add('swipe-right');
-      });
+      });*/
 
     </script>
 </html>
