@@ -211,10 +211,10 @@ button{
  
  
     </body>
-    <script type="module">
+   <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
-        import { getDatabase, update, set, ref, remove } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-database.js";
-        import { getAuth, signOut, deleteUser } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js";
+        import { getDatabase, update, set, ref, remove, onValue } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-database.js";
+        import { getAuth, signOut, deleteUser,  sendPasswordResetEmail, onAuthStateChanged  } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js";
     
         const firebaseConfig = {
           apiKey: "AIzaSyClqbgmtcPuED7LE3-2XXSooypjXiHQj38",
@@ -269,35 +269,33 @@ button{
                 });
             }
         });
-        const emailAddress = "";
 
-onAuthStateChanged(auth, (user) => {
-    if (user) {
-        const uid = user.uid;
-        const starCountRef = ref(db, 'Users/' + uid);
-        onValue(starCountRef, (snapshot) => {
-        const data = snapshot.val();
-        emailAddress = data.email;
-        });
-    } else {
-        // User is signed out
-        uid = null;
-    }
-});
+        pass.addEventListener("click", function(e) {
+            let emailAddress = "";
+            onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    const uid = user.uid;
+                    const starCountRef = ref(db, 'Users/' + uid);
+                    onValue(starCountRef, (snapshot) => {
+                        const data = snapshot.val();
+                        emailAddress = data.email;
 
-pass.addEventListener("click", function(e) {
+                        sendPasswordResetEmail(auth, emailAddress)
+                            .catch((error) => {
+                                const errorCode = error.code;
+                                const errorMessage = error.message;
+                                
+                            });
+                    });
+                } else {
+                    // User is signed out
+                    uid = null;
+                }
+            });
 
-        sendPasswordResetEmail(auth, emailAddress)
-        .then(() => {
+            alert(`Sent password reset link`)
 
-            alert(`Sent password reset link to ${email}`)
-        })
-        .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            
-        });
-    })
+        })  
 
       </script>
     </html>
