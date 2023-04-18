@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <style>
+       @font-face {
+    font-family: 'Avenir';
+    src: url('../fonts/Avenir.eot?#iefix') format('embedded-opentype'),  url('../fonts/Avenir.woff') format('woff'), url('../fonts/Avenir.ttf')  format('truetype'), url('../fonts/Avenir.svg#Avenir') format('svg');
+    }
+      body{
+        display: flex;
+        margin: 0;
+        padding: 0;
+      }
+      #myDiv {
+        position: relative;
+        left: 0;
+        transition: left 0.5s ease-in-out;
+        }
+        #logo{
+        margin-top: -7%;
+        margin-left: 3.4%;
+        width: 25vw;
+        }
+      .swipe-left {
+          left: -100% !important;
+      }
+      .swipe-right {
+        transform: translateX(-100%);
+      }
+      .display{
+        opacity: 100%;
+      }
+      #output{
+        font-size: 2em;
+        background-color: rgb(0, 0, 0);
+        text-decoration: none;
+      }
+      .card {
+        display: flex;
+        background-color: #fef7f7;
+        padding: 10px;
+        margin: 10px;
+        width: 400%;
+        height: 400%;
+      }   
+      .card:not(:first-child){
+        display: none;
+      } 
+      .card .firstName, .lastName, .age, .location, .occupation{
+        font-family: 'Avenir';
+      }
+      .firstName, .lastName{
+        margin-right: 8px;
+        font-size: 2.2em;
+      }
+
+    </style>
+    </head>
+    <body>
+      <img src = "../images/x.png" height="8%" width="8%" id="swipeLeftBtn">
+      </div>
+          <div id="profile"> </div>
+    </div>
+      <img src = "../images/check.png" height="8%" width="8%" id="swipeRightBtn">
+    </body>
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
+      import { getDatabase, ref, onValue, update}  from "https://www.gstatic.com/firebasejs/9.17.2/firebase-database.js";
+      import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js";
+    
+      const firebaseConfig = {
+        apiKey: "AIzaSyClqbgmtcPuED7LE3-2XXSooypjXiHQj38",
+        authDomain: "roome-5bfa9.firebaseapp.com",
+        databaseURL: "https://roome-5bfa9-default-rtdb.firebaseio.com",
+        projectId: "roome-5bfa9",
+        storageBucket: "roome-5bfa9.appspot.com",
+        messagingSenderId: "564378590257",
+        appId: "1:564378590257:web:6e18a1d7269d83af318910"
+      };
+    
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth();
+      const db =  getDatabase(app);
+
+      const output = document.getElementById("output");
+      const firstName = document.getElementById("firstname");
+      const lastName = document.getElementById("lastname");
+      const userRef = ref(db, "Users");
+      const cards = [];
+
+      onValue(userRef, (snapshot) => {
+      const users = snapshot.val();
+      profile.innerHTML = "";
+      
+        for(let userKey in users){
+          const user = users[userKey];
+          const userContainer = document.createElement("div");
+          userContainer.classList.add("card");
+          userContainer.id = userKey;
+          
+          /*const key = document.createElement("p");
+          key.classList.add("userId");
+          key.id = userKey;
+          userContainer.appendChild(key);*/
+
+          const firstName = document.createElement("p");
+          firstName.innerText = `${user.firstName}`;
+          firstName.classList.add("firstName");
+          userContainer.appendChild(firstName);
+
+          const lastName = document.createElement("p");
+          lastName.innerText = `${user.lastName}`;
+          lastName.classList.add("lastName");
+          userContainer.appendChild(lastName);
+
+          const age = document.createElement("p");
+          age.innerText = `${user.age}`;
+          age.classList.add("age");
+          userContainer.appendChild(age);
+           
+          const occupation = document.createElement("p");
+          occupation.innerText = `${user.occupation}`;
+          occupation.classList.add("occupation");
+          userContainer.appendChild(occupation);
+
+          profile.appendChild(userContainer);
+          cards.push(userContainer);
+        }
+        console.log(cards);
+    
+      });
+
+      onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/firebase.User
+        const uid = user.uid;
+        const starCountRef = ref(db, 'Users/' + uid);
+        onValue(starCountRef, (snapshot) => {
+          const data = snapshot.val();
+          document.getElementById("firstName").innerHTML = data.firstName;
+          document.getElementById("lastName").innerHTML = data.lastName;
+          document.getElementById("location").innerHTML = data.location;
+        });
+      } else {
+        // User is signed out
+        uid = null;
+      }
+      });
+      const swipeRightBtn = document.getElementById("swipeRightBtn");
+      const swipeLeftBtn = document.getElementById("swipeLeftBtn");
+      let currentIndex = 0;
+      const cardsSaved = [1, "a", "b"];
+      swipeRightBtn.addEventListener("click", () =>{
+        const tempId = cards[currentIndex].getAttribute("id");
+        //const Id = tempId.getAttribute("id");
+        //console.log(tempId);
+        cardsSaved.push(tempId);
+        cards[currentIndex].style.display = "none";
+        if(currentIndex != cards.length){
+        currentIndex = (currentIndex + 1);
+        cards[currentIndex].style.display = "flex";
+        }
+        console.log(cardsSaved);
+      }); 
+      ////////////////////////
+      swipeLeftBtn.addEventListener("click", () =>{
+        cards[currentIndex].style.display = "none";
+        if(currentIndex != cards.length){
+        currentIndex = (currentIndex + 1);
+        cards[currentIndex].style.display = "flex";
+        }
+      });
+
+
+      /*swipeRightBtn.addEventListener("click", () => {
+      // hide the current card and show the next one
+      cards[currentIndex].style.display = "none";
+      currentIndex = (currentIndex + 1) % cards.length;
+      cards[currentIndex].style.display = "flex";
+    });*/
+  
+      /*const myDiv = document.getElementById('');
+      const swipeLeftBtn = document.getElementById('swipeLeftBtn');
+      const swipeRightBtn = document.getElementById('swipeRightBtn');
+      
+      swipeLeftBtn.addEventListener('click', () => {
+        myDiv.classList.remove('swipe-right');
+        myDiv.classList.add('swipe-left');
+      });
+      
+      swipeRightBtn.addEventListener('click', () => {
+        myDiv.classList.remove('swipe-left');
+        myDiv.classList.add('swipe-right');
+      });*/
+onAuthStateChanged(auth, (user) => {
+  if (user !== null) {
+    const uid = user.uid;
+    update(ref(db, "Users/"+ uid),{
+      liked: cardsSaved
+    })
+  }
+});
+    </script>
+</html>
+<!--<!DOCTYPE html>
+<html>
+    <head>
+    <style>
+      body{
+        display: flex;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        justify-content: center;
+      }
+      #myDiv {
+        position: relative;
+        left: 0;
+        transition: left 0.5s ease-in-out;
+        }
+
+      .swipe-left {
+          left: -100% !important;
+      }
+
+      .swipe-right {
+        transform: translateX(-100%);
+      }
+      .display{
+        opacity: 100%;
+      }
+      #output{
+        font-size: 2em;
+        background-color: rgb(0, 0, 0);
+        text-decoration: none;
+      }
+      .card {
+        display: flex;
+        background-color: #f0f0f0;
+        padding: 10px;
+        margin: 10px;
+      }   
+      .card:not(:first-child){
+        display: none;
+      } 
+
+    </style>
+    </head>
+    <body>
+      <img src = "../images/x.png" height="8%" width="8%" id="swipeLeftBtn">
+
+      <div id = "myDiv">
+        <p>hfhgfghfhgfhg</p>
+        </div>
+      </div>
+          <div id="profile"> </div>
+    </div>
+      <img src = "../images/check.png" height="8%" width="8%" id="swipeRightBtn">
+    </body>
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
+      import { getDatabase, ref, onValue, update}  from "https://www.gstatic.com/firebasejs/9.17.2/firebase-database.js";
+      import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js";
+    
+      const firebaseConfig = {
+        apiKey: "AIzaSyClqbgmtcPuED7LE3-2XXSooypjXiHQj38",
+        authDomain: "roome-5bfa9.firebaseapp.com",
+        databaseURL: "https://roome-5bfa9-default-rtdb.firebaseio.com",
+        projectId: "roome-5bfa9",
+        storageBucket: "roome-5bfa9.appspot.com",
+        messagingSenderId: "564378590257",
+        appId: "1:564378590257:web:6e18a1d7269d83af318910"
+      };
+    
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth();
+      const db =  getDatabase(app);
+
+      const output = document.getElementById("output");
+      const firstName = document.getElementById("firstname");
+      const lastName = document.getElementById("lastname");
+      const userRef = ref(db, "Users");
+      const cards = [];
+      onValue(userRef, (snapshot) => {
+      const users = snapshot.val();
+      profile.innerHTML = "";
+      
+        for(let userKey in users){
+          const user = users[userKey];
+          const userContainer = document.createElement("div");
+          userContainer.classList.add("card");
+  
+          const firstName = document.createElement("p");
+          firstName.innerText = `${user.firstName}`;
+          firstName.classList.add("firstName");
+          userContainer.appendChild(firstName);
+
+          const lastName = document.createElement("p");
+          lastName.innerText = `${user.lastName}`;
+          lastName.classList.add("lastName");
+          userContainer.appendChild(lastName);
+           
+          profile.appendChild(userContainer);
+          cards.push(userContainer);
+        }
+        console.log(cards);
+    
+      });
+
+      onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/firebase.User
+        const uid = user.uid;
+        const starCountRef = ref(db, 'Users/' + uid);
+        onValue(starCountRef, (snapshot) => {
+          const data = snapshot.val();
+          document.getElementById("firstName").innerHTML = data.firstName;
+          document.getElementById("lastName").innerHTML = data.lastName;
+          document.getElementById("location").innerHTML = data.location;
+        });
+      } else {
+        // User is signed out
+        uid = null;
+      }
+      });
+      const swipeRightBtn = document.getElementById("swipeRightBtn");
+      const swipeLeftBtn = document.getElementById("swipeLeftBtn");
+      let currentIndex = 0;
+      if(swipeRightBtn.addEventListener("click", () =>{
+        cards[currentIndex].style.display = "none";
+        currentIndex = (currentIndex + 1) % cards.length;
+        cards[currentIndex].style.display = "flex";
+      }));
+      else if(swipeLeftBtn.addEventListener("click", () =>{
+        cards[currentIndex].style.display = "none";
+        currentIndex = (currentIndex + 1) % cards.length;
+        cards[currentIndex].style.display = "flex";
+      }));
+      /*swipeRightBtn.addEventListener("click", () => {
+      // hide the current card and show the next one
+      cards[currentIndex].style.display = "none";
+      currentIndex = (currentIndex + 1) % cards.length;
+      cards[currentIndex].style.display = "flex";
+    });*/
+  
+      /*const myDiv = document.getElementById('');
+      const swipeLeftBtn = document.getElementById('swipeLeftBtn');
+      const swipeRightBtn = document.getElementById('swipeRightBtn');
+      
+      swipeLeftBtn.addEventListener('click', () => {
+        myDiv.classList.remove('swipe-right');
+        myDiv.classList.add('swipe-left');
+      });
+      
+      swipeRightBtn.addEventListener('click', () => {
+        myDiv.classList.remove('swipe-left');
+        myDiv.classList.add('swipe-right');
+      });*/
+
+    </script>
+</html>-->

@@ -1,0 +1,382 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+  <style>
+       @font-face {
+       font-family: 'Avenir';
+       src: url('../fonts/Avenir.eot?#iefix') format('embedded-opentype'),  url('../fonts/Avenir.woff') format('woff'), url('../fonts/Avenir.ttf')  format('truetype'), url('../fonts/Avenir.svg#Avenir') format('svg');
+       }
+       @font-face {
+       font-family: myFont;
+       src: url(font.ttf);
+       }
+       @font-face {
+        font-family: subFont;
+        src: url(subfont.otf);
+       }
+        body{
+        margin: 0;
+        padding: 0;
+        background-color: #fef7f7;
+        }
+        #logo{
+        margin-top: -7%;
+        margin-left: 3.4%;
+        width: 25vw;
+        }
+        .columns{
+        display: flex;
+        width: 50%;
+        margin-left: -28%;
+        }
+        .column1, .column2{
+        width: 40%;
+        display: flex;
+        flex-direction: column;
+        margin-top: -7%;
+        }
+        h1{
+        font-family: subFont;
+        font-size: 4em;
+        margin-left: -38%;
+        margin-top: -4%;
+        }
+        p{
+        font-family: subFont;
+        font-size: 2.6em;
+        margin-left: 66%;
+
+        }
+        input{
+        font-size: large;
+        padding: 10px;
+        margin: 10px;;
+        font-family: Avenir;
+        border-bottom: 0.11em solid;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        background-color: #fef7f7;
+        }
+        .header{
+        width: 100%;
+        height: 16vh;
+        background-image: url("../images/backgroundfirst.jpeg");
+        margin-bottom: 10%;
+        }
+        #createProfile{
+        background-color: #000000;
+        color: white;
+        font-family: Avenir;
+        font-size: medium;
+        border: none;
+        border-radius: 0.2em;
+        cursor: pointer;
+        margin-top: 4%;
+        margin-left: 38%;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: 14px;
+        padding-right: 14px;
+        width: 25%;
+        }
+        
+        .profile_pic {
+        position: relative;
+        margin-left: 64%;
+        margin-top: -24%;
+        border-radius: 1em;
+        width: 20%;
+        height: 40vh;
+        border: 2px solid black;;
+        cursor: pointer;
+        }
+    
+        #photo {
+        position: absolute;
+        border-radius: 0.4em;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        }
+    
+        #file {
+        display: none;
+        }
+    
+        #uploadButton {
+        height: 40px;
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+        color: rgb(0, 0, 0);
+        line-height: 30px;
+        font-size: 12px;
+        cursor: pointer;
+        font-family: 'Avenir';
+        }
+    /*.profile_pic {
+    position: relative;
+    width: 25%;
+    height: 38vh;
+    margin-top: -30%;
+    margin-left: 60%;
+  
+    cursor: pointer;
+    }
+    
+    #photo {
+    position: absolute;
+    border-radius: 0.4em;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    }
+    
+    #file {
+     display: none;
+     }
+    
+     #uploadButton {
+     height: 40px;
+     width: 100%;
+     position: absolute;
+     bottom: 0;
+     left: 50%;
+     text-align: center;
+     background: rgba(0, 0, 0, 0.7);
+     color: rgb(255, 255, 255);
+     line-height: 30px;
+     font-size: 12px;
+     cursor: pointer;
+     display: none;
+     }
+      .content-box{
+        width: 45vw;
+        height: 50vh;
+        margin-top: -1.5%;
+        padding-top: 0.2%;
+        border-radius: 2em;
+        background-color: white;
+        box-shadow: 0 0 2em rgba(0, 0, 0, .2);
+        }
+        input{
+        font-size: medium;
+        padding: 10px;
+        margin: 10px;;
+        font-family: 'Poppins', sans-serif;
+        border-radius: 0.3em;
+        }
+        #logo{
+        width: 20vw;
+        margin-left: 0%;
+        z-index: 1;
+        }
+        #createProfile{
+        background-color: #10093B;
+        color: white;
+        font-family: 'Poppins', sans-serif;
+        font-size: medium;
+        border-radius: 0.6em;
+        border: none;
+        cursor: pointer;
+        padding-top: 9px;
+        padding-bottom: 9px;
+        padding-left: 14px;
+        padding-right: 14px;
+        width: 20%;
+        margin-top: 2%;
+        }
+        .columns{
+          display: flex;
+        }*/
+  </style>
+</head>
+<body>
+  <center>
+  <center>
+  <div class = "header">
+  <img id = "logo" src="../images/rooMe.png">
+  </div>
+</center>
+
+<h1>Create a Profile</h1>
+  <div class = "columns">
+  <div class = "column1">
+    <input type="text" placeholder="First Name" id="firstname">
+    <input type="text" placeholder="Last Name" id="lastname">
+    <span class="underline"></span>
+    <input type="number" placeholder="Age" id="age"> 
+    <input type="text" placeholder="Gender"id="Gender"> 
+    <input type="text" placeholder="Occupation"id="occupation"> 
+  </div>
+  <div class = "column2">
+    <input type="text" placeholder="City" id="city">
+    <input type="text" placeholder="State" id="State"> 
+    <input type="tel" placeholder="Phone Number" id="phonenumber">
+    <input type="email" placeholder="Email" id="email" required>
+    <input type="password" placeholder="Password" id="password" required>
+  </div>
+</div>
+  </center>
+  <div class="profile_pic">
+    <img src="user.png" id="photo">
+      <input type="file" id="file">
+        <label for="file" id="uploadButton">Choose Photo</label>
+    </div>
+    <p>Add a profile picture!</p>
+    <button type="button" id="createProfile">Next!</button>
+</body>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
+  import { getDatabase, set, update, ref } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-database.js";
+  import { getAuth, onAuthStateChanged, sendEmailVerification, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js";
+  
+  const firebaseConfig = {
+    apiKey: "AIzaSyClqbgmtcPuED7LE3-2XXSooypjXiHQj38",
+    authDomain: "roome-5bfa9.firebaseapp.com",
+    databaseURL: "https://roome-5bfa9-default-rtdb.firebaseio.com",
+    projectId: "roome-5bfa9",
+    storageBucket: "roome-5bfa9.appspot.com",
+    messagingSenderId: "564378590257",
+    appId: "1:564378590257:web:6e18a1d7269d83af318910"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db =  getDatabase(app); 
+  const auth = getAuth();    
+    
+  createProfile.addEventListener('click', (e) => {
+
+      var firstName = document.getElementById("firstname").value;
+      var lastName = document.getElementById("lastname").value;
+      var age = document.getElementById("age").value;
+      var gender = document.getElementById("Gender").value;
+      var occupation = document.getElementById("occupation").value;
+      var city = document.getElementById("city").value;
+      var state = document.getElementById("State").value;
+      var phonenumber = document.getElementById("phonenumber").value;   
+      var email = document.getElementById("email").value;
+      var password = document.getElementById("password").value;
+
+      createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                var user = userCredential.user;
+                // const actionCodeSettings = {
+                //     url: 'http://localhost:52330/pages/LandingPage.html?signup=true',
+                //     handleCodeInApp: false,
+                // };
+
+                //sendEmailVerification(user); 
+                //alert("Sent verification email!  Please verify email before proceeding.")
+  
+                set(ref(db, "Users/"+ user.uid),{
+                email: email,
+                firstName: firstName,
+                lastName: lastName,
+                age: age,
+                gender: gender,
+                occupation:occupation,
+                city: city,
+                state: state,
+                phonenumber: phonenumber,
+                })
+                .then(()=>{
+                    alert(`Registered with ${email}`);
+                    window.location.replace("QuestionPage.html"); ////////////// ADD THE DESIRED HTML HERE
+                })
+                .catch((error)=>{
+                    alert(error);
+                });
+            
+            })
+            .catch((error) => {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                // ..
+                alert(errorMessage)
+            });
+
+  });    
+  </script>
+
+    <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
+    import { getStorage, ref, uploadBytes } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-storage.js";
+
+    const firebaseConfig = {
+    apiKey: "AIzaSyClqbgmtcPuED7LE3-2XXSooypjXiHQj38",
+    authDomain: "roome-5bfa9.firebaseapp.com",
+    databaseURL: "https://roome-5bfa9-default-rtdb.firebaseio.com",
+    projectId: "roome-5bfa9",
+    storageBucket: "roome-5bfa9.appspot.com",
+    messagingSenderId: "564378590257",
+    appId: "1:564378590257:web:6e18a1d7269d83af318910"
+
+  };
+ 
+    const app = initializeApp(firebaseConfig);
+    const storage = getStorage(app);
+    const storageRef = ref(storage, "images/");
+    
+    
+    const profilepic = document.querySelector('.profile_pic');
+    const img = document.querySelector('#photo');
+    const file = document.querySelector('#file');
+    const uploadButton = document.querySelector('#uploadButton');
+
+    profilepic.addEventListener('mouseenter', function(){
+        uploadButton.style.display = "block";
+    });
+
+    profilepic.addEventListener('mouseleave', function(){
+        uploadButton.style.display = "none";
+    });
+  
+    file.addEventListener('change', function(){
+        const choosedFile = this.files[0];
+
+          if (choosedFile) {
+            const fileName = choosedFile.name;
+            const fileRef = ref(storageRef, fileName);
+                uploadBytes(fileRef, choosedFile)
+                    .then((snapshot) => {
+                        console.log("File uploaded successfully");
+                        snapshot.ref.getDownloadURL().then((url) => {
+
+                      img.setAttribute('src', url);
+                      });
+                    })
+                    .catch((error) => {
+                      onsole.error("Error uploading file: ", error);
+                    });
+              }
+  if (choosedFile) {
+    const reader = new FileReader(); 
+    reader.addEventListener('load', function(){
+      img.setAttribute('src', reader.result);
+    });
+    
+    reader.readAsDataURL(choosedFile);
+  
+  }
+});
+
+</script>
+
+
+
+
+</html>

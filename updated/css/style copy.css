@@ -1,0 +1,89 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    box-sizing: border-box;
+}
+body{
+    height: 100vh;
+    background-color: bisque;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.chatBox{
+    color: blue;
+padding: 15px;
+
+}
+.container{
+    width: 750px;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 2px 2px 20px rgba(0,0,0,0.4);
+    background-color: bisque;
+
+}
+.header h1{
+color: currentColor;
+padding: 15px;
+}
+.header h2{
+    color: currentColor;
+    padding: 10px;
+    }
+.body{
+    flex: 1;
+    color: rgb(121, 26, 26);
+    background-color: rgba (0,0,0,0.7);
+    padding: 20px 30px;
+    
+ 
+
+}
+.message{
+    background-color: gray;
+    padding: 10px;
+    color: white;
+    width: fit-content;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+.document{
+    margin-left: auto;
+    background-color: white;
+    color: black;
+    
+
+}
+.footer form{
+    display: flex;
+    padding: auto;
+    color: white;
+    
+    
+
+}
+form input{
+    flex: 1;
+    height: 40px;
+    border: none;
+    outline: none;
+    padding-left: 5px;
+    font-size: 16px;
+}
+.send-Button{
+    width: 100px;
+    font-size: 18px;
+    border: none;
+    outline: none;
+    background-color: white;
+    color: black;
+    cursor: pointer;
+    
+}
+form button:hover{
+    background-color: wheat;
+    transition: 0.2s ease;
+}

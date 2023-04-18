@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+    @font-face {
+    font-family: 'Avenir';
+    src: url('../fonts/Avenir.eot?#iefix') format('embedded-opentype'),  url('../fonts/Avenir.woff') format('woff'), url('../fonts/Avenir.ttf')  format('truetype'), url('../fonts/Avenir.svg#Avenir') format('svg');
+    }
+    @font-face {
+        font-family: myFont;
+        src: url(font.ttf);
+    }
+    @font-face {
+        font-family: subFont;
+        src: url(subfont.otf);
+    }
+      
+        body{
+        background-color: #fef7f7; /* edc7c7//fcdad9 */
+        margin: 0; 
+        padding: 0;
+        }
+        .columns{
+        display: flex;
+        }
+        #logo{
+        width: 46vw;
+        margin-top: 4%;
+        margin-left: 8%;
+        z-index: 1;
+        }
+        .column-one{
+        width: 50%;
+        height: 100vh;
+        background-image:url("../images/background.jpg");
+        }
+        .column-two{
+        height: 100vh;
+        width: 50%;
+        margin-top: 17%;
+        }
+        .description{
+        font-family: subFont;
+        margin-left: 14%;
+        margin-top: -42%;
+        font-size: 4.4em;
+        /*margin-left: 20%;
+        margin-top: -40%;
+        font-size: 2.5em;*/
+        }
+        input{
+        color: black;
+        background-color: transparent;
+        font-family: Avenir;
+        font-size: large;
+        padding: 10px;
+        margin: 10px;;
+        width: 25vw;
+        border-bottom: 0.1em solid;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        }
+        #forgotPassword{
+        background-color: transparent;
+        color: black;
+        font-family: Avenir;
+        font-size: large;
+        border: none;
+        padding-top: 7px;
+        padding-bottom: 7px;
+        padding-left: 14px;
+        padding-right: 14px;
+        width: 55%;
+        cursor: pointer;
+        margin-bottom: 0%;
+       }
+       #logIn{
+        background-color: #000000;
+        color: white;
+        font-family: Avenir;
+        font-size: medium;
+        border: none;
+        border-radius: 0.2em;
+        cursor: pointer;
+        margin-top: 1.2%;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: 14px;
+        padding-right: 14px;
+        width: 53%;
+       }
+       #createprofile{
+        background-color: #000000;
+        font-family: Avenir;
+        color: white;
+        font-size: medium;
+        border: none;
+        border-radius: 0.2em;
+        cursor: pointer;
+        margin-top: 1.2%;
+        padding-left: 14px;
+        padding-right: 14px;
+        width: 53%;
+       }
+       label{
+        font-family: Avenir;
+       }
+       a{
+        text-decoration: none;
+        color: rgb(255, 255, 255);
+       }
+       a:visited { 
+        text-decoration: none; 
+        color: rgb(255, 255, 255);
+        }
+        </style>
+    </head>
+    <body>
+        <div class="columns">
+        <div class="column-one">
+        <img id = "logo" src = "../images/rooMe.png">
+        <p class = "description">welcome to your new home.</p>
+    </div>
+        <div class = "column-two">
+            <center>
+                <input type="email" id="email" placeholder = "Email" required> <br>
+                <input type="password" id="password" placeholder = "Password" required> <br>
+                <div class = "loginbuttons"> 
+                <button type="button"  id="logIn">Log in!</button><br> <br>
+                </div>
+                <button type="button" id="forgotPassword"> Forgot password? </button><br> <br>   
+                <button id="createprofile"><a href="../pages/CreateProfile.html"><p> Create an account here!</p></button></a>
+            </center>
+        </div>
+    </form>
+    </div>
+    </body>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
+        import { getDatabase, update, set, ref } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-database.js";
+        import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js";
+    
+        const firebaseConfig = {
+          apiKey: "AIzaSyClqbgmtcPuED7LE3-2XXSooypjXiHQj38",
+          authDomain: "roome-5bfa9.firebaseapp.com",
+          databaseURL: "https://roome-5bfa9-default-rtdb.firebaseio.com",
+          projectId: "roome-5bfa9",
+          storageBucket: "roome-5bfa9.appspot.com",
+          messagingSenderId: "564378590257",
+          appId: "1:564378590257:web:6e18a1d7269d83af318910"
+        };
+  
+   
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth();
+        const db =  getDatabase(app);
+        const provider = new GoogleAuthProvider(app);
+
+        logIn.addEventListener('click', function (e) {
+
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+            
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    // Signed in 
+                    var user = userCredential.user;
+                    const dt = new Date();
+                    update(ref(db, "Users/"+ user.uid),{
+                        last_login: dt,
+                    })
+                    .then(()=>{
+                        alert(`Logged in with ${email}`);
+                        window.location.replace("ViewProfile.html");
+                    })
+                    .catch((error)=>{
+                        alert(error);
+                    });
+                    
+                })
+                .catch((error) => {
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    // ..
+                    alert(errorMessage)
+                });
+            
+        });
+
+            forgotPassword.addEventListener("click", function(e) {
+                var email = document.getElementById("email").value;
+
+                sendPasswordResetEmail(auth, email)
+                .then(() => {
+
+                    alert(`Sent password reset link to ${email}`)
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    
+                });
+
+
+            });
+
+      </script>
+</html>

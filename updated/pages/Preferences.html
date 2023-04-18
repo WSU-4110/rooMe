@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Questions Page</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+@font-face {
+  font-family: subFont;
+  src: url(subfont.otf);
+}
+@font-face {
+    font-family: 'Avenir';
+    src: url('../fonts/Avenir.eot?#iefix') format('embedded-opentype'),  url('../fonts/Avenir.woff') format('woff'), url('../fonts/Avenir.ttf')  format('truetype'), url('../fonts/Avenir.svg#Avenir') format('svg');
+    }
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #fef7f7;
+}
+h1{
+  font-family: subFont;
+  font-size: 4em;
+  margin-top: -9%;
+  margin-left: 37%;
+}
+.columns{
+  display: flex;
+  align-items: center;
+  justify-items: center;
+}
+.column1, .column2{
+   width: 50%;
+   align-items: center;
+   justify-items: center;
+   font-family: 'Avenir';
+}
+.column1{
+	margin-top: -8%;
+}
+.column1 label{
+	margin-top: 1%;
+}
+.column2{
+	padding-left: -10%;
+	margin-top: 0%;
+}
+.column2 select {
+	margin-top: -4%;
+}
+.column2 label{
+	margin-bottom: -4%;
+}
+#logo{
+  margin-top: -7%;
+  margin-left: 39%;
+  width: 25vw;
+}
+.bathroombedroom{
+	display: flex;
+	margin-left: 2%;
+}
+.bathroombedroom select{
+	margin-right: 20%;
+	margin-top: 1%;
+	margin-bottom: 6%;
+	width: 40%;
+}
+form {
+  background-image: url("../images/background.jpg");
+  border-radius: 0.2em;
+  margin-top: -3%;
+  height: 550px;
+  width: 60%;
+  margin-left: 19%;
+  padding: 20px;
+}
+
+form label {
+  font-size: 18px;
+  width: 50%;
+  font-family: Avenir;
+  display: flex;
+}
+
+form select,
+form input[type="text"] {
+  border: none;
+  font-size: 16px;
+  margin-bottom: 15px;
+  padding-top: -2%;
+  width: 95%;
+}
+
+form select {
+  height: 40px;
+  font-family: Avenir;
+  text-decoration: none;
+}
+
+form input[type="text"] {
+  font-family: Avenir;
+  height: 40px;
+  border-radius: 0.1em;
+}
+
+form input[type="submit"] {
+  font-family: Avenir;
+  background-color: #000000;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 16px;
+  width:40%;
+  margin-top: 12%;
+  padding-left: 14px;
+  padding-right: 14px;
+  margin-left: -22%;
+}
+	</style>
+</head>
+<body>
+	<img id = "logo" src="../images/rooMe.png">
+	<h1>Personal Preferences</h1>
+	<form>
+		<form>
+			<div class ="columns">
+				<div class="column1">
+			<label for="location">Location:</label>
+			<input type="text" id="location" name="location"/>
+	
+
+		<label for="hometype">Home Type:</label>
+		<select id="hometype" name="home-type">
+			<option value="apartment">Apartment</option>
+			<option value="townhome">Townhome</option>
+			<option value="house">House</option>
+			<option value="No preference">No preference</option>
+		</select>
+
+    
+    <label for="roommategender">Roommate Gender:</label>
+		<select id="roommategender" name="roommate-gender">
+			<option value="Male">Male</option>
+			<option value="Female">Female</option>
+			<option value="No Preference">No Preference</option>
+		</select>
+
+		 <label for="roommatesexuality">Roommate Sexuality:</label>
+		<select id="roommatesexuality" name="roommate-sexuality">
+			<option value="Straight">Straight</option>
+			<option value="Gay">Gay</option>
+			<option value="Lesbian">Lesbian</option>
+			<option value="Bisexual">Bisexual</option>
+			<option value="No Preference">No Preference</option>
+		</select>
+
+		<label for="ageOfRoomate">Roomates Age:</label>
+		<select id="ageOfRoomate" name="ageOfRoomate">
+			<option value="18-25">18-25</option>
+			<option value="25-30">25-30</option>
+			<option value="30-35">30-35</option>
+			<option value="35-40">35-40</option>
+			<option value="40-45">40-45</option>
+			<option value="45-50">45-50</option>
+			<option value="50-55">50-55</option>
+			<option value="55-60">55-60</option>
+			<option value="60-65">60-65</option>
+			<option value="65-70">65-70</option>
+			<option value="70-75">70-75</option>
+			<option value="75-80">75-80</option>
+			<option value="80-85">80-85</option>
+			<option value="85-90">85-90</option>
+			<option value="90-95">90-95</option>
+			<option value="95-100">95-100</option>
+			<option value="No preference">No preference</option>	
+		</select>
+
+	</div>
+	<div class="column2">
+	  <p>How do you prefer your living space?</p>
+      <select id="cleanlinesspreference">
+        <option value="Organized & Clean">Organized & Clean</option>
+        <option value="Messy & Clean">Messy & Clean</option>
+        <option value="Unorganized">Unorganized</option>
+        <option value="No Preference">No Preference</option>
+      </select>
+
+      <p>Do you prefer an early bird or night owl?</p>
+	  <select id="sleep">
+      <option value="Early Bird">Early Bird</option>
+      <option value="Night Owl">Night Owl</option>
+	  <option value="No Preference">No Preference</option>
+	  </select>
+
+      <p>How often can your roommate have guests?</p>
+      <select id="roomatesguest">
+		<option value="Daily">Daily</option>
+		<option value="Few times a week">Few times a week</option>
+		<option value="Rarely">Rarely</option>
+	  </select>
+     <div class = "bathroombedroom">
+		<label for="beds">Beds:</label>
+		<select id="beds" name="beds">
+			<option value="1-2">1-2</option>
+			<option value="2-3">2-3</option>
+			<option value="3-4">3-4</option>
+			<option value="4-5">4-5</option>
+			<option value="No preference">No preference</option>
+
+		</select>
+
+		<label for="bathrooms">Baths:</label>
+		<select id="bathrooms" name="bathrooms">
+			<option value="1-2">1-2</option>
+			<option value="2-3">2-3</option>
+			<option value="3-4">3-4</option>
+			<option value="4-5">4-5</option>
+			<option value="No preference">No preference</option>
+		</select>
+	</div>
+	<label for="rent">Rent:</label>
+		<select id="rent" name="rent">
+			<option value="500-1000">500-1000</option>
+			<option value="1000-2000">1000-2000</option>
+			<option value="2000-3000">2000-3000</option>
+			<option value="3000-4000">3000-4000</option>
+			<option value="4000-5000">4000-5000</option>
+			<option value="5000-6000">5000-6000</option>
+			<option value="6000-7000">6000-7000</option>
+			<option value="7000-8000">7000-8000</option>
+			<option value="8000-9000">8000-9000</option>
+			<option value="9000-10000">9000-10000</option>
+			<option value="No preference">No preference</option>
+		</div>
+	</div>
+
+
+			<form method="post">
+				<input type="submit" id="next" value="Next" formaction="QuestionPage.html">
+			</form>
+</body>
+<script type="module">
+	import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
+	import { getDatabase, set, update, ref } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-database.js";
+	import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js";
+	
+  
+	const firebaseConfig = {
+	  apiKey: "AIzaSyClqbgmtcPuED7LE3-2XXSooypjXiHQj38",
+	  authDomain: "roome-5bfa9.firebaseapp.com",
+	  databaseURL: "https://roome-5bfa9-default-rtdb.firebaseio.com",
+	  projectId: "roome-5bfa9",
+	  storageBucket: "roome-5bfa9.appspot.com",
+	  messagingSenderId: "564378590257",
+	  appId: "1:564378590257:web:6e18a1d7269d83af318910"
+	};
+  
+  
+	const app = initializeApp(firebaseConfig);
+	const db =  getDatabase(app); 
+	const auth = getAuth();
+  
+	next.addEventListener('click', (e) => {
+		var typehome = document.getElementById("hometype").value;
+		var genderMate = document.getElementById("roommategender").value;
+		var sexualityMate = document.getElementById("roommatesexuality").value;
+		var ageMate = document.getElementById("ageOfRoomate").value;
+		var bed = document.getElementById("beds").value;
+		var bath = document.getElementById("bathrooms").value;
+		var rent = document.getElementById("rent").value;
+
+		const user = auth.currentUser;
+		if (user !== null) {
+			const uid = user.uid;
+			update(ref(db, "Users/"+ user.uid),{
+				typehome: typehome,
+				genderMate: genderMate,
+				sexualityMate: sexualityMate,
+				ageMate: ageMate,
+				bed: bed,
+				bath: bath,
+				rent: rent
+			})
+			.then(()=>{
+				window.location.replace("Questions.html");
+			})
+			.catch((error)=>{
+				alert(error);
+			});
+		}
+	});
+  
+  </script>
+</html>
