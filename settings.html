@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+
+    <title>RooMe Settings</title>
+
+<style>
+    @font-face {
+    font-family: 'Avenir';
+    src: url('../fonts/Avenir.eot?#iefix') format('embedded-opentype'),  url('../fonts/Avenir.woff') format('woff'), url('../fonts/Avenir.ttf')  format('truetype'), url('../fonts/Avenir.svg#Avenir') format('svg');
+    } 
+    @font-face {
+        font-family: subFont;
+        src: url(subfont.otf);
+    }
+body
+{
+    margin: 0;
+    padding: 0;
+    background-color: #fef7f7;
+}
+a{
+    text-decoration: none;
+    font-family: 'Avenir';
+
+}
+a img{
+    margin-right: 10px;
+    margin-bottom: -2%;
+}
+#logo{
+    width: 260px;
+    margin-top: -26%;
+    z-index: 1;
+    margin-left: -7%;
+    margin-bottom: -37%;
+}
+.content{
+    display: flex;
+}
+.sidebar {
+  padding: 0;
+  width: 300px;
+  background-image: url("../images/backgroundblurred.jpg");
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+  margin-left: -12.4%;
+}
+.sidebar a {
+  display: block;
+  color: black;
+  padding: 16px;
+  text-decoration: none;
+}
+.sidebar a.active {
+  color: white;
+}
+.sidebar a:hover:not(.active) {
+  background-color: black;
+  color: white;
+}
+
+.icon{
+    max-width: 20px;
+}
+div.content {
+  margin-left: 200px;
+  padding: 1px 16px;
+  height: 1000px;
+}
+@media screen and (max-width: 700px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+  .sidebar a {float: left;}
+  div.content {margin-left: 0;}
+}
+@media screen and (max-width: 400px) {
+  .sidebar a {
+    text-align: center;
+    float: none;
+  }
+}
+h1{
+  font-family: subFont;
+  font-size: 4em;
+  margin-left: 30%;
+}
+.profile
+{
+  position: relative;
+  width: 60px;
+  height:60px;
+  border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
+}
+.profile img
+{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+label{
+  font-family: Avenir;
+}
+input{
+    color: black;
+    background-color: transparent;
+    font-family: Avenir;
+    font-size: large;
+    padding: 10px;
+    margin: 10px;;
+    width: 14vw;
+    border-bottom: 0.1em solid;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+}
+.edit-profile{
+  margin-top: -4%;
+  width: 33%;
+}
+.editprofile{
+    width: 60%;
+    margin-left: 25%;
+    margin-top: 4%
+}
+.columns{
+    display: flex;
+}
+.column1, .column2{
+    padding: 40px;
+}
+button{
+    background-color: #000000;
+    font-family: Avenir;
+    color: white;
+    font-size: medium;
+    border: none;
+    border-radius: 0.2em;
+    cursor: pointer;
+    margin-top: 34%;
+    margin-left: -40%;
+    padding-left: 14px;
+    padding-right: 14px;
+    width: 53%;
+}
+</style>
+</head>
+<body>
+<div class="content">
+<div class="sidebar">
+ <img src = "../images/rooMe.png" id = "logo" width = "30%">
+ <a href="ViewProfile.html"><img src="/images/Home.png" class="icon">Home</a>
+ <a href="#" id="pass"><img src="/images/changepassword.png" class="icon">Change Password</a>
+ <a href="#" id="signingOut"><img src="/images/logout.png" class="icon">Logout</a>
+ <a href="#" id="deleteAccount"><img src="/images/delete.png" class="icon">Delete Account</a>
+</div>
+<div class="editprofile">
+    <h1>Edit Profile</h1>
+    <div class = "edit-profile">
+        <div class="columns">
+            <div class="column1">
+        <br>
+           <input type = "text" class = "form-control" id = "inputFirstName" placeholder = "First Name">
+        </br>
+        
+        <br>
+           <input type = "text" class = "form-control" id = "inputLastName" placeholder = "Last Name">
+        </br>
+        
+        <br>
+           <input type = "text" class = "form-control" id = "inputAge" placeholder = "Age">
+        </br>
+        
+        <br>
+           <input type = "text" class = "form-control" id = "inputOccupation" placeholder = "Occupation">
+        </br>
+    </div>
+    <div class="column2">
+        <br>
+           <input type = "text" class = "form-control" id = "inputEmail" placeholder = "Email">
+        </br>
+        
+        <br>
+           <input type = "phone" class = "form-control" id = "inputphone" placeholder = "Phone">
+        </br>
+        
+        <br>
+           <input type = "text" class = "form-control" id = "inputCity" placeholder = "City">
+        </br>
+        
+        <br>
+           <input type = "text" class = "form-control" id = "inputState" placeholder = "State">
+        </br>
+        
+        <button type="button" id="editProfile">Done</button><br> <br>
+        </center>
+    </div>
+</div>
+</div>
+</div>
+ 
+ 
+    </body>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
+        import { getDatabase, update, set, ref, remove } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-database.js";
+        import { getAuth, signOut, deleteUser } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js";
+    
+        const firebaseConfig = {
+          apiKey: "AIzaSyClqbgmtcPuED7LE3-2XXSooypjXiHQj38",
+          authDomain: "roome-5bfa9.firebaseapp.com",
+          databaseURL: "https://roome-5bfa9-default-rtdb.firebaseio.com",
+          projectId: "roome-5bfa9",
+          storageBucket: "roome-5bfa9.appspot.com",
+          messagingSenderId: "564378590257",
+          appId: "1:564378590257:web:6e18a1d7269d83af318910"
+        };
+  
+   
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth();
+        const db =  getDatabase(app);
+
+        signingOut.addEventListener('click', function (e) {
+            const user = auth.currentUser;
+            signOut(auth).then(() => {
+                const dt = new Date();
+                update(ref(db, "Users/"+ user.uid),{
+                    last_logout: dt,
+                })
+                .then(()=>{
+                    alert("Logged Out!");
+                    window.location.replace("LandingPage.html");
+                })
+                .catch((error)=>{
+                    alert(error);
+                });
+            }).catch((error) => {
+            // An error happened.
+            const errorMessage = error.message;
+            alert(errorMessage);
+            });
+        });
+
+        deleteAccount.addEventListener('click', function (e) {
+            const user = auth.currentUser;
+            if(confirm("Are you sure you want to delete the account?")){
+                deleteUser(user).then(() => {
+                    remove(ref(db, "Users/"+ user.uid)).then(()=>{
+                        alert("We will miss you!");
+                        window.location.replace("LandingPage.html");
+                    }) .catch((error)=>{
+                        alert(error);
+                    });
+                }).catch((error) => {
+                // An error ocurred
+                const errorMessage = error.message;
+                alert(errorMessage);
+                });
+            }
+        });
+        const emailAddress = "";
+
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        const uid = user.uid;
+        const starCountRef = ref(db, 'Users/' + uid);
+        onValue(starCountRef, (snapshot) => {
+        const data = snapshot.val();
+        emailAddress = data.email;
+        });
+    } else {
+        // User is signed out
+        uid = null;
+    }
+});
+
+pass.addEventListener("click", function(e) {
+
+        sendPasswordResetEmail(auth, emailAddress)
+        .then(() => {
+
+            alert(`Sent password reset link to ${email}`)
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            
+        });
+    })
+
+      </script>
+    </html>
