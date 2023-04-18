@@ -230,6 +230,29 @@ button{
         const app = initializeApp(firebaseConfig);
         const auth = getAuth();
         const db =  getDatabase(app);
+       
+       onAuthStateChanged(auth, (user) => {
+        if (user) {
+            // User is signed in, see docs for a list of available properties
+            // https://firebase.google.com/docs/reference/js/firebase.User
+            const uid = user.uid;
+            const starCountRef = ref(db, 'Users/' + uid);
+            onValue(starCountRef, (snapshot) => {
+            const data = snapshot.val();
+            document.getElementById("inputFirstName").value = data.firstName; 
+            document.getElementById("inputLastName").value = data.lastName;
+            document.getElementById("inputEmail").value = data.email;
+            document.getElementById("inputUsername").value = data.username;
+            document.getElementById("inputCity").value = data.location;
+            document.getElementById("inputAddress").value = data.address;
+            document.getElementById("inputState").value = data.state;
+            document.getElementById("inputZipCode").value = data.zip_code;
+            });
+        } else {
+            // User is signed out
+            uid = null;
+        }
+        });
 
         signingOut.addEventListener('click', function (e) {
             const user = auth.currentUser;
