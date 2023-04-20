@@ -160,7 +160,7 @@ button{
 <div class="sidebar">
  <img src = "../images/rooMe.png" id = "logo" width = "30%">
  <a href="ViewProfile.html"><img src="/images/Home.png" class="icon">Home</a>
- <a href="changePassword.html"><img src="/images/changepassword.png" class="icon">Change Password</a>
+ <a href="#" id="pass"><img src="/images/changepassword.png" class="icon">Change Password</a>
  <a href="#" id="signingOut"><img src="/images/logout.png" class="icon">Logout</a>
  <a href="#" id="deleteAccount"><img src="/images/delete.png" class="icon">Delete Account</a>
 </div>
@@ -211,10 +211,10 @@ button{
  
  
     </body>
-    <script type="module">
+   <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
-        import { getDatabase, update, set, ref, remove } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-database.js";
-        import { getAuth, signOut, deleteUser } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js";
+        import { getDatabase, update, set, ref, remove, onValue } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-database.js";
+        import { getAuth, signOut, deleteUser,  sendPasswordResetEmail, onAuthStateChanged  } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js";
     
         const firebaseConfig = {
           apiKey: "AIzaSyClqbgmtcPuED7LE3-2XXSooypjXiHQj38",
@@ -230,6 +230,61 @@ button{
         const app = initializeApp(firebaseConfig);
         const auth = getAuth();
         const db =  getDatabase(app);
+       
+       onAuthStateChanged(auth, (user) => {
+        if (user) {
+            // User is signed in, see docs for a list of available properties
+            // https://firebase.google.com/docs/reference/js/firebase.User
+            const uid = user.uid;
+            const starCountRef = ref(db, 'Users/' + uid);
+            onValue(starCountRef, (snapshot) => {
+            const data = snapshot.val();
+            document.getElementById("inputFirstName").value = data.firstName; 
+            document.getElementById("inputLastName").value = data.lastName;
+            document.getElementById("inputEmail").value = data.email;
+            document.getElementById("inputCity").value = data.location;
+            document.getElementById("inputphone").value = data.phonenumber;
+            document.getElementById("inputOccupation").value = data.occupation;
+            document.getElementById("inputAge").value = data.age;
+            });
+        } else {
+            // User is signed out
+            uid = null;
+        }
+        });
+        
+        editProfile.addEventListener('click', (e) => {
+
+            var firstName = document.getElementById("inputFirstName").value; 
+            var lastName = document.getElementById("inputLastName").value; 
+            var email = document.getElementById("inputEmail").value; 
+            var city = document.getElementById("inputCity").value; 
+            var phonenumber =  document.getElementById("inputphone").value;
+            var occupation = document.getElementById("inputOccupation").value;
+            var age = document.getElementById("inputAge").value;
+
+            const user = auth.currentUser;
+            if (user !== null) {
+            const uid = user.uid;
+
+            update(ref(db, "Users/"+ user.uid),{
+                firstName: firstName,
+                lastName: lastName,
+                email: email,
+                city: city,
+                phonenumber: phonenumber,
+                occupation: occupation,
+                age: age
+            })
+            .then(()=>{
+                alert(`User information updated!`);
+            })
+            .catch((error)=>{
+                alert(error);
+            });
+            }
+
+        });
 
         signingOut.addEventListener('click', function (e) {
             const user = auth.currentUser;
@@ -269,6 +324,33 @@ button{
                 });
             }
         });
+
+        pass.addEventListener("click", function(e) {
+            let emailAddress = "";
+            onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    const uid = user.uid;
+                    const starCountRef = ref(db, 'Users/' + uid);
+                    onValue(starCountRef, (snapshot) => {
+                        const data = snapshot.val();
+                        emailAddress = data.email;
+
+                        sendPasswordResetEmail(auth, emailAddress)
+                            .catch((error) => {
+                                const errorCode = error.code;
+                                const errorMessage = error.message;
+                                
+                            });
+                    });
+                } else {
+                    // User is signed out
+                    uid = null;
+                }
+            });
+
+            alert(`Sent password reset link`)
+
+        })  
 
       </script>
     </html>

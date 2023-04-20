@@ -35,14 +35,14 @@ h1{
    font-family: 'Avenir';
 }
 .column1{
-	margin-top: -8%;
+	margin-top: 3%;
 }
 .column1 label{
 	margin-top: 1%;
 }
 .column2{
 	padding-left: -10%;
-	margin-top: 0%;
+	margin-top: -2%;
 }
 .column2 select {
 	margin-top: -4%;
@@ -103,18 +103,20 @@ form input[type="text"] {
   border-radius: 0.1em;
 }
 
-form input[type="submit"] {
-  font-family: Avenir;
-  background-color: #000000;
-  border: none;
-  color: #ffffff;
-  cursor: pointer;
-  font-size: 16px;
-  width:40%;
-  margin-top: 12%;
-  padding-left: 14px;
-  padding-right: 14px;
-  margin-left: -22%;
+#next {
+	background-color: #000000;
+    font-family: Avenir;
+    color: white;
+    font-size: medium;
+    border: none;
+    border-radius: 0.2em;
+    cursor: pointer;
+    margin-top: 4%;
+	margin-left: 72%;
+    padding-left: 14px;
+    padding-right: 14px;
+    width: 53%;
+	z-index: 1;
 }
 	</style>
 </head>
@@ -122,24 +124,23 @@ form input[type="submit"] {
 	<img id = "logo" src="../images/rooMe.png">
 	<h1>Personal Preferences</h1>
 	<form>
-		<form>
 			<div class ="columns">
 				<div class="column1">
 			<label for="location">Location:</label>
 			<input type="text" id="location" name="location"/>
 	
-
 		<label for="hometype">Home Type:</label>
 		<select id="hometype" name="home-type">
+			<option value="default">Select</option>
 			<option value="apartment">Apartment</option>
 			<option value="townhome">Townhome</option>
 			<option value="house">House</option>
 			<option value="No preference">No preference</option>
 		</select>
 
-    
     <label for="roommategender">Roommate Gender:</label>
 		<select id="roommategender" name="roommate-gender">
+			<option value="default">Select</option>
 			<option value="Male">Male</option>
 			<option value="Female">Female</option>
 			<option value="No Preference">No Preference</option>
@@ -147,6 +148,7 @@ form input[type="submit"] {
 
 		 <label for="roommatesexuality">Roommate Sexuality:</label>
 		<select id="roommatesexuality" name="roommate-sexuality">
+			<option value="default">Select</option>
 			<option value="Straight">Straight</option>
 			<option value="Gay">Gay</option>
 			<option value="Lesbian">Lesbian</option>
@@ -156,6 +158,7 @@ form input[type="submit"] {
 
 		<label for="ageOfRoomate">Roomates Age:</label>
 		<select id="ageOfRoomate" name="ageOfRoomate">
+			<option value="default">Select</option>
 			<option value="18-25">18-25</option>
 			<option value="25-30">25-30</option>
 			<option value="30-35">30-35</option>
@@ -174,11 +177,14 @@ form input[type="submit"] {
 			<option value="95-100">95-100</option>
 			<option value="No preference">No preference</option>	
 		</select>
-
+		<button type="button" id="next"> Next </button><br> <br>
 	</div>
+	<option value="No preference">No preference</option>
+	
 	<div class="column2">
 	  <p>How do you prefer your living space?</p>
       <select id="cleanlinesspreference">
+		<option value="default">Select</option>
         <option value="Organized & Clean">Organized & Clean</option>
         <option value="Messy & Clean">Messy & Clean</option>
         <option value="Unorganized">Unorganized</option>
@@ -187,6 +193,7 @@ form input[type="submit"] {
 
       <p>Do you prefer an early bird or night owl?</p>
 	  <select id="sleep">
+	  <option value="default">Select</option>
       <option value="Early Bird">Early Bird</option>
       <option value="Night Owl">Night Owl</option>
 	  <option value="No Preference">No Preference</option>
@@ -194,6 +201,7 @@ form input[type="submit"] {
 
       <p>How often can your roommate have guests?</p>
       <select id="roomatesguest">
+		<option value="default">Select</option>
 		<option value="Daily">Daily</option>
 		<option value="Few times a week">Few times a week</option>
 		<option value="Rarely">Rarely</option>
@@ -201,6 +209,7 @@ form input[type="submit"] {
      <div class = "bathroombedroom">
 		<label for="beds">Beds:</label>
 		<select id="beds" name="beds">
+			<option value="default">Select</option>
 			<option value="1-2">1-2</option>
 			<option value="2-3">2-3</option>
 			<option value="3-4">3-4</option>
@@ -211,6 +220,7 @@ form input[type="submit"] {
 
 		<label for="bathrooms">Baths:</label>
 		<select id="bathrooms" name="bathrooms">
+			<option value="default">Select</option>
 			<option value="1-2">1-2</option>
 			<option value="2-3">2-3</option>
 			<option value="3-4">3-4</option>
@@ -220,6 +230,7 @@ form input[type="submit"] {
 	</div>
 	<label for="rent">Rent:</label>
 		<select id="rent" name="rent">
+			<option value="default">Select</option>
 			<option value="500-1000">500-1000</option>
 			<option value="1000-2000">1000-2000</option>
 			<option value="2000-3000">2000-3000</option>
@@ -229,15 +240,10 @@ form input[type="submit"] {
 			<option value="6000-7000">6000-7000</option>
 			<option value="7000-8000">7000-8000</option>
 			<option value="8000-9000">8000-9000</option>
-			<option value="9000-10000">9000-10000</option>
-			<option value="No preference">No preference</option>
+			<option value="9000-10000">9000-10000</option>   
 		</div>
 	</div>
-
-
-			<form method="post">
-				<input type="submit" id="next" value="Next" formaction="QuestionPage.html">
-			</form>
+	</form>
 </body>
 <script type="module">
 	import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
@@ -255,11 +261,10 @@ form input[type="submit"] {
 	  appId: "1:564378590257:web:6e18a1d7269d83af318910"
 	};
   
-  
 	const app = initializeApp(firebaseConfig);
 	const db =  getDatabase(app); 
 	const auth = getAuth();
-  
+
 	next.addEventListener('click', (e) => {
 		var typehome = document.getElementById("hometype").value;
 		var genderMate = document.getElementById("roommategender").value;
@@ -268,8 +273,9 @@ form input[type="submit"] {
 		var bed = document.getElementById("beds").value;
 		var bath = document.getElementById("bathrooms").value;
 		var rent = document.getElementById("rent").value;
-
+		var location = document.getElementById("location").value;
 		const user = auth.currentUser;
+
 		if (user !== null) {
 			const uid = user.uid;
 			update(ref(db, "Users/"+ user.uid),{
@@ -279,10 +285,11 @@ form input[type="submit"] {
 				ageMate: ageMate,
 				bed: bed,
 				bath: bath,
-				rent: rent
+				rent: rent,
+				location: location
 			})
 			.then(()=>{
-				window.location.replace("Questions.html");
+				window.location.replace("bio.html");
 			})
 			.catch((error)=>{
 				alert(error);

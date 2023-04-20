@@ -20,9 +20,9 @@
     }
 		body{
 			color: rgb(0, 0, 0);
-            margin-top: 4%;
             padding: 0;
             overflow-x: hidden;
+            margin: 0;
 		}
         h1 {
             font-size: 2em;
@@ -84,12 +84,63 @@
         label, select{
         font-family: Avenir;
         }
+      #logo{
+        width: 8vw;
+        margin-top: -6%;
+        }
 
+#navbar {
+  overflow: hidden;
+  background-color: rgb(0, 0, 0);
+  font-family: 'Avenir';
+  text-align: center;
+  margin-bottom: 10%;
+}
+
+#navbar a {
+  float: left;
+  display: block;
+  color: #ffffff;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+#navbar a:hover {
+  background-color: rgb(255, 255, 255);
+  color: black;
+}
+
+#navbar a.active {
+  background-color: #04AA6D;
+  color: white;
+}
+
+.content {
+  padding: 16px;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.sticky + .content {
+  padding-top: 60px;
+}
 </style>
 </head>
 
 <body>
-    <img src="../images/rooMe.png" id="logo">
+    <div id="navbar">
+        <a><img id = "logo" src="../images/roomewhite.jpg"></a>
+      <a href="../pages/ViewProfile.html">Home</a>
+      <a href="../houselistings/listing houses.html">Listings</a>
+      <a href="../pages/Chat.html">Chat</a>
+      <a href="../pages/settings.html">Settings</a>
+      </div>
 	<fieldset>
     
 		<input type="text" id="search" placeholder="Search by address..." onkeyup="searchHouses()">
