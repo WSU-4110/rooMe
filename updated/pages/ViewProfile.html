@@ -140,7 +140,7 @@
     </body>
     <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
-      import { getDatabase, ref, onValue, update}  from "https://www.gstatic.com/firebasejs/9.17.2/firebase-database.js";
+      import { getDatabase, ref, onValue, update, push, get}  from "https://www.gstatic.com/firebasejs/9.17.2/firebase-database.js";
       import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js";
     
       const firebaseConfig = {
@@ -157,29 +157,31 @@
       const auth = getAuth();
       const db =  getDatabase(app);
 
-      const output = document.getElementById("output");
-      const firstName = document.getElementById("firstname");
-      const lastName = document.getElementById("lastname");
-      const userRef = ref(db, "Users");
-      const cards = [];
+      // const output = document.getElementById("output");
+      // const firstName = document.getElementById("firstname");
+      // const lastName = document.getElementById("lastname");
 
-      onValue(userRef, (snapshot) => {
+      const userRef = ref(db, "Users");
+      var cards = [];
+
+      // onValue(userRef, (snapshot) => {
+      get(userRef).then((snapshot) => {
       const users = snapshot.val();
+      const userCurrentID = auth.currentUser.uid;
       profile.innerHTML = "";
       
         for(let userKey in users){
+
+          if(userKey == userCurrentID){continue;}
           const user = users[userKey];
+          
           const userContainer = document.createElement("div");
           userContainer.classList.add("card");
           userContainer.id = userKey;
-          
-          /*const key = document.createElement("p");
-          key.classList.add("userId");
-          key.id = userKey;
-          userContainer.appendChild(key);*/
+      
           const profilepicture = document.createElement("img");
           const img = `${user.profilepicture}`;
-          console.log(img);
+          //console.log(img);
           profilepicture.src = img;
           profilepicture.classList.add("profilepicture");
           userContainer.appendChild(profilepicture);
@@ -223,59 +225,46 @@
           profile.appendChild(userContainer);
           cards.push(userContainer);
         }
-        console.log(cards);
-    
+        
+        console.log(cards); 
+        
       });
 
-      onAuthStateChanged(auth, (user) => {
-      if (user) {
-        // User is signed in, see docs for a list of available properties
-        // https://firebase.google.com/docs/reference/js/firebase.User
-        const uid = user.uid;
-        const starCountRef = ref(db, 'Users/' + uid);
-        onValue(starCountRef, (snapshot) => {
-          const data = snapshot.val();
-          document.getElementById("firstName").innerHTML = data.firstName;
-          document.getElementById("lastName").innerHTML = data.lastName;
-          document.getElementById("location").innerHTML = data.location;
-        });
-      } else {
-        // User is signed out
-        uid = null;
-      }
-      });
+      
+
       const swipeRightBtn = document.getElementById("swipeRightBtn");
       const swipeLeftBtn = document.getElementById("swipeLeftBtn");
-      let currentIndex = 0;
-      const cardsSaved = [];
+      var currentIndex = 0;
+      var cardsSaved = [];
+
       swipeRightBtn.addEventListener("click", () =>{
         const tempId = cards[currentIndex].getAttribute("id");
-        //const Id = tempId.getAttribute("id");
-        //console.log(tempId);
         cardsSaved.push(tempId);
-        cards[currentIndex].style.display = "none";
-        if(currentIndex != cards.length){
-        currentIndex = (currentIndex + 1);
-        cards[currentIndex].style.display = "flex";
-        }
-        console.log(cardsSaved);
-      }); 
-      ////////////////////////
-      swipeLeftBtn.addEventListener("click", () =>{
-        cards[currentIndex].style.display = "none";
-        if(currentIndex != cards.length){
-        currentIndex = (currentIndex + 1);
-        cards[currentIndex].style.display = "flex";
+
+        if(auth.currentUser){
+          const userCurrentID = auth.currentUser.uid;
+          update(ref(db, "Users/"+ userCurrentID),{
+              liked: cardsSaved
+          })
+          .then(()=>{
+            cards[currentIndex].style.display = "none";
+            if(currentIndex != cards.length){
+              currentIndex = (currentIndex + 1);
+              cards[currentIndex].style.display = "flex";
+            }
+          })
         }
       });
 
-onAuthStateChanged(auth, (user) => {
-  if (user !== null) {
-    const uid = user.uid;
-    update(ref(db, "Users/"+ uid),{
-      liked: cardsSaved
-    })
-  }
-});
+      swipeLeftBtn.addEventListener("click", () =>{
+        cards[currentIndex].style.display = "none";
+        // alert(cards.length)
+        if((currentIndex != cards.length)){
+          currentIndex = (currentIndex - 1);
+          cards[currentIndex].style.display = "flex";
+        }
+      });
+      
+
     </script>
 </html>
