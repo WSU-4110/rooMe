@@ -1,0 +1,424 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <title>List of Houses for Rent</title>
+    <style>
+    @font-face {
+    font-family: 'Avenir';
+    src: url('../fonts/Avenir.eot?#iefix') format('embedded-opentype'),  url('../fonts/Avenir.woff') format('woff'), url('../fonts/Avenir.ttf')  format('truetype'), url('../fonts/Avenir.svg#Avenir') format('svg');
+    }
+    @font-face {
+      font-family: myFont;
+      src: url(font.ttf);
+    }
+    @font-face {
+        font-family: subFont;
+        src: url(subfont.otf);
+    }
+		body{
+			color: rgb(0, 0, 0);
+            padding: 0;
+            overflow-x: hidden;
+            margin: 0;
+		}
+        h1 {
+            font-size: 2em;
+            text-align: center;
+        }
+        #house-list{
+            display: flex;
+            flex-wrap: wrap;
+            overflow-x: hidden;
+            margin-left: 3%;
+            width: 120%;
+        }
+        .house {
+            padding: 10px;
+            margin-bottom: 10px;
+            margin-top: 10px;
+            width: 25%;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .house img {
+            height: 40%;
+            width: 90%;
+            margin-left: 4.4%;
+            border-radius: 0.4em;
+        }
+        .house .details {
+            font-family: Avenir;
+            margin-right: 10px;
+        }
+        .house .details h2 {
+            margin: 25px;
+        }
+        .house .details p {
+			font-size: 1.2em;
+            margin: 25px;
+            color: rgb(0, 0, 0);
+        }
+        .house .prices {
+            font-size: 1.2em;
+            font-family: Avenir;
+            align-items: left;
+        }
+        #logo{
+        width: 20vw;
+        margin-left: 0%;
+        margin-top: -10%;
+        }
+        #search{
+        width: 30%;
+        font-family: Avenir;
+        }
+        fieldset {
+        margin-left: 18%;
+        font-size: 1.1em;
+        border: none;
+        margin-top: -7%;
+        }
+        label, select{
+        font-family: Avenir;
+        }
+      #logo{
+        width: 8vw;
+        margin-top: -6%;
+        }
+
+#navbar {
+  overflow: hidden;
+  background-color: rgb(0, 0, 0);
+  font-family: 'Avenir';
+  text-align: center;
+  margin-bottom: 10%;
+}
+
+#navbar a {
+  float: left;
+  display: block;
+  color: #ffffff;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+#navbar a:hover {
+  background-color: rgb(255, 255, 255);
+  color: black;
+}
+
+#navbar a.active {
+  background-color: #04AA6D;
+  color: white;
+}
+
+.content {
+  padding: 16px;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.sticky + .content {
+  padding-top: 60px;
+}
+</style>
+</head>
+
+<body>
+    <div id="navbar">
+        <a><img id = "logo" src="../images/roomewhite.jpg"></a>
+      <a href="../pages/ViewProfile.html">Home</a>
+      <a href="../houselistings/listing houses.html">Listings</a>
+      <a href="../pages/Chat.html">Chat</a>
+      <a href="../pages/settings.html">Settings</a>
+      </div>
+	<fieldset>
+    
+		<input type="text" id="search" placeholder="Search by address..." onkeyup="searchHouses()">
+	
+		<label for="states">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;State</label>
+    
+    <select id="states"> 
+      <option value="">Any</option>
+      <option value="california">California</option>
+      <option value="illinois"> Illinois</option>
+      <option value="michigan">Michigan</option>
+      <option value="ohio">Ohio </option>
+      <option value="tennessee">Tennessee</option>
+      <option value="texas">Texas</option>
+      <option value="virginia">Virginia</option>
+    </select>
+
+<label for="beds">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Beds:</label>
+<select id="beds">
+    <option value="">Any</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+</select>
+<label for="baths">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Baths:</label>
+<select id="baths">
+    <option value="">Any</option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    
+</select>
+
+<label for="prices">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Price:</label>
+<select id="prices">
+    <option value="">Any</option>
+    <option value="0-1000">0-1000</option>
+    <option value="1000-1500">1000-1500</option>
+    <option value="1500-2000">1500-2000</option>
+    <option value="2000-2500">2000-2500</option>
+</select>
+</fieldset>
+
+<div id="house-list"> 
+</body>
+<script>
+    
+    var houses = [
+    //house 1
+        {
+            address: "7471 Churchill Ave <br>Detroit, MI ",
+            beds: 3,
+            baths: 1,
+            prices: "1000-1500",
+            pricesinNumber: 1275,
+            states: "michigan",
+            image: "7471 Churchill Ave.png"
+        },
+        //house 2
+        {
+            address: "17375 Steel St <br>Detroit, MI ",
+            beds: 5,
+            baths: 2,
+            prices: "1500-2000",
+            pricesinNumber: 1650,
+            states: "michigan",
+            image: "17375 Steel St.png"
+            
+        },
+        //house 3
+        {
+            address: "6624 Cantata Ct <br>Dallas, TX",
+            beds: 3,
+            baths: 1,
+            prices: "1500-2000",
+            pricesinNumber: 1710,
+            states: "texas",
+            image: "6624 Cantata Ct.png"
+        },
+        //house 4
+        {
+            address: "10308 Wood Heights Dr <br>Dallas, TX ",
+            beds: 3,
+            baths: 2,
+            prices: "2000-2500",
+            pricesinNumber: 2095,
+            states: "texas",
+            image: "10308 Wood Heights Dr.png" 
+        
+        },
+        //house 5
+        {
+            address: "6308 Leola Way <br>Sacramento, CA",
+            beds: 3,
+            baths: 1,
+            prices: "1500-2000",
+            pricesinNumber: 1800,
+            states: "california",
+            image: "6308 Leola Way.png"
+        
+        },
+        //house 6
+        {
+            address: " 1518 Alicia Way <br>Sacramento, CA",
+            beds: 4,
+            baths: 2,
+            prices: "2000-2500",
+            pricesinNumber: 2395,
+            states: "california",
+            image: "1518 Alicia Way.png" 
+        
+        },
+            //house 7
+            {
+            address: "850 E 87th Pl <br>Chicago, IL ",
+            beds: 2,
+            baths: 1,
+            prices: "1000-1500",
+            pricesinNumber: 1295,
+            states: "illinois",
+            image: "​​850 E 87th Pl.png"
+        
+        },
+            //house 8
+            {
+            address: "10106 S Yates Blvd <br>Chicago, IL",
+            beds: 4,
+            baths: 1,
+            prices: "1500-2000",
+            pricesinNumber: 1850,
+            states: "illinois",
+            image: "10106 S Yates Blvd.png"
+        
+        },
+        //house 9
+        {
+           address: "3500 Elmore Pl <br>Norfolk, VA ",
+           beds: 4,
+           baths: 1,
+           prices: "1500-2000",
+           pricesinNumber: 1600,
+           states: "virginia",
+           image: "3500 Elmore Pl.png"
+      
+       },
+
+            //house 10
+            {
+           address: "2719 Keller Ave <br>Norfolk, VA ",
+           beds: 3,
+           baths: 1,
+           prices: "1500-2000",
+           pricesinNumber: 1995,
+           states: "virginia",
+           image: "2719 Keller Ave.png"
+      
+       },
+
+            //house 11
+            {
+           address: "1034 24th Ave N <br>Nashville, TN ",
+           beds: 3,
+           baths: 1,
+           prices: "2000-2500",
+           pricesinNumber: 2500,
+           states: "tennessee",
+           image: "1034 24th Ave N.png"
+      
+       },
+
+        //house 12
+            {
+           address: "531 Raymond St <br>Nashville, TN ",
+           beds: 3,
+           baths: 2,
+           prices: "1000-1500",
+           pricesinNumber: 1495,
+           states: "tennessee",
+           image: "531 Raymond St.png"
+      
+       },
+
+            //house 13
+            {
+           address: "4648 E 173rd St <br>Cleveland, OH ",
+           beds: 3,
+           baths: 1,
+           prices: "0-1000",
+           pricesinNumber: 965,
+           states: "ohio",
+           image: "4648 E 173rd St.png"
+      
+       },
+
+            //house 14
+            {
+           address: "9209 Rosewood Ave <br>Cleveland, OH ",
+           beds: 2,
+           baths: 1,
+           prices: "0-1000",
+           pricesinNumber: 925,
+           states: "ohio",
+           image: "9209 Rosewood Ave.png"
+           
+      
+       },
+
+            //house 15
+            {
+           address: "4000 Bridge Ave <br>Cleveland, OH ",
+           beds: 1,
+           baths: 1,
+           prices: "0-1000",
+           pricesinNumber: 965,
+           states: "ohio",
+           image: "4000 Bridge Ave.png"
+      
+       }
+
+    ];
+
+    // Function to display the list of houses
+    function displayHouses() {
+            var bedFilter = document.getElementById("beds").value;
+            var bathFilter = document.getElementById("baths").value;
+            var priceFilter = document.getElementById("prices").value;
+            var stateFilter = document.getElementById("states").value;
+            var houseList = document.getElementById("house-list");
+            houseList.innerHTML = "";
+            for (var i = 0; i < houses.length; i++) {
+                if ((bedFilter === "" || houses[i].beds == bedFilter) &&
+                    (bathFilter === "" || houses[i].baths == bathFilter) &&
+                    (priceFilter === "" || houses[i].prices == priceFilter)&&
+                    (stateFilter === "" || houses[i].states == stateFilter)
+                    ) { {
+                var houseDiv = document.createElement("div");
+                houseDiv.className = "house";
+                var imageDiv = document.createElement("div");
+                imageDiv.className = "image";
+                var image = document.createElement("img");
+                image.src = houses[i].image;
+                image.alt = houses[i].address;
+                imageDiv.appendChild(image);
+                var detailsDiv = document.createElement("div");
+                detailsDiv.className = "details";
+                var address = document.createElement("h2");
+                address.innerHTML = houses[i].address;
+                detailsDiv.appendChild(address);
+                var bedsBaths = document.createElement("p");
+                bedsBaths.innerHTML = houses[i].beds + " Beds " + houses[i].baths + " Baths ";
+                detailsDiv.appendChild(bedsBaths);
+                houseDiv.appendChild(imageDiv);
+                houseDiv.appendChild(detailsDiv);
+                var priceDiv = document.createElement("div");
+                priceDiv.className = "prices";
+                priceDiv.innerHTML = "$" + houses[i].pricesinNumber + "/month";
+                houseDiv.appendChild(priceDiv);
+                houseList.appendChild(houseDiv);
+            }
+        }
+    }
+}
+
+document.getElementById("states").addEventListener("change",function() {
+    displayHouses();
+});
+document.getElementById("beds").addEventListener("change",function() {
+    displayHouses();
+});
+document.getElementById("baths").addEventListener("change", function() {
+    displayHouses();
+});
+document.getElementById("prices").addEventListener("change",function() {
+    displayHouses();
+});
+
+// Initial display of the list of houses
+displayHouses();
+
+	</script>
+
