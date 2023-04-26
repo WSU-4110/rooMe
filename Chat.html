@@ -2,28 +2,167 @@
 <html>
 <head>
     <title>Chat</title>
-    <link  rel="stylesheet" type = "text/css" href="style.css">
+    <style>
+       @font-face {
+       font-family: 'Avenir';
+       src: url('../fonts/Avenir.eot?#iefix') format('embedded-opentype'),  url('../fonts/Avenir.woff') format('woff'), url('../fonts/Avenir.ttf')  format('truetype'), url('../fonts/Avenir.svg#Avenir') format('svg');
+       }
+       @font-face {
+       font-family: myFont;
+       src: url(font.ttf);
+       }
+       @font-face {
+        font-family: subFont;
+        src: url(subfont.otf);
+       }
+      body{
+        margin: 0;
+        padding: 0;
+        background-color: #fef7f7;
+        background-repeat: no-repeat;
+        background-size: cover;
+        font-family: 'Avenir';
+      }
+      .heading{
+        font-family: 'Avenir';
+      }
+      .menucontainer{
+        font-family: 'Avenir';
+        padding: 0;
+      }
+      .messagecontainer{
+        width: 60%;
+        background-color: #fef7f7;
+        border-left: 0.1em solid;
+        border-top: none;
+        border-bottom: none;
+        border-right: none;
+        margin-left: 30%;
+        height: 80vh;
+      }
+      .message-input{
+        color: rgb(255, 255, 255);
+        background-color: #000000;
+      }
+      input{
+        color: rgb(255, 255, 255);
+        margin-left: 2%;
+        padding-top: 6px;
+        padding-bottom: 5px;
+        padding-left: 4px;
+        padding-right: 4px;
+        width: 72%;
+        margin-top: 156%;
+        border-radius: 0.2em;
+        border: none;
+        font-family: 'Avenir';
+        background-color: #000000;
+      }
+      #send-button{
+        background-color: #000000;
+        font-family: Avenir;
+        color: white;
+        font-size: medium;
+        border: none;
+        border-radius: 0.2em;
+        cursor: pointer;
+        margin-top: 1.2%;
+        padding-left: 14px;
+        padding-right: 14px;
+        width: 20%;
+      }
+      .container{
+        display:flex;
+        background-color: #fef7f7;
+        border-radius: 0.2em;
+        height: 50%;
+        width: 60%;
+        margin-left: 22%;
+        margin-top: 8%;
+        border: 0.1em solid;
+      }
+      #logo{
+        width: 8vw;
+        margin-top: -6%;
+        }
+#navbar {
+  overflow: hidden;
+  background-color: rgb(0, 0, 0);
+  font-family: 'Avenir';
+  text-align: center;
+}
+
+#navbar a {
+  float: left;
+  display: block;
+  color: #ffffff;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+#navbar a:hover {
+  background-color: rgb(255, 255, 255);
+  color: black;
+}
+
+#navbar a.active {
+  background-color: #04AA6D;
+  color: white;
+}
+
+.content {
+  padding: 16px;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.sticky + .content {
+  padding-top: 60px;
+}
+    </style>
     </head>
-   <body>
-    <a href="ViewProfile.html">Home</a>
-    <a href="House.html">Listings</a>
-    <a href ="settings.html">Settings</a>
-   
-      <div class="container">
-          <div class=" header">
-              <img src = "/images/rooMeclear.png" class = "logo" width = "30%" style="margin-bottom: -13%;">
-          <h1> Chat Page&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h1>
-          
-          <h2> Name </h2>
+   <body>  
+
+  <div id="navbar">
+    <a><img id = "logo" src="../images/roomewhite.jpg"></a>
+  <a href="ViewProfile.html">Home</a>
+  <a href="../houselistings/listing houses.html">Listings</a>
+  <a href="Chat.html">Chat</a>
+  <a href="settings.html">Settings</a>
+  </div>
+    <div class="container">
+      <div class="menucontainer">
+      <p id="heading" style="font-size: 1.4em;">Who do you want to connect with?</p>
       <select id="select-receiver">
       </select> <br>
-
+    </div>
+      <div class="messagecontainer">
+        <div id="chat-box"></div>
       <input type="text" id="message-input">
       <button id="send-button">Send</button>
-
-      <div id="chat-box"></div>
-    
+      </div>
+    </div>
     </body>
+    <script>
+      window.onscroll = function() {myFunction()};
+      
+      var navbar = document.getElementById("navbar");
+      var sticky = navbar.offsetTop;
+      
+      function myFunction() {
+        if (window.pageYOffset >= sticky) {
+          navbar.classList.add("sticky")
+        } else {
+          navbar.classList.remove("sticky");
+        }
+      }
+      </script>
     <script type="module">
       
       import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
@@ -54,28 +193,33 @@
       var sendButton = document.getElementById('send-button');
       var currentUserName = ""; 
 
-      onValue(userRef,(snapshot) => {  
-          const users = snapshot.val();
+      onValue(userRef, (snapshot) => {
+  const users = snapshot.val();
 
-          
-          
-          for(let userKey in users){
-            const user = users[userKey];
-            
-            var li = document.createElement("option");
-            li.value = userKey;
-            li.textContent = user.firstName;
-            if(userKey == auth.currentUser.uid){
-              currentUserName = user.firstName;
-              li.selected = "selected";
-              li.textContent = "Choose Here";
-            }
-            receiverSelect.appendChild(li);
-           
-          }
-      }); 
-        
-      receiverSelect.addEventListener('change', function() {
+  for (let userKey in users) {
+    const user = users[userKey];
+
+    if (user.hasOwnProperty('liked')) { // Check if user has "users-liked" field
+      const likedUsers = user['liked']; // Get the array of liked users
+      console.log("liked users", likedUsers);
+      // Create a new option element for each liked user and append it to the receiverSelect element
+      for (let i = 0; i < likedUsers.length; i++) {
+        const likedUserKey = likedUsers[i];
+        const likedUser = users[likedUserKey];
+        const li = document.createElement("option");
+        li.value = likedUserKey;
+        li.textContent = likedUser.firstName;
+        if (likedUserKey == auth.currentUser.uid) {
+          currentUserName = likedUser.firstName;
+          li.selected = "selected";
+          li.textContent = "Choose Here";
+        }
+        receiverSelect.appendChild(li);
+      }
+    }
+  }
+});
+  receiverSelect.addEventListener('change', function() {
         chatBox.innerHTML = '';
         var sender = auth.currentUser.uid;
         var receiver = receiverSelect.value;
@@ -120,8 +264,6 @@
             receiver: receiverName, 
             message: message
           })
-
-          alert("Sent message");
         
         } else {
           console.error('User not logged in or receiver not selected');
@@ -133,5 +275,3 @@
     </script> 
    
 </html>
-
-
